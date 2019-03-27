@@ -1,0 +1,16 @@
+body{
+   background-color: skyblue;
+}
+div{
+   width:9%;height: 19%;border: 8px solid yellow;border-radius:40px;
+}
+#img
+{
+   width:100px;height:80px;padding-top: 7px;padding-left:5px;
+}
+h1{
+   color: blueviolet;font-family: 'Times New Roman', Times, serif;text-align: center;
+}
+i{
+   margin-left: 50px;background-color: aqua;font-size: 30px;
+}
