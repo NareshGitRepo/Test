@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta charset="UTF-8">
+        <title>attributes</title>
+        <link href="css/attributes.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>DOM Manipulation - attributes Property</h1>
+        <form>
+            Name:<input id="abc" type="text" name="uname" placeholder="Enter name" />
+        </form>
+        <b>No.of attributes in the element:</b> <strong id="xyz"></strong>
+      <!--
+      <script>
+          var x=document.getElementById("abc").attributes.length;
+          document.getElementById("xyz").innerHTML=x;
+        </script>
+        -->
+        <script>
+          var x=document.getElementById("abc").attributes[1].name;
+          document.getElementById("xyz").innerHTML=x;
+        </script>
+    
+        <!--
+        <script>
+             var x = document.getElementById("abc");
+             var txt = "";
+             var i;
+             for (i = 0; i < x.attributes.length; i++) 
+             {
+                txt = txt + x.attributes[i].name + " = " + x.attributes[i].value + "<br>";
+             }
+            document.getElementById("xyz").innerHTML = txt;
+        </script>
+        -->
+    </body>
+</html>

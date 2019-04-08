@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>cloneNode</title>
+        <link href="css/attributes.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="js/"></script>
+    </head>
+    <body>
+            <h1>Dom Manipulation - cloneNode Method</h1> <br> 
+            <div>
+            <b>First Statement:</b>
+             <i>The cloneNode() method creates a copy of a node, and returns the clone.</i>
+            </div>
+            <strong>Second Statement:</strong>
+            <u id="abc"></u>
+            <script>
+              var ele=document.getElementsByTagName("i")[0];
+              var cln=ele.cloneNode(true);
+              document.getElementById("abc").appendChild(cln);
+            </script>
+            <i>cloneNode() method - DOM Manipulation</i>
+            
+    </body>
+</html>

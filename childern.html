@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta charset="UTF-8">
+        <title>childern Property</title>
+        <link href="css/attributes.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>DOM Manipulation - childern Property</h1>
+        <div id="abc">
+            <p>The children property returns a collection of an element's child elements, as an HtmlCollection object.</p>
+            <i>syntax:element.children</i>
+        </div>
+        <h3> child elements in the element: </h3><h4 id="xyz"></h4>
+       <!--
+       <script>
+           var x=document.getElementById("abc").children.length;
+           document.getElementById("xyz").innerHTML=x;
+        </script>
+        -->
+        <!--
+        <script>
+           var x=document.getElementById("abc").childElementCount;
+           document.getElementById("xyz").innerHTML=x;
+        </script>
+        -->
+       
+       <script>
+           var c = document.getElementById("abc").children;
+           c[0].style.backgroundColor = "yellow";
+           document.getElementById("xyz").innerHTML =c[1].textContent;
+         </script>
+         <!--
+         <script>
+              var c = document.getElementById("abc").children;
+              var txt = "";
+              var i;
+              for (i = 0; i < c.length; i++) {
+                txt = txt + c[i].tagName + "<br>";
+              }
+            
+              document.getElementById("xyz").innerHTML = txt;
+            </script>
+            -->
+    </body>
+</html>

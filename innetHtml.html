@@ -1,0 +1,22 @@
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="UTF-8">
+        <title> innerHtml </title>
+        <link href="css/attributes.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+            <p id="abc">Hello World ......</p>
+           <button  onclick='document.getElementById("abc").innerHTML="Welcome"'>click me</button> <br>
+
+           
+        <p id="myP">This is a p element.</p>
+
+        <div id="myDIV">This is a div element.</div>
+
+        <script>
+             document.getElementById("myP").innerHTML = "Hello Paragraph";
+            document.getElementById("myDIV").innerHTML = "How are you?";
+        </script>
+    </body>
+</html>

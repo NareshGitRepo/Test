@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>insertBefore</title>
+        <link href="css/attributes.css" rel="stylesheet" type="text/css">
+
+    </head>
+    <body>
+        <h1>DOM Manipulation - insertBefore Method</h1>
+        <ol id="List">
+            <li><h1>The insertBefore() method inserts a node as a child, right before an existing child, which you specify.</h1></li>
+            <li><h2>syntax: node.insertBefore(newnode, existingnode)</h2></li>
+        </ol>
+        <ol id="List1">
+            <li> If you want to create a new list item, with text, remember to create the text as a Text node which you append to the li element, then insert li to the list.</li>
+            <li>HTML DOM</li>
+        </ol>
+  
+          <button onclick="Function()">click</button> 
+        <!--
+        <script>
+          function Function() {
+            var newItem = document.createElement("LI");
+            var textnode = document.createTextNode("HTml DOM");
+            newItem.appendChild(textnode);
+          
+            var list = document.getElementById("List");
+            list.insertBefore(newItem, list.childNodes[4]);
+          }
+          </script>
+          -->
+          <script>
+                function Function() {
+                  var node = document.getElementById("List1").lastChild;
+                  var list = document.getElementById("List");
+                  list.insertBefore(node, list.childNodes[0]);
+                }
+                </script>
+                
+    </body>
+</html>

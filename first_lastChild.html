@@ -1,0 +1,61 @@
+<html>
+    <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta charset="UTF-8">
+        <title>first_last Child</title>
+        <link href="css/attributes.css" rel="stylesheet" type="text/css">
+
+    </head>
+    <body>
+        <h1>DOM Manipulation - first and last Child Property</h1>
+      <!-- with whitespace
+        <div id="div">
+             <p>The firstChild property returns the first child node of the specified node, as a Node object</p>
+             <strong>syntax: node.firstChild</strong>
+        </div>
+             <button onclick="f()">click</button><br>
+             <b>First child</b>
+             <p id="abc"></p>
+             <b>last child</b>
+              <h5 id="xyz"></h5>
+             <script>
+                function f(){
+                    var x=document.getElementById("div").firstChild.nodeName;
+                    document.getElementById("abc").innerHTML=x;
+                     var y=document.getElementById("div").firstChild.nodeName;
+                    document.getElementById("xyz").innerHTML=y;
+                }
+             </script>
+        -->
+      <!-- without whitespace
+        <div id="div"><p>The firstChild property returns the first child node of the specified node, as a Node object</p><strong>syntax: node.firstChild</strong></div>
+            <button onclick="f()">click</button><br>
+            <b>First child</b>
+            <p id="abc"></p>
+            <b>last child</b>
+            <h5 id="xyz"></h5>
+            <script>
+               function f(){
+                   var x=document.getElementById("div").firstChild.nodeName;
+                   document.getElementById("abc").innerHTML=x;
+                   var y=document.getElementById("div").firstChild.nodeName;
+                   document.getElementById("xyz").innerHTML=y;
+               }
+            </script>
+            -->
+            <div id="div"><p>The firstChild property returns the first child node of the specified node, as a Node object</p><strong>syntax: node.firstChild</strong></div>
+            <button onclick="f()">click</button><br>
+            <b>First child</b>
+            <p id="abc"></p>
+            <b>last child</b>
+            <h5 id="xyz"></h5>
+            <script>
+               function f(){
+                   var x=document.getElementById("div").firstChild.textContent;
+                   document.getElementById("abc").innerHTML=x;
+                   var y=document.getElementById("div").lastChild.textContent;
+                   document.getElementById("xyz").innerHTML=y;   
+               }
+            </script>
+    </body>
+</html>

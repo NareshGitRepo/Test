@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>classList</title>
+        <link href="css/classList.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="js/classList.js"></script>
+    </head>
+    <body>
+        <h1>DOM Manipulation - classList Propery</h1>
+       <!-- adding multiple sytle
+        <div id="abc">
+            <h2>syntax:element.classList</h2>
+        </div>
+        <button onclick="f()">click</button>
+         
+        <script>
+            function f() {
+              document.getElementById("abc").classList.add("first","second","third");
+            }
+        </script>
+           --> 
+
+
+         <div id="abc" class="first second third">
+            <h2>syntax:element.classList</h2>
+        </div>
+        <button onclick="f()">click</button>
+
+       <!-- remove multiple styles  
+        <script>
+            function f() {
+              document.getElementById("abc").classList.remove("first","second","third");
+            }
+        </script>
+        -->
+        <h1 id="xyz"></h1>
+        <script>
+            function f() {
+            var x= document.getElementById("abc").classList.item(0);
+            document.getElementById("xyz").innerHTML=x;
+            }
+        </script>
+    </body>
+</html>
