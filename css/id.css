@@ -1,0 +1,21 @@
+body{
+    background-color: skyblue;
+    color: brown;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+    margin: 30px;
+}
+
+  .anchors {
+    display: block;
+    padding: 5px;
+    background-color: black;
+    color: white;
+  }
+  
+  #Anchor {
+    background-color: dodgerblue;
+  }
+  #h2{
+      background-color: blueviolet;
+  }

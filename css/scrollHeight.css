@@ -1,0 +1,18 @@
+body{
+    color: brown;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 30px;
+}
+#abc {
+    margin-top: 10px;
+    height: 350px;
+    width: 600px;
+    overflow: auto;
+  }
+  
+  #div{
+    height: 800px;
+    width: 2000px;
+    padding: 10px;
+    background-color:skyblue;
+  }
