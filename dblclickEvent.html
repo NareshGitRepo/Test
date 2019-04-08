@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>dblclickEvent</title>
+        <link href="css/blurEvent.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>JS Event - dblclick</h1>
+        <p>The ondblclick event occurs when the user double-clicks on an element.</p>
+        <h2 id="demo">Double-click me.</h2>
+         <h3 id="abc"> single-click me</h3>
+         <script>
+         document.getElementById("demo").ondblclick = function() {f1()};
+        document.getElementById("abc").onclick = function() {f2()};
+        function f1() {
+          document.getElementById("demo").innerHTML = "I was double-clicked!";
+        }
+        function f2()
+        {
+            alert("your clicked single time");
+        }
+         </script>
+    </body>
+</html>

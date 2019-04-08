@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="UTF-8">    
+            <title>key Events</title>
+            <link href="css/blurEvent.css" rel="stylesheet" type="text/css">
+            <script type="text/javascript" src="js/keyEvents.js"></script>
+    </head>
+    <body>
+        <h1>JS Event - Keyup and keydown and KeyPress</h1>
+        <div>
+            <form>
+                <label>Name</label>
+                <input type="text" id="abc" placeholder="enter u r name"/>
+            </form>
+        </div>
+        <p>only key pressed!</p>
+        <div>
+             <form>
+                <label>ID</label>
+                <input type="text" id="xyz" placeholder="enter u r name"/>
+            </form>
+        </div>
+        <script>
+            document.getElementById("xyz").onkeypress=function(){press()};
+            document.getElementById("abc").onkeydown=function(){f1()};
+            document.getElementById("abc").onkeyup=function(){f2()};
+            function press()
+            {
+                alert("your clicked key");
+            }
+            function f1()
+            {
+                document.getElementById("abc").style.backgroundColor="green";
+            }
+            function f2()
+            {
+                document.getElementById("abc").style.backgroundColor="blue";
+            }
+        </script>
+    </body>
+</html>

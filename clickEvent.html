@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>click Event</title>
+        <link href="css/blurEvent.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>JS Event - click</h1>
+        <p>The onclick event occurs when the user clicks on an element.</p>
+        <h3>syntax: object.onclick = function(){myScript};</h3>
+        <p id="abc" style="color:blue">Click Me</p>
+        <script>
+           document.getElementById("abc").onclick=function(){ f1()};
+           function f1(){
+               document.getElementById("abc").innerHTML="JavaScript Click Event";
+            }
+        </script>
+    </body>
+</html>
