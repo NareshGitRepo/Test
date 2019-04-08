@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="UTF-8">
+            <title>Array Iterator</title>
+            <link href="css/ArrayIteration.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <script>
+            //forEach method
+            var course,text;
+            course=["html","css","javascript","bootstrap","jquery","angularjs"];
+            text="";
+            course.forEach(function(value,index)
+            {
+               text+=value+"<br>";
+            });
+              document.writeln(text+"<br>");
+        </script>
+        
+        
+            <script>
+               //map method - multiplies each array value by 2:
+               var s1 = [45, 4, 9, 16, 25];
+               var s2=s1.map(function(value,index)
+               {
+                   return value*2;
+               });
+               document.writeln("multiplication with 2:"+s2+"<br>");
+            </script>
+
+
+            <script>
+              //filter method - creates a new array from elements with a value larger than 18:
+              var s1 = [45, 4, 9, 16, 25];
+              var con=s1.filter(function(value,index)
+              {
+                return value>18;
+              });
+              document.writeln("large value :"+con+"<br>");              
+            </script>
+
+            <script>
+              //reduce method-reduce() method runs a function on each array element to produce (reduce it to) a single value.
+              var s1 = [45, 4, 9, 16, 25];
+              var sum=s1.reduce(function(total,value,index)
+              {
+                return total+value;
+              });
+              document.writeln("sum is:"+sum+"<br>");
+            </script>
+
+            <script>
+              //every method - every() method check if all array values pass a test.
+              var abc = [45, 4, 9, 16, 25];
+              var testall=abc.every(function(value,index)
+              {
+                return value>18;
+              });
+              document.writeln("test all element - 18 greather :"+testall+"<br>");
+            </script>
+
+            <script>
+                //some() method check if some array values pass a test.
+              var xyz = [45, 4, 9, 16, 25];
+              var testsome=xyz.some(function(value,index)
+              {
+                return value>18;
+              });
+              document.writeln("test all element - 18 greather :"+testsome+"<br>");
+            </script>
+
+            <script>
+              //indexOf() method searches an array for an element value and returns its position.
+              var fruits=["orange","banana","mango","banana","apple"];
+              var find=fruits.indexOf("banana");
+              document.writeln("search staring fruits:"+find+"<br>");
+            </script>
+
+            <script>
+              //Array.lastIndexOf() is the same as Array.indexOf(), but searches from the end of the array.
+              var fruits=["orange","banana","mango","banana","apple"];
+              var find=fruits.lastIndexOf("banana");
+              document.writeln("search staring fruits:"+find+"<br>");
+            </script>
+            
+    </body>
+</html>

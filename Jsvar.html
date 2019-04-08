@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="UTF-8">
+        <title>Js Var</title>
+        <link href="css/Arraymethod.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <script>
+            var student = {sid:"101",_name:"vbm",addr:"fdgsdgsd"};
+           var x=10;
+           var y="hello";
+           var z=true;
+           var a=[ 10,"hi",false];
+           var std=new Array(50,"nit",true);
+
+           document.writeln("x  number value:"+x+"<br>");
+           document.writeln("y string value:"+y+"<br>");
+           document.writeln("z boolean value:"+z+"<br>");
+           document.writeln("a array values:"+a+"<br>");
+           document.writeln("std array object values:"+std+"<br>");
+           document.writeln("std array object length"+std.length+"<br>");
+           a[0]=90
+           document.writeln("a array modify values"+a+"<br>");
+           document.writeln("a array last value:"+a[a.length-1]+"<br>");
+           document.writeln("stduent object- one way - reading/accessing name:"+student._name+"<br>");
+           student.moblie=5156531325;
+           document.writeln("student object - other way - reading/accessing mobile:"+student["moblie"]+"<br>");
+           delete student.moblie;
+           document.writeln("delete student obj - mobile value:"+student.moblie);
+        </script>
+    </body>
+</html>
