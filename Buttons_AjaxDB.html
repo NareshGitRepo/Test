@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Button-Ajax</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
+    </head>
+    <body>
+        <h1 class="text-primary text-center">Information</h1>
+       
+        <table class="table table-striped  my-4">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">UserName</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Website</th>
+                <th scope="col">Company</th>
+              </tr>
+            </thead>
+            <tbody id="xyz">
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-success mx-2 my-5" onclick="search()">Get User</button>
+          <button type="button" class="btn btn-danger mx-3" onclick="cleardata()">Clear</button>
+        <script>
+            function search(){
+            var url="http://jsonplaceholder.typicode.com/users";
+            var method="GET";
+            var https=new XMLHttpRequest();
+            https.open(method,url);
+            https.send();
+            https.onreadystatechange=function()
+            {
+                if(this.readyState==4)
+                {
+                    var response=this.responseText;
+                    var data=JSON.parse(response);
+                    createTemplate(data);
+                }
+            }
+            }
+            function cleardata(){
+                document.getElementById("xyz").innerHTML="";
+            }
+            function createTemplate(data)
+            {
+                var template="";
+                for(var i=0;i<data.length;i++)
+                {
+                    template +="<tr><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"
+                    +data[i].username+"</td><td>"+data[i].email+"</td><td>"+"Street:"
+                    +data[i].address.street+", Suite: "+data[i].address.suite+", City: "+data[i].address.city+", Zipcode: "+data[i].address.zipcode+
+                   ". latitude: "+data[i].address.geo.lat+", langitude: "+data[i].address.geo.lng+"."+"</td><td>"
+                    +data[i].phone+"</td><td>"+data[i].website+"</td><td>"+data[i].company.name+", "+data[i].company.catchPhrase+", "+
+                    data[i].company.bs+"</td></tr>";
+                    
+                }  
+                document.getElementById("xyz").innerHTML=template;
+            }
+            
+        </script>
+    </body>
+</html>
