@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> using buttons fetching odd & even id data</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    </head>
+    <body>
+      <!--  <input type="text" id="x" class="form-control col-md-6" style="margin:10px"
+       onkeypress="searchdata1()" placeholder="search bar"></input>-->
+        
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>CompanyName</th>
+                    <th>Phone no</th>
+                </tr>
+            </thead>
+            <tbody id="xyz">
+            </tbody>
+        <table>
+        <button class="btn btn-success mx-5" onclick="fetchtable2()"> total data</button>
+        <button class="btn btn-primary mx-5" onclick="fetchtable()">odd Id data</button>
+        <button class="btn btn-warning mx-5" onclick="fetchtable1()">even Id data</button>
+        <button class="btn btn-danger mx-5" onclick="cleartable()">clear data</button>
+        <script>
+           /* function searchdata1(event){
+                var word=document.getElementById("x").value;
+                fetchtable(word);
+            }*/
+            function cleartable(){
+                document.getElementById("xyz").innerHTML="";
+            }
+        
+                var data;
+                var url="http://jsonplaceholder.typicode.com/users";
+                var method="get";
+                var http=new XMLHttpRequest();
+                http.open(method,url);
+                http.send();
+                http.onreadystatechange=function(){
+                    if(this.readyState==4){
+                        var response=this.responseText;
+                        data=JSON.parse(response);
+                    }
+                }
+                       function fetchtable(){
+                       var data1=data.filter(function(user,index){
+                            return  ((user.id)%2!=0);
+                        });
+                        createTemplet(data1);
+                    }
+                    function fetchtable1(){
+                       var data1=data.filter(function(user,index){
+                            return  ((user.id)%2==0);
+                        });
+                        createTemplet(data1);
+                    }
+                    function fetchtable2(){
+                        data1=data;
+                        createTemplet(data1);
+                    }
+            function createTemplet(data1){
+                var inf="";
+                data1.forEach(function(item,index) {
+                   // inf +="<h1>"+item.email+"</h1>";
+                   inf +="<tr><td>"+item.id+"</td><td>"+item.name+"</td><td>"+item.username+"</td><td>"
+                    +item.email+"</td><td>"+item.address.city+"</td><td>"+item.company.name+"</td><td>"+item.phone+"</td></tr>";
+                    });
+                document.getElementById("xyz").innerHTML=inf;
+            }
+        </script>
+    </body>
+</html>
