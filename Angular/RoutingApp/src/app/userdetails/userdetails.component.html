@@ -1,0 +1,19 @@
+<h4>Your Clicked Id:{{userId.id}}</h4>
+<div>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+      <tr>
+        <th scope="row">Address</th>
+        <th scope="row">Website</th> 
+        <th scope="row">Company</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngIf="userId">
+        <td scope="row">{{userId.address.city}}</td>
+        <td>{{userId.website}}</td>
+        <td>{{userId.company.name}}</td>
+      </tr>
+    </tbody>
+    </table>
+    </div>

@@ -1,0 +1,18 @@
+<div>
+        <table class="table table-hover table-bordered">
+          <thead class="thead-light">
+          <tr>
+            <th scope="row">PostId</th>
+            <th scope="row">Id</th>
+            <th scope="row">Name</th> 
+            <th scope="row">Email</th>
+          </tr>
+        </thead>
+          <tr *ngFor="let user of Service">
+            <th scope="row">{{user.postId}}</th>
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+          </tr>
+        </table>
+        </div>
