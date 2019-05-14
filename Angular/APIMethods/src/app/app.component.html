@@ -1,0 +1,23 @@
+ <h3>Get method</h3>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th> 
+    <th>Email</th>
+    <th>Phone</th>
+  </tr>
+  <tr *ngFor="let user of users;" [ngStyle]="{'font-size':Size(user.id), 'background':color(user.id)}">
+    <td>{{user.id}}</td>
+    <td>{{user.name |uppercase}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone}}</td>
+  </tr>
+</table>
+<h4>Get Method with Query Param</h4>
+<ul *ngFor="let user of comment" [ngClass]=size()>
+  <li>postId:{{user.postId}}</li>
+  <li>Id:{{user.id}}</li>
+  <li>Name:{{user.name}}</li>
+  <li>Email:{{user.email}}</li>
+</ul>
+
