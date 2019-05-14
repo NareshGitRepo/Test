@@ -1,0 +1,21 @@
+<h1>Data Binding</h1>
+<div>
+<h3>one way binding</h3>
+<p>{{Name}}</p> <br>
+
+<!--one way binding-->
+<!--one level-->
+<input value="{{Name}}" class="form-control"  placeholder="one level" /> <br>
+<!--second level-->
+<input [ngModel]="Name" class="form-control"  placeholder="second level"/> <br> <br>
+
+
+<h3>two-way binding</h3>
+<!--two-way binding-->
+<!--one level and use event-->
+<input value="{{xyz}}" (keyup)=ChangeData($event) class="form-control" placeholder="one level" /> <br>
+<!--second level and use event-->
+<input [(ngModel)]="xyz" class="form-control" placeholder="second level"/>
+
+<h4>{{xyz}}</h4>
+</div>

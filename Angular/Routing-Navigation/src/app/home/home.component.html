@@ -1,0 +1,20 @@
+<div>
+  <table class="table table-striped table-hoever">
+    <thead class="bg-primary">
+    <tr>
+      <th>Id</th>
+      <th>Name</th> 
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let home of Home">
+      <td class="table-primary" (click)="onSelect(home)">{{home.id}}</td>
+      <td class="table-danger">{{home.name|uppercase}}</td>
+      <td class="table-success">{{home.email}}</td>
+      <td class="table-warning">{{home.phone}}</td>
+    </tr>
+  </tbody>
+  </table>
+  </div>

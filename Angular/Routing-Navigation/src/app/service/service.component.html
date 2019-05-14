@@ -1,0 +1,20 @@
+<div>
+  <table class="table  table-bordered table-hoever">
+    <thead class="bg-info text-light">
+    <tr>
+      <th>PostId</th>
+      <th>Id</th>
+      <th>Name</th> 
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of comments">
+      <td>{{user.postId}}</td>
+      <td>{{user.id}}</td>
+      <td>{{user.name|uppercase}}</td>
+      <td>{{user.email}}</td>
+    </tr>
+  </tbody>
+  </table>
+  </div>

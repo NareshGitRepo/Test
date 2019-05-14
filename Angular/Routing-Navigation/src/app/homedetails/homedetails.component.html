@@ -1,0 +1,19 @@
+<h4>Your Clicked Id:{{homeId}}</h4>
+<div>
+    <table class="table table-striped table-hoever">
+      <thead class="bg-secondary text-warning">
+      <tr>
+        <th>Address</th>
+        <th>Website</th> 
+        <th>Company</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let homeid of HomeId">
+        <td class="table-primary">{{homeid.address.city|uppercase}}</td>
+        <td class="table-danger">{{homeid.website}}</td>
+        <td class="table-success">{{homeid.company.name|uppercase}}</td>
+      </tr>
+    </tbody>
+    </table>
+    </div>

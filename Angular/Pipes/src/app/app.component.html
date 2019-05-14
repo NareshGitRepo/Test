@@ -1,0 +1,17 @@
+<h1>Angular - Pipes</h1>
+<h3>A pipe takes in data as input and transforms it to a desired output. </h3>
+<!--default format-->
+<p>Celebration Date: {{Celebration | date}}</p><br>
+
+<!--Parameterizing a pipe-->
+<p>Celebration Date: {{Celebration | date:'MM/dd/yyyy'}}</p><br>
+
+<app-toggle></app-toggle> <br><br>
+
+<!--changing pipes-->
+<b>uppercase format:</b>
+<p>Celebration Date: {{Celebration | date | uppercase}}</p>
+
+<p>Celebration Date: {{Celebration | date:'fullDate' | uppercase}}</p><br>
+
+

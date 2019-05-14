@@ -1,0 +1,45 @@
+<div>
+        <h1>Student Info</h1>
+        <table>
+       <thead>
+        <tr>
+          <th>Id</th>
+          <th>SName</th>
+          <th>Salary</th>
+          <th>Job</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let person of employee;">
+          <td>{{person.id}}</td>
+          <td>{{person.name}}</td>
+          <td>{{person.sal}}</td>
+          <td>{{person.job}}</td>
+         </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div>
+      <h3>Highest Salary Employee</h3>
+      <table>
+        <thead>
+         <tr>
+           <th>Id</th>
+           <th>SName</th>
+           <th>Salary</th>
+           <th>Job</th>
+         </tr>
+         </thead>
+         <tbody>
+         <ng-container  *ngFor="let person of employee;let i=index;">
+          <tr  *ngIf="person.sal > 20000 ">
+           <td>{{person.id}}</td>
+           <td>{{person.name}}</td>
+           <td>{{person.sal}}</td>
+           <td>{{person.job}}</td>
+          </tr>
+          </ng-container>
+         </tbody>
+     </table>
+    </div>

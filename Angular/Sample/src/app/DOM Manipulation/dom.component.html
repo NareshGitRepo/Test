@@ -1,0 +1,21 @@
+
+<div (click)="changeheight($event)">
+     click this box and see  
+      adjustable Height
+ </div>
+
+ <div (click)="changeHeight($event)">first container</div>
+
+ <div>second container </div><br><hr>
+ 
+ <span>
+ <h1>condition statement</h1>
+ <p *ngIf="kgf; then trueblock; else elseblock" > </p>
+   <ng-template #trueblock >
+    <h4>Hello</h4>
+  </ng-template>
+  <ng-template #elseblock >
+    <h4>condtion false</h4>
+  </ng-template> 
+</span>
+<button (click)="fecthdata()">click_Me</button>

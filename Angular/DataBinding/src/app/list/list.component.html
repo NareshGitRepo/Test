@@ -1,0 +1,17 @@
+<div>
+<h1>List-1</h1>
+<ol>
+    <li *ngFor="let item of Electronics; let i=index">
+        {{item}}----{{i}}
+    </li>
+</ol>
+</div>
+
+<div>
+    <h1>List-2</h1>
+<ul>
+    <li *ngFor="let person of student; let i=index">
+        {{person.id}}----{{person.name}}
+    </li>
+</ul>
+</div>
