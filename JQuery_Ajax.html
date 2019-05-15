@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API Calling</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--jquery cdn-->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+        </script>
+        <!--bootstrap cdn with jquery-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+
+        <style>
+        
+            .container{
+              margin-top: 5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-group">
+                <h3>API CAlling - get the Users</h3>
+                <button class="btn btn-danger"> Get Users </button>
+              </div>
+
+              <ul id="userlist"></ul>
+        </div>
+
+        <script>
+            $("button").click(function(){
+              $.ajax({
+                method: "GET",
+                url: "http://jsonplaceholder.typicode.com/users",
+                success: function(response){
+                  console.log(response)
+                  prepareTemplate(response)
+                },
+                error: function(error){
+                  console.log("im in error");
+                  console.log(error);
+                }
+              })
+            })
+            function prepareTemplate(data){
+              var template = "";
+              data.forEach(function(user, index){
+                template += "<li class='list-group-item'>" + user.email + "</li>"+
+                "<li class='list-group-item'>" + user.username + "</li>";
+              });
+              $("#userlist").append(template)
+            }
+            </script>
+    </body>
+</html>

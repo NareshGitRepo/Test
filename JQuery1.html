@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Selectors</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                 crossorigin="anonymous">
+        </script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous">
+        <!--element selector-->
+        <script>
+         $(document).ready(function(){
+             $("button").click(function(){
+                 $("b").hide();
+             });
+         });
+        </script>
+        
+        <!--id selector-->
+        <script>
+        $(document).ready(function(){
+            $("h5").click(function(){
+                $("#color").css("color","blue");
+            });
+        });
+       </script>
+        <!--class selector-->
+        <script>
+                $(document).ready(function(){
+                    $("h4").dblclick(function(){
+                        $(".font").css("font-size","30px");
+                    });
+                });
+               </script>
+             
+    </head>
+    <body>
+        <h3>jQuery is a fast, small, and feature-rich JavaScript library.</h3>
+        <h5>Syntax: $(selector).action()</h5>   <hr>
+    
+        <!--element selector-->
+        <i>Element Selector</i> <br>
+        <b>when clicked button next process hide  this content</b><br>
+        <button>Hide</button> <hr>
+
+        <!--id selector-->
+        <i>Id Selector</i> <br>
+        <h5 id=color>when clicked text next process change color this content</h5>
+        <h5>text color changed</h5>    <hr>
+
+        <!--class selector-->
+        <i>class Selector</i> <br>
+        <h4 class=font>when double clicked text next process change font size this content</h4><br>
+        <h4 class="font">text size is increased</h4>
+        
+    </body>
+</html>
