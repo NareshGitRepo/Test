@@ -1,17 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
  <h1 class="text-center"  [ngStyle]="{'background-color': 'blue', 'color': 'white'}">Employee Information</h1>
 
- <form class="example-form" [formGroup]="emp_form" > 
       <mat-form-field appearance="outline">
         <mat-label>Select Salary</mat-label>
-        <mat-select  (selectionChange)="onSelect($event.value)" formControlName="salary" required>
+        <mat-select  (selectionChange)="onSelect($event.value)" required>
             <mat-option>-- None --</mat-option>
             <mat-option *ngFor="let condition of Conditions" [value]="condition.value">
                 {{condition.con}}
             </mat-option>
         </mat-select>
       </mat-form-field> 
-</form>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

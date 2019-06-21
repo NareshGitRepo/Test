@@ -19,7 +19,6 @@ export interface SalConditions{
 })
 export class AppComponent {
   title = 'SelectData';
-  emp_form: FormGroup;
 
   Conditions:SalConditions[] =[
     {con:'below 5000',value:1},
@@ -40,11 +39,6 @@ export class AppComponent {
   ]
 
   
-  constructor(private fb:FormBuilder){
-   this.emp_form=this.fb.group({
-     salary:['',[Validators.required]]
-   });
-  }
   displayedColumns: string[] = ['empid', 'empname', 'position', 'salary'];
   dataSource = this.empdata;
    
@@ -54,7 +48,6 @@ export class AppComponent {
 
       if(value==1){
        filterData = this.empdata.filter(obj=>{ return obj.salary<5000 });
-       console.log('emplist=>',this.empdata)
        console.log('below 5000 =>',filterData)
       }
       else if(value==2){
