@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  .delete{
+    color: red;
+    cursor: pointer;
+  }
+  .edit{
+    color: blue;
+    cursor: pointer;
+  }
+  .left{
+    float: left;
+    margin-left: 20px;
+  }
+  .right{
+    float: left;
+    margin-left:1100px;
+  }
