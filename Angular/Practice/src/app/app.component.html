@@ -1,0 +1,30 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput placeholder="enter user name" (keyup)="findtext($event)" >
+    </mat-form-field>
+    </form>
+</div>
+<ul *ngFor="let users of data">
+  <li>{{users.user}}</li>
+  <li>{{users.age}}</li>
+  <li>{{users.active}}</li>
+</ul> <hr>
+
+<mat-form-field appearance="outline">
+  <mat-label>Select Department</mat-label>
+  <mat-select (selectionChange)="onSelect($event.value)">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let key of Keys" [value]="key" >{{key | uppercase}}</mat-option>
+  </mat-select>
+</mat-form-field> <br>
+
+<mat-form-field appearance="outline">
+  <mat-label>Employee Data</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let elist of emp" [value]="elist.empid" >{{elist.empid}} -- {{elist.ename | uppercase}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<router-outlet></router-outlet>

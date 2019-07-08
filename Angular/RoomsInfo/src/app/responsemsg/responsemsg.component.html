@@ -1,0 +1,18 @@
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title [ngStyle]="{'align':'center','color':'green'}" >Welcome</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    Your Registration EMail-ID: <i>{{eid}}</i> <br><br> Token No:
+    <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput  #ccomponent (keyup)="onChange(ccomponent.value)">
+        <!--similary - @Viewchild
+         <input matInput formControlName="ccomponent" (keyup)="onChange(ccomponent.value)" >
+         <input matInput [(ngModel)]="ccomponent" (keyup)="onChange(ccomponent.value)" >
+         <input matInput #ccomponent (keyup)="onChange(ccomponent.value)" >
+        -->
+   </mat-form-field>
+   <input matInput #template value="vectramind">
+  </mat-card-content>
+</mat-card>

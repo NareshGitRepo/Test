@@ -1,0 +1,35 @@
+[{
+    "empid":11821,
+    "ename":"stella",
+    "position":"Web Developer",
+    "sal":15000,
+    "date":"6/10/2001 10:45"
+},
+{
+    "empid":11822,
+    "ename":"martin",
+    "position":"DataBase Admin",
+    "sal":20000,
+    "date":"5/10/2012 11:22"
+},
+{
+    "empid":11823,
+    "ename":"king",
+    "position":"Testing App.",
+    "sal":18000,
+    "date":"3/09/2013 10:59"
+},
+{
+    "empid":11824,
+    "ename":"scott",
+    "position":"Robotics Developer",
+    "sal":20000,
+    "date":"1/10/2015 12:12"
+},
+{
+    "empid":11825,
+    "ename":"shajaan",
+    "position":"Java Developer.",
+    "sal":15000,
+    "date":"4/12/2002 10:10"
+}]

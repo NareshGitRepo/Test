@@ -1,0 +1,208 @@
+<h1 class="text-center" [ngStyle]="{'color':'red'}"><u>Registration Form</u></h1>
+
+<mat-vertical-stepper linear  #stepper>
+    <mat-step [stepControl]="first_form" editable="false">
+        <ng-template matStepLabel>Fill out your First Info</ng-template>
+        <mat-card class="example-card">
+          <form class="example-form" [formGroup]="first_form"> 
+            <table class="example-full-width" cellspacing="0"><tr><td>
+              <mat-form-field class="example-full-width" >
+                <mat-label>FirstName</mat-label>
+                <input matInput type="text" formControlName="fname" maxlength="15" required>
+                <mat-error *ngIf="first_form.controls.fname.hasError('required')">
+                    Please enter FirstName
+                </mat-error>
+                <mat-error *ngIf="first_form.controls.fname.hasError('minlength')">
+                    Please enter 5 characters
+                </mat-error>
+              </mat-form-field></td>
+              <td>
+              <mat-form-field class="example-full-width">
+                <mat-label>LastName</mat-label>
+                <input matInput type="text" formControlName="lname" maxlength="15" required>
+                <mat-error *ngIf="first_form.controls.lname.hasError('required')">
+                  Please enter LastName
+                </mat-error>
+                <mat-error *ngIf="first_form.controls.fname.hasError('minlength')">
+                  Please enter 5 characters
+                </mat-error>
+              </mat-form-field></td></tr>
+            </table>
+  
+            <mat-radio-group aria-label="Select an option" formControlName="gender" required>
+              <b>Gender:</b>&nbsp;
+              <mat-radio-button value="1">Male</mat-radio-button>
+              <mat-radio-button value="2">FeMale</mat-radio-button>
+            </mat-radio-group>  
+  
+            <p>
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Date Of Birth</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="date" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker touchUi #picker></mat-datepicker>
+              </mat-form-field>
+            </p>  
+           
+           <div>
+             <button color="primary"  matStepperNext >Next</button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-step>
+
+
+    <mat-step [stepControl]="second_form" editable="false">
+      <ng-template matStepLabel>Fill out your Second Info</ng-template>
+      <mat-card class="example-card">
+        <form class="example-form" [formGroup]="second_form"> 
+          <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>UserName</mat-label>
+                <input matInput type="email" formControlName="email"
+                       [errorStateMatcher]="matcher" maxlength="30" required>
+                
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+          </div> 
+          <div class="example-container">
+            <mat-form-field>
+                <mat-label>Create password</mat-label>
+                <input matInput formControlName="pswrd"  placeholder="Enter your password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="second_form.controls.pswrd.hasError('minlength')">
+                  Please enter minimum 6 characters
+                </mat-error>
+                <mat-error *ngIf="second_form.controls.pswrd.hasError('pswrd')">
+                   Please enter minimum 6 characters
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="example-container">
+            <mat-form-field>
+                <mat-label>confirm password</mat-label>
+                <input matInput formControlName="rpwd"  (keyup)="checkPasswords()" placeholder="Enter your password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="second_form.controls.rpwd.errors?.required">
+                  Please enter Confirm Password
+                </mat-error>
+                <mat-error *ngIf="second_form.controls.rpwd.hasError('minlength')">
+                  Please enter Match Password
+                </mat-error>
+                <!-- <mat-error *ngIf="example_form.controls.rpwd.hasError('notSame')">
+                  Please enter Match Password
+                </mat-error> -->
+            </mat-form-field>
+             <mat-error *ngIf="notSame">
+                Passwords does not match
+              </mat-error>
+          </div>
+          <mat-checkbox formControlName="Agree" required >I Agree to Terms & Conditions</mat-checkbox>
+           
+          <div>
+           <!-- <button color="primary"  matStepperPrevious  >Back</button> -->
+             <button color="primary"  matStepperNext  >Next</button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-step>
+    <mat-step [stepControl]="third_form" editable="false">
+      <ng-template matStepLabel>Fill out your Third Info</ng-template>
+      <mat-card class="example-card">
+          <form class="example-form" [formGroup]="third_form">
+              <p>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Address</mat-label>
+                  <textarea matInput formControlName="add" required maxlength="50"></textarea>
+                  <mat-error *ngIf="third_form.controls.add.hasError('required')">
+                      Please enter Address
+                  </mat-error>
+                  <mat-error *ngIf="third_form.controls.add.hasError('minlength')">
+                      Please enter 10 characters
+                  </mat-error>
+                </mat-form-field>
+              </p>
+              
+              <table class="example-full-width" cellspacing="0" ><tr><td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>city</mat-label>
+                    <input matInput formControlName="city" maxlength="15" required>
+                    <mat-error *ngIf="third_form.controls.city.hasError('required')">
+                      Please enter City
+                    </mat-error>
+                    <mat-error *ngIf="third_form.controls.city.hasError('minlength')">
+                      Please enter 5 characters
+                    </mat-error>
+                </mat-form-field></td>
+                <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>State</mat-label>
+                    <input matInput formControlName="state" maxlength="15" required>
+                    <mat-error *ngIf="third_form.controls.state.hasError('required')">
+                      Please enter State
+                    </mat-error>
+                    <mat-error *ngIf="third_form.controls.state.hasError('minlength')">
+                      Please enter 5 characters
+                    </mat-error>
+                </mat-form-field></td></tr><tr>
+                <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>postalCode</mat-label>
+                    <input matInput  #postalCode maxlength="8"  formControlName="postal" required>
+                    <mat-error *ngIf="third_form.controls.postal.hasError('required')">
+                      Please enter PostalCode
+                    </mat-error>
+                    <mat-error *ngIf="third_form.controls.postal.hasError('minlength')">
+                      Please enter 5 digits
+                    </mat-error>
+                 </mat-form-field>  </td></tr>
+              </table>
+              <div>
+                  <!--  <button  color="primary" matStepperPrevious  >Back</button> -->
+                    <button color="primary"  matStepperNext  >Next</button>
+              </div>
+            </form>        
+          </mat-card>
+    </mat-step>
+
+    <mat-step [stepControl]="fourth_form" editable="false">
+      <ng-template matStepLabel >Fill out your fourth Info</ng-template>
+      <mat-card class="example-card">
+          <form class="example-form" [formGroup]="fourth_form">
+          <mat-form-field class="example-full-width">
+              <span matPrefix>+91 - &nbsp;</span>
+              <mat-label>Mobile Number</mat-label>
+              <input type="tel" matInput  formControlName="tno" maxlength="10">
+              <mat-icon matSuffix>stay_current_portrait</mat-icon>
+              <mat-error *ngIf="fourth_form.controls.tno.hasError('required')">
+                Please enter TelePhone Number
+              </mat-error>
+              <mat-error *ngIf="fourth_form.controls.tno.hasError('minlength')">
+                Please enter 10 digits
+              </mat-error>
+          </mat-form-field>
+          <div>
+              <!--  <button  color="primary" matStepperPrevious  >Back</button> -->
+                <button color="primary" matStepperNext  >Submit</button>
+          </div>
+        </form> 
+      </mat-card>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel >done</ng-template>
+
+      <div>
+        <mat-card class="example-card">
+          <img src="https://www.ciim.in/wp-content/uploads/2018/09/thank.png" alt="success"/> 
+        </mat-card> 
+
+      <button  mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+    
+  </mat-step>
+</mat-vertical-stepper>
