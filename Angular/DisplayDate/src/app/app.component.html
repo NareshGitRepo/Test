@@ -1,0 +1,35 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h3>DatePicker</h3>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput  [formControl]="fromdate_control"  [min]="minDate" [max]="todate_control.value" 
+      [matDatepicker]="picker1" placeholder="Choose From-Date" readonly>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker1></mat-datepicker>
+      <mat-error *ngIf="fromdate_control.hasError('required')">
+        <strong>Select Date</strong>
+      </mat-error>
+    </mat-form-field> &nbsp;&nbsp;
+    <button (click)="ChangeFormat()">change Format</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput  [formControl]="todate_control" [min]="fromdate_control.value"  [max]="maxDate1" 
+        [matDatepicker]="picker" placeholder="Choose To-Date" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+        <mat-error *ngIf="todate_control.hasError('required')">
+            <strong>Select Date</strong>
+        </mat-error>
+      </mat-form-field>&nbsp;&nbsp;
+      <button (click)="ChangeFormat1()">change Format</button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div>
+    
+    <div>From Date :{{fromdate_control.value | date :"dd/MMM/yy"}}</div>
+    <div>To Date :{{todate_control.value | date :"dd/MMM/yy"}}</div>
+</div>
+<router-outlet></router-outlet>
