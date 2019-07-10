@@ -1,0 +1,48 @@
+<mat-card>
+    <mat-card-header>
+        <div fxLayout="row wrap" style="margin-top:5px;">
+            <h4>{{'ErrorModule.createError.editErrorMesssage' | translate }}</h4>
+        </div>
+        <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i
+                class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content class="pad-all2">
+        <div fxLayout="row wrap" class="mar-btm">
+            <form [formGroup]="errorForm">
+                <input type="hidden" formControlName="id">
+                <mat-form-field style="width: 93%;" formGroupName="errorType">
+                    <input cdkFocusInitial matInput placeholder="{{'ErrorModule.createError.errorType' | translate }}"
+                        formControlName="errorName" readonly>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="{{'ErrorModule.createError.englishErrorMessage' | translate }}"
+                        formControlName="messageEn" maxlength="200" class="descriptiontext"></textarea>
+                    <mat-error
+                        *ngIf="errorForm.controls['messageEn'].errors && errorForm.controls['messageEn'].touched">
+                        <div *ngIf="errorForm.controls['messageEn'].errors.required">
+                            {{'ErrorModule.createError.englishRequiredMesssage' | translate }}
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="{{'ErrorModule.createError.arabicErrorMessage' | translate }}"
+                        allow-arabic-special #serviceArName formControlName="messageAr" maxlength="200"
+                        class="descriptiontext" #messageAr
+                        [ngClass]="{arabic: true}"></textarea>
+                    <mat-error
+                        *ngIf="errorForm.controls['messageAr'].errors && errorForm.controls['messageAr'].touched">
+                        <div *ngIf="errorForm.controls['messageAr'].errors.required">
+                            {{'ErrorModule.createError.arabicRequiredMesssage' | translate }}
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </div>
+
+        <div class="clearfix">
+            <button mat-raised-button color="primary" [disabled]="errorForm.invalid" (click)="onSubmit()">
+                {{'ErrorModule.createError.update' | translate }}</button>
+        </div>
+    </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,63 @@
+<mat-card>
+  <form [formGroup]="manualForm">
+    <mat-card-header>
+      <div fxLayout="row wrap" style="margin-top:5px;">
+        <h4>{{'usersModule.manualtokencreate.title' | translate}}</h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content class="pad-all2">
+      <div fxLayout="row wrap" class="mar-btm">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="pad-rgt">
+          <mat-form-field style="width: 100%">
+            <mat-select cdkFocusInitial multiple
+              placeholder="{{'usersModule.manualtokencreate.deptSelection' | translate}}" formControlName="department"
+              (selectionChange)="changeDepartment($event.value,true)" multi required>
+              <mat-select-trigger> 
+                {{displayDepartement!='' ? displayDepartement : ''}}
+                <span *ngIf="(manualForm?.value.department)?.length>
+                  1" class="example-additional-selection">
+                  (+{{(manualForm?.value.department)?.length - 1}} others)
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let department of departments" [value]="department.deptId">
+                {{department.deptName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="manualForm.controls.department.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%">
+            <mat-select multiple placeholder="{{'usersModule.manualtokencreate.servSelection' | translate}}"
+              formControlName="service" (selectionChange)="changeService($event.value)"  multi  required>
+              <mat-select-trigger> 
+                {{displayService!='' ? displayService : ''}}
+                <span *ngIf="(manualForm?.value.service)?.length>
+                  1" class="example-additional-selection">
+                  (+{{(manualForm?.value.service)?.length - 1}} others)
+                </span>
+              </mat-select-trigger>
+              <mat-optgroup *ngFor="let department of selectdepartments" [label]="department?.deptName">
+                <mat-option *ngFor="let serv of department.services" [value]="serv.serviceId">
+                  {{serv.serviceEngName}}</mat-option>
+              </mat-optgroup>
+            </mat-select>
+            <mat-error *ngIf="manualForm.controls.service.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="clearfix">
+        <button mat-raised-button color="primary" (click)="createManualToken()" [disabled]="!manualForm.valid">
+          {{ 'ActionNames.submit' | translate}}</button>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<mat-card>
+  <mat-card-header>
+    <div fxLayout="row wrap" style="margin-top:5px;">
+      <h4>{{ 'serviceModule.roomMapping.roomTitle' | translate}}</h4>
+    </div>
+    <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i class="ti-close"></i></button>
+  </mat-card-header>
+
+  <mat-card-content class="pad-all2">
+    <div fxLayout="row wrap" class="mar-btm">
+      <div fxFlex.gt-sm="100" class="example-container mar-rgt">
+        <div>
+          <form [formGroup]="roomMappingForm">
+            <div>
+              <mat-form-field class="full-width">
+                <mat-select cdkFocusInitial placeholder="{{ 'serviceModule.roomMapping.roomTypeSelection' | translate}}" multiple
+                  formControlName="roomType" (selectionChange)="roomTypeSelect($event.value,true)" required>
+                  <mat-option *ngFor="let data of roomTypeGroupData | keyvalue" value="{{data.value[0].roomType}}">
+                    {{ data.value[0].roomTypeDsc}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="roomMappingForm.controls.roomType.errors?.required">
+                  {{'ActionNames.errorSelectMessage' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div formArrayName="roomNoList" *ngFor="let item of roomMappingForm.get('roomNoList')['controls']; let
+              i=index;" class="clearfix">
+               <div [formGroupName]="i" class="w100"> 
+                <strong class="w50">{{ ('ActionNames.'+item.value.rooms[0].roomTypeDsc | translate)}} :</strong>
+                <mat-form-field class="w100">
+
+                  <mat-select placeholder="{{ 'serviceModule.roomMapping.roomSelection' | translate}}" multiple
+                    formControlName="assignRoom" required>
+                    <mat-option *ngFor="let room of item.value.rooms" value="{{room.roomId}}">{{room.roomNumber}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+
+          <br>
+          <div class="pad-ver clearfix w100">
+            <button mat-raised-button color="primary" (click)="onSubmit()"
+              [disabled]="roomMappingForm.invalid">{{'ActionNames.submit' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

@@ -1,0 +1,94 @@
+//MO campainmanager
+.sndr-manager .card-avatar{ border-radius: 50%;
+   text-align: center; padding: 2px 4px; float: left; color: #ffffff;}
+   .sndr-manager .cmpn-left{border-right:1px solid #eeeeee; padding-right: 12px; }
+  // .sndr-manager .cmpn-left .pbActive{ background: #e6e6e6;}
+   .sndr-manager .cmpn-left .Cstatus{ text-align: right; font-size: 11px;}
+   .sndr-manager .cmpn-left .Cstatus span{margin-left: 10px;}
+   .sndr-manager .cmpn-left .mat-card-content{padding: 8px  12px !important; font-size: 14px; }
+   .sndr-manager .cmpn-left .mat-selection-list{ padding: 0;}
+   .sndr-manager .cmpn-right{padding-left: 20px;}
+   .sndr-manager .cmpn-right .mat-card-title{margin-bottom: 0; padding-bottom: 1rem; border-bottom: 1px solid #eeeeee; }
+   .sndr-manager .cmpn-right .mat-card-title small{font-size: 11px;}
+   .sndr-manager .cmpn-right .mat-card-actions{background: #eeeeee; font-size: 12px; padding-left: 12px !important; padding-right: 12px !important ;}
+   .sndr-manager .cmpn-right .mat-expansion-panel-header{ padding: 0; padding-right: 10px; font-size: 12px; font-weight: bold; margin-top: 5px; height: 20px !important;}
+   .sndr-manager .cmpn-right .cntnt{border: 1px solid #eeeeee; padding: 8px;}
+   //.sndr-manager .cmpn-left .pbActive {background: #cccccc; border:0; color: #e3f1fd !important;}
+   .sndr-manager .cmpn-left .mat-card{cursor: pointer;} 
+   
+   .sideItems { height: 2%; line-height: 100%; border: 1px solid red}
+   .moredots-martop { margin-top:  8px;}
+   .moredots-martop a:hover { text-decoration:  none}
+   //.card-details { word-break: break-all}
+   .analytics{
+       font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+       text-align: center;
+       font-style: normal;
+       font-weight: 300;
+       font-size: 1.4rem;
+       line-height: 4rem;
+       letter-spacing: 0.01rem;
+       color: #212121;
+       -webkit-font-smoothing: antialiased;
+       -moz-osx-font-smoothing: grayscale;
+       text-rendering: optimizeLegibility;
+       margin:20px
+     }
+
+ .left-10 {
+       margin-left: 10px
+   }
+
+
+    //user card
+.usercard{position: relative;}
+.usercard .mat-card-content{padding: 0 !important;}
+.usercard{ background: #ffffff; box-shadow:none !important; -webkit-box-shadow:none !important; padding: 14px;}
+.usercard .UcardLeft{padding: 6px; padding-right: 0;}
+.usercard .UcardRight{position: relative;}
+.usercard .card-avatar{width: 60px; height: 60px; position: relative;  border-radius: 50%; 
+  background: #edf1f3;  margin: 0 auto;
+  transition:  0.3s;
+  -webkit-transition: 0.3s;
+  }
+.usercard .card-avatar .avatar-inner{width: 60px; height: 60px; display: table-cell; vertical-align: middle; text-align: center;}
+
+.usercard .card-avatar img{width: 50%; transition:  0.3s;
+  -webkit-transition: 0.3s;}
+//.usercard:hover .card-avatar img{width:60%;}
+//.usercard:hover .card-avatar{  transform: rotateY(180deg);}
+
+
+.usercard .Umore-btn{ position: absolute; top: -3px; right: 1px; color: #848181;} 
+.usercard .card-details{  font-size: 15px; margin-top: 5px; }
+.usercard .card-details a{ font-size: 13px; margin-right: 4px;}
+.usercard small{ display: block; color: #8E8D8D; font-size: 12px; letter-spacing: 0.5px;}
+.usercard .card-btm span{background: #eeeeee; font-weight: 300;  color: #686565; letter-spacing: 0.5px; border-radius: 4px; font-size: 12px; padding: 4px 8px; margin-right: 6px; text-align: center;}
+.usercard .card-btm  .rol{margin-bottom: 4px; float: left; padding: 1px 8px;}
+
+.usercard .devicecard-footer{border-top: 1px solid #eeeeee; }
+.usercard .devicecard-footer button.mat-menu-item{ color: #666666; font-size: 11px !important; height: 30px; line-height: 30px;}
+.usercard .devicecard-footer button.mat-menu-item:hover{color: #04c5de;}
+.usercard .devicecard-footer .enablebutton{counter-reset: #666666;}
+
+.userdetails .card-avatar{ position: relative; }
+.userdetails .card-avatar img{width:100%; height: auto; border-radius: 50%; padding: 20px;}
+.mat-paginator{background: transparent}
+
+  .icon-avatar{ border-radius: 50%; background: #edf1f3; width: 50px; height: 50px; display: table;}
+
+.icon-avatar .inn{display: table-cell; vertical-align: middle; padding: 3px;}
+     
+.row-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.left-sec .card-avatar{ margin: 5px 6px 0 0}
+.itemtext { padding-top: 8px }
+.create-button { margin-bottom: 8px }
+.paging, .search { background: #ffffff }
+.search { padding: 10px }
+.left-col { background: #ffffff; margin-top: 8px }
+.full-width{ width: 100%; } 
+.mat-menu-item i { margin-right: 6px}
+.pbActive { background: #eeeeee; border: 0; color: #e3f1fd}

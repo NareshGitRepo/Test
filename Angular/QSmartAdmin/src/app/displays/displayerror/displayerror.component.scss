@@ -1,0 +1,37 @@
+
+.Dheader2{width: 100%; padding: 1% 1%; background: #ffffff; z-index: 99;}
+.Dheader2 h1{margin: 0; font-size: 34px; color: #636c6e;}
+.Dheader2 .top-right{ text-align: right;}
+.Dheader2 .time{font-size: 25px;}
+.Dheader2 .time small{font-size: 12px; display: block;}
+
+  .bodysec .mat-card{ border-top: 0; margin: 0 !important;}
+
+  .bodysec .titlestrp{overflow: auto; height: 90px;}
+  .bodysec .title{ font-weight: 600; font-size: 26px; border-radius: 0;   display: table; width: 100%; height: 100%;}
+  .bodysec .title .title-innr{display: table-cell; line-height: 30px; vertical-align: middle; padding: 3px;
+    }
+  .bodysec .mat-card-content{border: 0 !important; font-size: 20px; padding: 0;}
+  .bodysec .mat-card-content .cnt{ margin-bottom:8px; color: #333333; font-weight: 400; 
+    padding: 10px 0; max-height: 100px; height: 90px; display: table; width: 100%;  border-radius: 8px;}
+  .bodysec .cnt .cnt-inn{ display: table-cell; vertical-align: middle; text-align: center; width: 100%;}
+  .nrmltkn{ color: #ffffff !important; background: #95c4d6 !important;  text-shadow: 0px 1px 1px #222222;}
+  .activetkn{ color: #ffffff !important; background: #188405;  text-shadow: 0px 1px 1px #222222;}
+  .bodysec .mat-card-content .cnt h1{margin: 0; font-size: 32px; font-weight: bold; margin-bottom: 5px;}
+  .bodysec .mat-card-content .cnt small{font-size: 16px; font-weight: bold; background: #ffffff; color: #333333; padding: 3px 8px;}
+
+.recpFooter{position: fixed; bottom: 0; font-weight: 600; width: 100%; background: #cccccc; padding: 18px; color: #333333; text-align: center;}
+.recpFooter span{background: #72af08; padding: 6px 10px; margin: 2px; color: #ffffff; border-radius: 3px; border: 1px solid #6a9d13}
+.sec-bord-rgt{ border-right: 2px solid #dddddd;}
+
+.greendark{background: #023246; color: #ffffff;}
+.green{background: #91b052; color: #ffffff;}
+.blueh{background: #0e8c9a; color: #ffffff;}
+.yellow{background: #ee9d16; color: #ffffff;}
+.purple{background: #976eb4; color: #ffffff;}
+
+.greendark-light{background: #95c4d6; color: #333333;}
+.green-light{background: #91b052; color: #333333;}
+.blueh-light{background: #0e8c9a; color: #333333;}
+.yellow-light{background: #ee9d16; color: #333333;}
+.purple-light{background: #976eb4; color: #333333;}

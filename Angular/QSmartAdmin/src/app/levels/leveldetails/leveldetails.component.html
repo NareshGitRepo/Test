@@ -1,0 +1,25 @@
+<mat-card style="box-shadow: none;">
+  <form>
+    <mat-card-header>
+      <div fxLayout="row wrap">
+        <h4 >{{data?.deptName}}</h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row wrap" class="clearfix pad-top" *ngIf="services?.length != 0">
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{ 'levelModule.leveldetails.serviceEngName' | translate }}</strong> </div>
+          <div class="bord-all pad-all-sm" *ngFor="let service of services"> {{service?.serviceEngName}}</div>
+        </div>
+      </div>
+      <div class="clearfix pad-top" *ngIf="services?.length == 0">
+        <div fxFlex>
+        <div class="bord-all pad-all-sm" style="background: #fafafa"> <font size="3" color="red">{{ 'levelModule.leveldetails.serviceError' | translate }}</font> </div> 
+       </div>
+        </div>
+
+    </mat-card-content>
+  </form>
+</mat-card>

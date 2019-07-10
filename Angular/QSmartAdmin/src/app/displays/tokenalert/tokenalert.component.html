@@ -1,0 +1,32 @@
+
+<!-- <div style="padding-top: 5%;">
+  <div class="text-center">
+    <h3 class="mar-no">Token</h3>
+    <h1 class="mar-no" style="font-size: 120px; font-weight: bold; color: #39aae0;">{{data?.token}}</h1>
+    <h3 class="mar-no" style="font-size: 50px;">Room NO: {{data?.roomNumber}}</h3>
+  </div>
+</div> -->
+
+
+
+<div fxLayout="row wrap" class="text-center tokenalrtpop" [ngClass]="data.colourdata == null ? 'tknDefault' : data.colourdata">
+    <div fxFlex="70" class="tokenalrtpop-inner">
+        <div style="display: table; width: 100%; height: 100%; padding-left: 5%;">
+            <div style="display: table-cell; vertical-align: middle;" >
+         <!-- <h3 style="padding: 0; margin: 0;">{{'DisplaysModule.token' | translate}}</h3> -->
+         <h1 style="font-size: 150px; font-weight: bold; margin: 0; padding: 0;">{{data.data.token}}</h1>
+        <div class="pad-all-sm" *ngIf="data.data.langData != 0"> <h1 style="font-size: 80px;"><strong>{{data.data.roomNumber}}</strong> : {{data.data.arbRoomName}}</h1></div>
+        <div class="pad-all-sm" *ngIf="data.data.langData == 0"> <h1 style="font-size: 80px;">{{data.data.engRoomName}} : <strong>{{data.data.roomNumber}}</strong></h1></div>
+        </div>
+        </div>
+    </div>
+
+    <div fxFlex="30" style="position: relative;">
+        <img class="maskat" src="assets/images/maskat.png">
+      </div>
+
+</div> 
+
+
+
+

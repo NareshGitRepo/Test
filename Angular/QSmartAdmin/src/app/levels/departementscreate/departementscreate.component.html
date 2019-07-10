@@ -1,0 +1,57 @@
+<mat-card>
+  <mat-card-header>
+    <div fxLayout="row wrap" style="margin-top:5px;" *ngIf="!editData">
+      <h4>{{ (Data?.deptId?  'levelModule.edeptTitle' : 'levelModule.deptTitle') | translate}}</h4>
+    </div>
+    <!-- <div fxLayout="row wrap" style="margin-top:5px;" *ngIf="editData">
+      <h4>{{ 'DepartementModule.departementcreate.editTitle' | translate}}</h4>
+    </div> -->
+    <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i class="ti-close"></i></button>
+  </mat-card-header>
+
+  <mat-card-content class="pad-all2">
+    <div fxLayout="row wrap" class="mar-btm">
+
+      <div fxFlex.gt-sm="100">
+        <div>
+          <form [formGroup]="departmentForm">
+            <div>
+              <input type="hidden" formControlName="floorId">
+              <mat-form-field class="for-validate">
+                <input matInput cdkFocusInitial allow-Service-English1
+                  placeholder="{{ 'levelModule.departmentcreate.name' | translate}}"
+                  formControlName="deptName" maxlength="25" minlength="5" autocomplete="off"
+                  [readonly]="Data?.deptType == 0" required>
+                <mat-error *ngIf="departmentForm.controls.deptName.errors?.required">
+                  {{ 'ActionNames.errorMessage' | translate}}
+                </mat-error>
+                <mat-error *ngIf="departmentForm.get('deptName').hasError('minlength')"> {{'ActionNames.minLengthError5' | translate}}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="for-validate">
+                <input matInput placeholder="{{ 'levelModule.departmentcreate.DepartmentArabicName' | translate}}"
+                  allow-Service-Arbic1 formControlName="deptArbName" [ngClass]="{arabic: true}" maxlength="25"
+                  minlength="5" autocomplete="off" required>
+                <mat-error *ngIf="departmentForm.controls.deptArbName.errors?.required">{{ 'ActionNames.errorMessage' |
+                  translate }}</mat-error>
+                  <mat-error *ngIf="departmentForm.get('deptArbName').hasError('minlength')"> {{'ActionNames.minLengthError5' | translate}}</mat-error>
+              </mat-form-field>
+              <mat-checkbox  color="primary" formControlName="tokenCheck" >{{ 'levelModule.levelManage.sameTokenFlag' | translate}}</mat-checkbox>
+            </div>
+
+            <div class="pad-ver clearfix w100">
+
+              <button mat-raised-button color="primary" [disabled]="departmentForm.invalid" (click)="onSubmit()"> {{
+                'ActionNames.submit' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

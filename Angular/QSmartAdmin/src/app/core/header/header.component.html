@@ -1,0 +1,53 @@
+<mat-toolbar class="main-header" *ngIf="headrLoad">
+  <button (click)="toggleSidenav.emit()" mat-icon-button>
+    <!-- <mat-icon>menu</mat-icon> -->
+    <i class="ti-menu"></i>
+  </button>
+  <div class="branding">
+     <div class="logo"></div>
+  </div>
+
+  <div style="flex: 1 1 0%;box-sizing: border-box; max-width:100%;">
+
+  </div>
+
+  <button (click)="fullScreenToggle()" mat-icon-button>
+    <i class="ti-fullscreen"></i>
+  </button>
+  <button (click)="notificationAction()" *ngIf="notifyFlag" mat-icon-button class="ml-xs overflow-visible">
+    <i class="ti-bell"></i>
+    <span class="notification-label">{{notificationList?.length}}</span>
+    </button>
+  <a [matMenuTriggerFor]="user" class="ml-xs" style="font-size: 12px;">
+   <img class="userImg" #profilepic src="assets/images/user.png" title="{{_firstname}}" />&nbsp;  {{_firstname}} &nbsp;  <i class="ti-angle-down"  style="font-size: 7px;"></i>
+  </a>
+
+
+  <mat-menu #user="matMenu" x-position="before">
+
+    <a (click)="actionCall('/profile',false)">
+      <button mat-menu-item>
+        <!-- <mat-icon>account_box</mat-icon> -->
+        <i class="ti-user"></i> &nbsp;
+       {{'profileName' | translate}}
+    </button></a>
+
+    <a (click)="actionCall('/about',false)">
+      <button mat-menu-item>
+        <!-- <mat-icon>account_box</mat-icon> -->
+        <i class="ti-info-alt"></i> &nbsp;
+        {{'about' | translate}}
+    </button></a>
+
+    <a (click)="actionCall('/',true)"> <button mat-menu-item>
+      <!-- <mat-icon>exit_to_app</mat-icon> -->
+      <i class="ti-power-off"></i> &nbsp;
+      {{'signout' | translate}}
+    </button></a>
+  </mat-menu>
+  &nbsp;
+</mat-toolbar>
+
+<div class="head3" *ngIf="!headrLoad">{{_rolename}}</div>
+<div class="head2" *ngIf="headrLoad">{{_rolename}}</div>
+

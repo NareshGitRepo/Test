@@ -1,0 +1,72 @@
+<mat-card>
+  <mat-card-header>
+    <div fxLayout="row wrap" style="margin-top:5px;">
+      <h4>{{ 'FacilityModule.updatefacility.UpdateFacility' | translate }}</h4>
+    </div>
+    <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i class="ti-close"></i></button>
+  </mat-card-header>
+  <!-- {{facilityForm.value | json}} -->
+  <mat-card-content class="pad-all2">
+    <div fxLayout="row wrap" class="mar-btm">
+      <form [formGroup]="facilityForm">
+        <div>
+          <mat-form-field class="w100">
+            <input cdkFocusInitial matInput placeholder="{{ 'FacilityModule.updatefacility.Name' | translate }}" formControlName="organization"
+              [readonly]="editData" allow-alpha-numeric-singlespace maxlength="20" required>
+            <mat-error *ngIf="facilityForm.controls.organization.errors?.required">{{ 'ActionNames.errorMessage' |
+              translate
+              }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w100">
+            <input matInput placeholder="{{ 'FacilityModule.updatefacility.Address' | translate }}" formControlName="address"
+              allow-all-singlespace maxlength="100" required autocomplete="off">
+            <mat-error *ngIf="facilityForm.controls.address.errors?.required">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+          <div class="w100">
+            <!-- <input matInput placeholder="{{ 'FacilityModule.updatefacility.contactnumber' | translate }}"
+                formControlName="mobileNo" allow-numbers-nospace maxlength="15" required> -->
+              
+                <mat-form-field class="w100">
+                    <input matInput placeholder="{{ 'FacilityModule.updatefacility.contactnumber' | translate}}" allow-mobilenumber-nospace formControlName="mobileNo"
+                    maxlength="15" required autocomplete="off">
+                    <mat-error *ngIf="facilityForm.controls.mobileNo.errors?.required">{{ 'ActionNames.errorMessage' | translate
+                    }}</mat-error>
+                    <mat-error *ngIf="facilityForm.get('mobileNo').hasError('minlength')">
+                      {{'ActionNames.minLengthError8' | translate}}</mat-error>
+                    </mat-form-field> 
+              <!-- <label>{{ 'FacilityModule.updatefacility.contactnumber' | translate}}</label>
+              <int-phone-prefix formControlName="mobileNo" defaultCountry=" {{country}}" minlength=" 8" maxlength="15"
+                autocomplete="off"  required>
+              </int-phone-prefix> -->
+          </div>
+
+          <mat-form-field class="w100">
+            <input matInput placeholder="{{ 'FacilityModule.updatefacility.emailid' | translate }}" formControlName="emailId"
+              allow-email-charecters maxlength="30" required autocomplete="off">
+            <mat-error *ngIf="facilityForm.controls.emailId.touched">{{ 'usersModule.emailValid' | translate }}
+            </mat-error>
+            <mat-error *ngIf="facilityForm.controls.emailId.errors?.required">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </form>
+    </div>
+
+    <div>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="facilityForm.invalid">{{
+        'FacilityModule.updatefacility.submit' | translate }} </button>
+    </div>
+  </mat-card-content>
+
+
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

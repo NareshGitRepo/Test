@@ -1,0 +1,44 @@
+<div fxLayout="row wrap" class="Dheader2">
+  <div fxFlex.gt-xs="40" fxFlex="100">
+    <img src="assets/images/qsmart-logo.svg" width="35%" />
+  </div>
+  <div fxFlex.gt-xs="60" fxFlex="100" class="top-right">
+    <img src="assets/images/kfsh-logo.png" width="30%">
+  </div>
+</div>
+
+<div fxLayout="row wrap" class="topStrip2">
+  <div fxFlex.gt-xs="50" fxFlex="100" class="title">{{'DisplaysModule.title' | translate}}</div>
+  <div fxFlex.gt-xs="50" fxFlex="100" class="time"><strong>{{currentDateTime | date:'h:mm a'}}</strong> <small> {{currentDateTime | date:'fullDate' :null:
+      'en-US'}} </small> </div>
+</div>
+
+<div fxLayout="row wrap" class="bodysec">
+
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" class="deptbox" *ngFor="let data of ReceptionListFinal">
+    <mat-card class="no-shadow sec-bord-rgt " style="height: 64vh">
+      <h1 class="title">{{data?.deptName}}</h1>
+      <mat-card-content class="pad-lft">
+
+        <div fxLayout="row wrap" class="clearfix cnt" *ngFor="let item of data?.doctors ">
+          <div class="pull-left" style="margin-right: 8px;">
+            <img src="assets/images/checked.svg" width="15px;">
+          </div>
+          <!-- <div class="pull-left" style="margin-right: 8px;" *ngIf="item.status==false">
+        <img src="assets/images/cancel.svg" width="15px;">
+      </div> -->
+          <div fxFlex="80">{{item.doctorName}}
+            <small class="text-primary" style="display: block">{{data?.deptName}}</small>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
+
+
+<div class="recpFooter">
+  <div *ngIf="TotelData?.tokens.length != 0 "> {{'DisplaysModule.lasttokens' | translate}}:
+    <span *ngFor="let tokens of TotelData.tokens | slice:0:5">{{tokens}}</span> </div>
+</div>

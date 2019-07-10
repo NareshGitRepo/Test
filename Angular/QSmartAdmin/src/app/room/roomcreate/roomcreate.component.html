@@ -1,0 +1,103 @@
+<mat-card>
+  <mat-card-header>
+    <div fxLayout="row wrap" style="margin-top:5px;">
+      <h4>{{ 'roomModule.title' | translate}}</h4>
+    </div>
+    <button mat-icon-button  [mat-dialog-close] style="position: absolute; right: 1%;"><i class="ti-close"></i></button>
+  </mat-card-header>
+
+  <mat-card-content class="pad-all2">
+    <div fxLayout="row wrap" class="mar-btm">
+
+      <div fxFlex.gt-sm="100" class="example-container mar-rgt" >
+        <div>
+          <form [formGroup]="roomForm">
+
+            <mat-form-field class="full-width">
+              <mat-select cdkFocusInitial placeholder="{{ 'roomModule.roomcreate.levelSelection' | translate}}" formControlName="level"
+                (selectionChange)="levelSelected()" required>
+                <mat-option *ngFor="let level of levelsData" [value]="level.floorId">
+                  {{level?.floorName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="roomForm.controls.level.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+                }}</mat-error>
+            </mat-form-field>
+
+            <div  style="font-size: 13px; ">
+              <mat-form-field class="full-width">
+                <mat-select multiple placeholder="{{ 'roomModule.roomcreate.roomTypeSelection' | translate}}"
+                  formControlName="roomType" (selectionChange)="onChange($event)" required>
+                  <mat-option *ngFor="let rooms of roleData;" [value]="rooms.roomName">
+                    {{rooms?.roomName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="roomForm.controls.roomType.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div formArrayName="roomNoList" *ngFor="let item of roomForm.get('roomNoList')['controls']; let i=index;"
+              class="clearfix">
+               <div [formGroupName]="i" class="w100"> 
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{ ('ActionNames.'+item.value.rmTypeId | translate)}}
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        <font color="red"><small> {{item.valid ? '' :('ActionNames.errorMessage'  | translate)}}</small>
+                        </font>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-form-field class="w100">
+                      <input  matInput allow-Service-English1
+                        placeholder="{{('ActionNames.'+item.value.rmTypeId | translate) + ('ActionNames.englisgRoom' | translate)}}"
+                        formControlName="roomNameEn" maxLength=25 autocomplete="off" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="w100">
+                      <input  matInput allow-Service-Arbic1
+                        placeholder="{{('ActionNames.'+item.value.rmTypeId | translate) + ('ActionNames.arabicRoom' | translate)}}"
+                        [ngClass]="{arabic : true}" formControlName="roomNameAb" maxLength=25 autocomplete="off"
+                        required>
+                    </mat-form-field>
+                    <mat-form-field class="w100">
+                      <input matInput allow-roomnumber-charecters
+                        placeholder="{{('ActionNames.'+item.value.rmTypeId  | translate)+('ActionNames.numbers' | translate)+'(ex : A10,102 or 1-20)'}}"
+                        formControlName="roomNumber" maxLength=50 autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field class="w100">      
+                      <input matInput type="number" placeholder="{{ 'roomModule.roomcreate.maxserve' | translate}}" formControlName="allowedToAccess" maxLength="1" min="1" max="5"  autocomplete="off" required>
+                        <mat-error *ngIf="item.controls.allowedToAccess.errors?.max">{{ 'ActionNames.Countmsg' | translate
+                        }}</mat-error>
+                        <mat-error *ngIf="item.controls.allowedToAccess.errors?.min">{{ 'ActionNames.Countmsg' | translate
+                        }}</mat-error>
+                        <mat-error *ngIf="item.controls.allowedToAccess.errors?.required">{{ 'ActionNames.errorMessage' | translate
+                        }}</mat-error>
+                    </mat-form-field>
+                  </mat-expansion-panel>
+
+                </mat-accordion>
+
+
+              </div>
+            </div>
+          </form>
+
+
+          <div class="pad-ver clearfix w100">
+            <button mat-raised-button color="primary" [disabled]="roomForm.invalid"
+              (click)="onSubmit()">{{'ActionNames.submit' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

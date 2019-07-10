@@ -1,0 +1,61 @@
+<div class="" style="background:url(assets/images/login-bg.jpg) no-repeat; background-size: cover;">
+  
+<div fxLayout="row wrap">
+
+  <div fxFlex.gt-sm="40" fxFlex.gt-xs="100" fxFlex="100"  class="session sec-left">
+    <div class="session-content">
+      <div class="session-wrapper" style="border-radius: 9px;">
+        <div style="background: #ffffff; padding: 50px 30px; border-radius: 9px;  border: 1px solid #dddddd;">
+          <form [formGroup]="form" >
+            <div class=" pb-1 text-center" >
+              <img src="assets/images/qsmart-logo.svg" width="240px"/>
+              <br>
+          
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around">
+              <br>
+              <div class="pb-1">
+                <mat-form-field style="width: 100%">
+                  <input matInput autofocus placeholder="Username" formControlName="name" allow-email-charecters maxlength="30" minlength="5" required> 
+                  <mat-error *ngIf="form.controls['name'].errors && form.controls['name'].touched">
+                      <div *ngIf="form.controls['name'].errors?.required">Username is Required</div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="pb-1">
+                <mat-form-field style="width: 100%">
+                  <input matInput type="password" placeholder="Password" formControlName="password"  minlength="5" maxLength="30" allow-all-nospace required>
+                  <mat-error *ngIf="form.controls['password'].errors && form.controls['password'].touched">
+                      <div *ngIf="form.controls['password'].errors?.required">Password is Required</div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+    
+             <button mat-raised-button color="primary" type="submit"  [disabled]="!form.valid || loading" (click)="onSubmit(form.value)" style="padding: 10px;">Sign in</button>&nbsp;
+             <mat-spinner matSuffix *ngIf="loading" mode="indeterminate" diameter="17"></mat-spinner>
+             <div *ngIf=messageflag class="alert alert-danger margin-top-5"><strong>{{message}}</strong></div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <small class="mar-top text-sm">&copy; Vectramind Corporation 2019. All rights reserved</small>
+    </div>
+    
+  </div>
+  
+
+  <div fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="session sec-right">
+    <div class="session-content rgt-btm" style="padding: 0; height: 100vh;">
+      <div class="session-wrapper" style="position: relative; width: 100%;">
+        <img src="assets/images/kiosk-new.svg" class="login-img" />
+      </div>
+    
+    </div>
+<!-- <div class="btm-logo">
+    <img src="../../assets/images/qsmart-logo.svg" width="120" /><br>
+    <small>&copy; Vectramind Corporation 2019</small>
+  </div> -->
+
+  <div class="top-logo"><img src="assets/images/kfsh-logo.png" width="300" /></div>
+  </div>
+</div>
