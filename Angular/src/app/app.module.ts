@@ -4,8 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatCardModule} from '@angular/material';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {MatFormFieldModule, MatButtonModule, MatSnackBarModule, MatInputModule, MatSelectModule} from '@angular/material';
+import { NgxFileHelpersModule } from 'ngx-file-helpers';
+import { PapaParseModule } from 'ngx-papaparse';
 @NgModule({
   declarations: [
     AppComponent
@@ -17,10 +19,12 @@ import {MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, Ma
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
+    MatInputModule,
+    NgxFileHelpersModule,
     MatSelectModule,
-    MatCardModule
+    PapaParseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

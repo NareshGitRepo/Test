@@ -1,29 +1,34 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<form  class="example-form" [formGroup]="Card_Form">  
-  <mat-form-field appearance="outline">
-    <mat-label>Select Card</mat-label>
-    <mat-select  multiple formControlName="CardName" (selectionChange)="SelectCard($event.value)" >
-      <mat-option *ngFor="let cnames of Cards" [value]="cnames">{{cnames}}</mat-option>
-    </mat-select>
+<div>
+  <h1>Upload Your Info</h1>
+  <button mat-raised-button color="primary" ngxFilePicker  [readMode]="readMode" accept=".xlsx; .xls" (change)="FileUpload($event)"> Upload File</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="secondary" ngxFilePicker  [readMode]="readMode" accept=".txt; .csv;" (change)="FileUpload1($event)"> Upload File</button>
+</div> <br>
 
-  </mat-form-field>
-  
-   <div formArrayName="detailsArray" > 
-      <div *ngFor="let item of checkedData.controls; let i=index;" [formGroupName]="i">
-        <mat-card>   
-          {{Card_Form.value.CardName}}
-          <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Enter Number" formControlName="CNumber">
-          </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Enter Name" formControlName="CName">
-          </mat-form-field>
-        
-        </mat-card> 
-      </div>
-    </div>
-    <button mat-raised-button color="primary" (click)="Submit()" [disabled]="Card_Form.invalid">Submit</button>
-  </form>  
+<mat-form-field appearance="outline">
+  <mat-label>Select Sheet</mat-label>
+  <mat-select (selectionChange)="getHeaders($event.value)">
+    <mat-option *ngFor="let sheet of _excelSheetNames" [value]="sheet">
+      {{sheet}}
+    </mat-option>
+  </mat-select>
+</mat-form-field> &nbsp;&nbsp;&nbsp;&nbsp;
 
+<mat-form-field appearance="outline">
+  <mat-label>Select Header name</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let header of columndata" [value]="header">
+      {{header}}
+    </mat-option>
+  </mat-select>
+</mat-form-field> &nbsp;&nbsp;&nbsp;&nbsp;
 
+<mat-form-field appearance="outline">
+  <mat-label>Select Text Header</mat-label>
+  <mat-select (selectionChange)="getData($event.value)" >
+    <mat-option *ngFor="let header of header" [value]="header">
+      {{header}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 <router-outlet></router-outlet>
