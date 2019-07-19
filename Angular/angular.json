@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UploadFiles": {
+    "DialogBox": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/UploadFiles",
+            "outputPath": "dist/DialogBox",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "UploadFiles:build"
+            "browserTarget": "DialogBox:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "UploadFiles:build:production"
+              "browserTarget": "DialogBox:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "UploadFiles:build"
+            "browserTarget": "DialogBox:build"
           }
         },
         "test": {
@@ -110,15 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "UploadFiles:serve"
+            "devServerTarget": "DialogBox:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "UploadFiles:serve:production"
+              "devServerTarget": "DialogBox:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "UploadFiles"
+  "defaultProject": "DialogBox"
 }
