@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'DialogBox'`, () => {
+  it(`should have as title 'UploadFiles'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('DialogBox');
+    expect(app.title).toEqual('UploadFiles');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to DialogBox!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to UploadFiles!');
   });
 });
