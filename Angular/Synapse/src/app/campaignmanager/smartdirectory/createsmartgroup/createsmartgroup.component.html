@@ -1,0 +1,41 @@
+<mat-card>
+  <form [formGroup]="smartdirectoryForm">
+    <mat-card-header>
+      <div fxLayout="row wrap">
+        <h4>
+          {{editData?.type ? ('smartDirectoryModule.createsmartgroup.editTitle' | translate):('smartDirectoryModule.createsmartgroup.title' | translate)}}
+        </h4>
+      </div>
+      <button mat-icon-button (click)="close()" style="position: absolute; right: 5px; top: 5px; "><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row wrap" class="col-sm-12">
+        <div fxFlex="100">
+          <mat-form-field class="full-width">
+            <input matInput allow-all-selected-characters-singlespace placeholder="{{'smartDirectoryModule.createsmartgroup.groupName' | translate}}"
+              formControlName="groupName" cdkFocusInitial allow-alpha-numeric-singlespace maxlength="20" minlength="2" autocomplete="off" required>
+            <mat-error *ngIf="smartdirectoryForm.controls.groupName.errors?.required">{{'smartDirectoryModule.errorMessage' | translate}}
+            </mat-error>
+            <mat-error *ngIf="smartdirectoryForm.controls.groupName.errors?.minlength">{{'smartDirectoryModule.minimum' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="mar-top">
+            <button mat-raised-button class="submitbutton" (click)="createGroup()" [disabled]="smartdirectoryForm.invalid || loading"
+              *ngIf="!editData?.type">{{'ActionNames.save' | translate}}</button> &nbsp;
+            <button mat-raised-button class="submitbutton" (click)="updateGroup()" [disabled]="smartdirectoryForm.invalid || loading"
+              *ngIf="editData?.type">{{'ActionNames.update' | translate}}</button> &nbsp;
+            <!-- <button mat-raised-button type="reset"> Clear</button> -->
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

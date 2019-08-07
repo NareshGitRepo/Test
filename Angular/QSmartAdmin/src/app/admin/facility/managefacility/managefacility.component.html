@@ -1,0 +1,106 @@
+<div fxLayout="row wrap" id="page-title" style="padding-right:0;" class="scroll-top">
+  <div fxFlex="70">
+    <h2 class="pad-lft">{{ 'FacilityModule.facility' | translate }}</h2>
+  </div>
+  <div fxFlex="30" class="text-right pad-rgt">
+    <a [matMenuTriggerFor]="SearchGrid"><img src="assets/images/filter-icon.png" width="12" /></a> &nbsp;
+    <mat-form-field>
+      <mat-menu #SearchGrid="matMenu">
+        <button mat-menu-item (click)="_filterType='1'"><i class="ti-check"></i>
+          {{ 'ActionNames.active' |translate}}</button>
+        <button mat-menu-item (click)="_filterType='0'"><i class="ti-check-box"></i> {{'ActionNames.deActive' |
+          translate}}</button>
+        <button mat-menu-item (click)="_filterType=''"><i class="ti-check-box"></i> {{ 'ActionNames.reset' |
+          translate}}</button>
+      </mat-menu>
+      <input matInput [(ngModel)]="searchdata" placeholder="{{ 'FacilityModule.facilitymanage.search' | translate}}{{_filterType ==''?'':'-'}}{{_filterType =='1' ?  ('ActionNames.active' | translate) : (_filterType =='0' ?  ('ActionNames.deActive' |
+      translate) :'')}}">
+    </mat-form-field>
+  </div>
+
+</div>
+
+
+
+<div class="clearfix row-flex">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pad-no fbox" 
+    *ngFor="let hosp of filterfacility | facilityfilter: hospList: searchdata: 'organization' : _filterType">
+    <mat-card fxFlex class="usercard"  style="padding-bottom: 30px; height: 97%;">
+      <mat-card-content>
+
+        <div class="clearfix text-center">
+          <div class="pad-all clearfix">
+            <div class="clearfix card-top">
+
+
+              <div *ngIf="hosp.status == 1" class="card-avatar">
+                <ngx-avatar size="60" name="{{hosp?.organization}}"></ngx-avatar>
+                <span class="status-g active"></span>
+              </div>
+              <div *ngIf="hosp.status == 0" class="card-avatar">
+                <ngx-avatar size="60" name="{{hosp?.organization}}"></ngx-avatar>
+                <span class="status-g inactive"></span>
+              </div>
+
+              <!-- <div *ngIf="hosp.status == 1" class="card-avatar">
+                <div class="avatar-inner">
+                  <img src="assets/images/hospital-b.svg">
+                </div>
+              </div>
+              <div *ngIf="hosp.status == 0" class="card-avatar">
+                <div class="avatar-inner">
+                  <img src="assets/images/hospital-b-inactive.svg">
+                </div>
+              </div> -->
+
+              <div class="card-details">
+                {{hosp?.organization}} Hospital
+                <small>{{hosp?.emailId}}</small>
+                <small>{{hosp?.mobileNo}}
+                  <!-- , {{setNewNodal(hosp.nodalName)}} -->
+                </small>
+                <small>{{hosp?.address}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </mat-card-content>
+    </mat-card>
+    <div class="clearfix devicecard-footer" style="position: absolute; width: 95%;
+    bottom: 8px;
+    margin: 0 9px;
+   border-top: 1px solid #eeeeee;">
+        <div class="col-sm-6 pad-no">
+          <button mat-menu-item (click)="editFacility(hosp)"  
+            [ngClass]="{disablebutton: hosp.status == false , enablebutton: hosp.status == true}"
+            [disabled]="!hosp.status == true" style="height: 30px; line-height: 33px;"><i class="ti-pencil-alt"></i> {{'ActionNames.edit'
+            | translate }}</button>
+        </div>
+        <div class="col-sm-6 pad-no text-right">
+          <div *ngIf="!hosp.status" class="pull-right">
+            <button mat-menu-item (click)=" facilityActiveDialog(hosp,1)"  style="height: 30px; line-height: 33px;"><i class="ti-check"></i>
+              {{'ActionNames.activate' | translate }}</button>
+          </div>
+          <div *ngIf="hosp.status" class="pull-right">
+            <button mat-menu-item (click)=" facilityActiveDialog(hosp,0)"  style="height: 30px; line-height: 33px;"><i class="ti-close"></i>
+              {{'ActionNames.deActivate' | translate }}</button>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<div *ngIf="hospList?.length> pageSize">
+  <mat-paginator [length]="hospList?.length" [pageSize]="pageSize" [pageIndex]="initPage" (page)="getData($event)">
+  </mat-paginator>
+</div>
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

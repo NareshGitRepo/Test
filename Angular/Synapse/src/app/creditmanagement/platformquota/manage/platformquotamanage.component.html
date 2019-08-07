@@ -1,0 +1,143 @@
+<div fxLayout="row wrap">
+  <div fxFlex="60">
+  </div>
+  <div fxFlex="40" class="search-align pad-rgt">
+    <div fxFlex="92">
+      <!-- <mat-form-field>
+        <input matInput [(ngModel)]="searchdata" 
+          placeholder="{{'ActionNames.search' | translate}}">
+      </mat-form-field> -->
+    </div>
+    <div fxFlex="8">
+      <div style="margin-top: 18px; font-size: 16px;">
+        <i *ngIf="listflag" class="ti-layout-grid2-alt  text-muted" matTooltip="{{'ActionNames.gridView' | translate}}"
+          (click)="loadGrid()" style="cursor: pointer;  "></i>
+        <i *ngIf="!listflag" class="ti-menu text-muted" matTooltip="{{'ActionNames.listView' | translate}}"
+          (click)="loadList()" style="cursor: pointer; "></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!listflag">
+  <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let item of  filterplatformQuota">
+    <mat-card fxFlex class="usercard no-shadow mat-elevation-z0 prepaidcard"
+      [ngClass]="{'prepaidcard':item ? item?.creditType =='2':[],'postpaidcard':item ? item?.creditType=='1':[]}">
+      <mat-card-content>
+        <div fxLayout="row wrap">
+          <div fxFlex="98" class="UcardLeft">
+            <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+              <div fxLayout="row wrap" class="clearfix card-top">
+                <div>
+                  <div class="card-avatar">
+                    <div class="image-inner">
+                      <img src="assets/images/customer_icon.svg" />
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="75">
+
+                  <div class="card-details">
+                    <div>
+                     
+                      <small>{{item.creditType ==2  ?('CreditManagementModule.platFormQuota.manage.availableBalance' | translate) :( 'CreditManagementModule.platFormQuota.manage.availThreshold' |translate) }}:{{item.availableBalance}}</small>
+                      <small>{{item.creditType ==2 ? ('CreditManagementModule.platFormQuota.manage.currentBalance' |translate): ('CreditManagementModule.platFormQuota.manage.availableThreshold' |translate )}}:{{item.credits}}</small>
+                      <small> {{'CreditManagementModule.platFormQuota.manage.creditType' | translate}}:<span
+                          class="typetext">{{item.creditType ==1 ? 'Postpaid':'Prepaid'}}</span>
+                      </small>
+                      <small *ngIf="item.hasExpiryDate">{{'CreditManagementModule.platFormQuota.manage.expiryDate' | translate}}:
+                        <span>{{(item.expiryDate!==null && item.expiryDate!='') ? (convertData(item.expiryDate)| date :'yyyy-MM-dd'): item.expiryDate}}</span>
+                      </small>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="Umore-btn" *ngIf="_roleCode=='SA'">
+            <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+            <mat-menu #UcardEdit="matMenu">
+              <button mat-menu-item (click)="setLimit(item)"><i class="ti-pencil-alt"></i>
+                {{'CreditManagementModule.platFormQuota.manage.setLimit' | translate}}</button>
+
+            </mat-menu>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="platformCredit?.length> pageSize && searchdata==''" style="width: 100%">
+    <mat-paginator [length]="platformCredit?.length" [pageSize]="pageSize" [pageIndex]="initPage" showFirstLastButtons
+      (page)="getData($event)">
+    </mat-paginator>
+  </div>
+
+</div>
+<div *ngIf="(platformCredit?.length==0) && !loading">
+  {{ platFormQuotaList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+</div>
+<div *ngIf="listflag && (searchdata=='' ? platformCredit?.length>0 : dataSource.filteredData.length>0)">
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="listtable">
+    <ng-container matColumnDef="availableBalance">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{'CreditManagementModule.platFormQuota.manage.availableBalance' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.availableBalance}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="creditType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{'CreditManagementModule.platFormQuota.manage.creditType' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.creditType ==1 ? 'Postpaid':'Prepaid'}} </mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="credits">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{'CreditManagementModule.platFormQuota.manage.currentbalance' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.credits}}</mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="expiryDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{'CreditManagementModule.platFormQuota.manage.expiryDate' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{(element.expiryDate!==null && element.expiryDate!='') ? (convertData(element.expiryDate)| date :'yyyy-MM-dd'): element.expiryDate}}
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions" *ngIf="_roleCode=='SA'">
+      <mat-header-cell *matHeaderCellDef class="mat-column-actions" >
+        {{'CreditManagementModule.platFormQuota.manage.actions' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" >
+        <i class="ti-pencil-alt link" 
+          matTooltip="{{'CreditManagementModule.departmentquota.manage.setLimit' | translate}}"
+          (click)="setLimit(element)"></i>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div  *ngIf="platformCredit.length>pageSize && searchdata==''" style="width:
+    100%">
+    <mat-paginator #paginator [length]="platformCredit.length" [pageSize]="pageSize" [pageIndex]="listPage"
+      showFirstLastButtons (page)="getListData($event)">
+    </mat-paginator>
+  </div>
+
+</div>
+<div *ngIf="listflag && (searchdata=='' ? platformCredit?.length==0 : dataSource.filteredData?.length==0)">
+  {{ platformCredit?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

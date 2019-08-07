@@ -1,0 +1,104 @@
+<mat-card>
+  <form [formGroup]="servicesForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <div fxLayout="row wrap">
+        <h4>
+          {{data ? ('ServiceManagementModule.createservice.editservice' | translate):('ServiceManagementModule.createservice.Service' | translate)}}
+        </h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+
+          <div class="example-container">
+
+            <!-- <mat-form-field class="full-width">
+              <input matInput autofocus placeholder="Service Name" formControlName="serviceName" minlength="5"
+                maxlength="20" allow-alpha-numeric-singlespace cdkFocusInitial required (change)="ServiceNameChange()">
+              <mat-error *ngIf="servicesForm.controls.serviceName.errors?.required">Service name is required</mat-error>
+              <mat-error *ngIf="servicesForm.controls.serviceName.errors?.minlength">Enter minimum of 5 characters
+              </mat-error>
+            </mat-form-field> -->
+<div class="w100">
+            <mat-form-field class="w95">
+              <input matInput autofocus placeholder="{{'ServiceManagementModule.createservice.Servicename' | translate}}" formControlName="serviceName" minlength="5"
+                maxlength="20" allow-alpha-numeric-singlespace cdkFocusInitial required (change)="ServiceNameChange()"
+                (change)="!servicesForm.controls.serviceName.errors?.required && servicesForm.controls.serviceName.valid ?
+                servicesForm.get('validateServiceName').setValue(servicesForm.value.serviceName): servicesForm.get('validateServiceName').setValue(null)">
+              <mat-error *ngIf="servicesForm.controls.serviceName.errors?.required">{{'ServiceManagementModule.createservice.errormsgservice' | translate}}</mat-error>
+              <mat-error *ngIf="servicesForm.controls.serviceName.errors?.minlength">{{'ServiceManagementModule.createservice.errorlength' | translate}}
+              </mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="!servicesForm.controls.validateServiceName.errors?.required &&
+            !servicesForm.controls.serviceName.errors?.required && !servicesForm.controls.validateServiceName.errors?.invalid
+            " style="display: inline;"><i class=" ti-check text-success"></i></mat-error>
+            <mat-error *ngIf="servicesForm.controls.validateServiceName.errors?.invalid"><i class="ti-close
+                text-danger">
+                <small style="font-family: Arial, Helvetica, sans-serif;">{{'ServiceManagementModule.createservice.nameexists' | translate}}</small>
+              </i></mat-error>
+            </div>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="{{'ServiceManagementModule.createservice.Category' | translate}}" formControlName="categoryId"
+                (selectionChange)="selectCategory($event.value,true)" required
+                [disabled]="data ? true :(servicesForm.controls.serviceName.errors?.required || servicesForm.controls.serviceName.errors?.minlength ? true : false)">
+                <!-- <mat-option value="0">--Select--</mat-option> -->
+                <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category?.categoryCode}}({{category?.categoryDesc}})
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="servicesForm.controls.categoryId.errors?.required">{{'ServiceManagementModule.createservice.errormsgcatgry' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="{{'ServiceManagementModule.createservice.Priority' | translate}}" formControlName="priorityId" (selectionChange)="selectPriority()"
+                required [disabled]="data">
+                <!-- <option value="0">--Select--</option> -->
+                <mat-option *ngFor="let priority of priorities" [value]="priority.priorityId">{{priority.priorityName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="servicesForm.controls.priorityId.errors?.required">{{'ServiceManagementModule.createservice.errormsgpriority' | translate}}</mat-error>
+            </mat-form-field>
+            <!-- [readonly]="action=='Edit'" -->
+            <!-- <mat-form-field class="full-width"> -->
+            <input type="hidden" formControlName="serviceCode" minlength="5" maxlength="50"
+              allow-alpha-numeric-singlespace required [readonly]="true">
+            <!-- <mat-error *ngIf="servicesForm.controls.serviceCode.errors?.required">Service Code is required</mat-error>
+              <mat-error *ngIf="servicesForm.controls.serviceName.errors?.minlength">Enter minimum of 5 characters
+              </mat-error> -->
+            <!-- <mat-error *ngIf="servicesForm.controls.serviceName.errors?.maxlength">Enter maximum of 10 characters</mat-error> -->
+            <!-- </mat-form-field> -->
+
+            <!-- <mat-form-field class="full-width">
+              <textarea matInput placeholder="Message Template English *" formControlName="msgTempEng" rows="3"></textarea>
+              <mat-error *ngIf="servicesForm.controls.msgTempEng.errors?.required">Template is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <textarea matInput placeholder="Message Template Arabic *" formControlName="msgTempArb" rows="3"></textarea>
+              <mat-error *ngIf="servicesForm.controls.msgTempArb.errors?.required">Template is required</mat-error>
+            </mat-form-field>
+
+                <p>Status</p>
+                <mat-slide-toggle [checked]="useStatus" color="primary" formControlName="status">{{servicesForm.value.status ? 'Active' : 'Passive'}}</mat-slide-toggle> -->
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="toast-top-right">
+      <div style="margin-left: 12px;">
+        <button mat-raised-button class="submitbutton" type="submit" [disabled]="!servicesForm.valid || loading"
+        actionClick (debounceClick)="createService()">{{data ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

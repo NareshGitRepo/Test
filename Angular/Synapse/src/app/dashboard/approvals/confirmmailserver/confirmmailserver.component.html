@@ -1,0 +1,81 @@
+<mat-card>
+  <form [formGroup]="mailserverform">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <h4>{{'ApprovalModule.mailserver.title' | translate }}</h4>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+
+          <div class="example-container">
+            <table class="table table-bordered">
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.name' | translate }}</strong></td>
+                <td>{{ApprovalsList?.emailServerName}}</td>
+              </tr>
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.emailFromId' | translate }}</strong></td>
+                <td>{{ApprovalsList?.emailFromId}}</td>
+              </tr>
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.serverIp' | translate }}</strong></td>
+                <td>{{ApprovalsList?.serverIp}}</td>
+              </tr>
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.port' | translate }}</strong></td>
+                <td>{{ApprovalsList?.serverPort}}</td>
+              </tr>
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.emailBoxType' | translate }}</strong></td>
+                <td>{{ApprovalsList?.emailBoxType == 3?"SMTP,POP3":(ApprovalsList?.emailBoxType == 2?"POP3":"SMTP")}}
+                </td>
+              </tr>
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.ssltls' | translate }}</strong></td>
+                <td>{{ApprovalsList?.emailSsl == 0?"false":"true"}}</td>
+              </tr>
+              <tr>
+                <td class="heading"><strong>{{'ApprovalModule.mailserver.checkInterval' | translate }}</strong></td>
+                <td>{{ApprovalsList?.checkInterval}} Seconds</td>
+              </tr>
+              <!-- <tr>
+    <td class="heading"><strong>Created By</strong></td>
+    <td>Super Admin</td>
+  </tr>
+  <tr>
+    <td class="heading"><strong>Created On</strong></td>
+    <td>Apr 25, 2019 07:00 pm</td>
+  </tr> -->
+            </table>
+
+            <div fxLayout="row wrap" class="checkerbuttons">
+              <div fxFlex="25">
+                <div class="card-avatar" style="width:50px; margin-bottom: 10px; margin-left: 15px">
+                  <img src="assets/images/success.svg" />
+                </div>
+                <button mat-raised-button type="button" class="green-button" [disabled]="loading"
+                actionClick (debounceClick)="approveMailServer()">{{'ActionNames.approve' | translate }}</button>
+              </div>
+              <div fxFlex="75">
+                <mat-form-field class="full-width">
+                  <textarea matInput placeholder="Reason for Reject *" formControlName="rejectReason"></textarea>
+                  <mat-error *ngIf="mailserverform.controls.rejectReason.errors?.required ">
+                    {{'ApprovalModule.rejectReasonReq' | translate }} </mat-error>
+                </mat-form-field>
+                <button mat-raised-button type="submit" class="red-button" actionClick (debounceClick)="rejectMailServer()"
+                  [disabled]="!mailserverform.valid || loading">{{'ActionNames.reject' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

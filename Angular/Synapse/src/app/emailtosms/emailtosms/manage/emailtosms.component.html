@@ -1,0 +1,170 @@
+<mat-card>
+  <mat-card-content>
+    <!-- <mat-tab-group [selectedIndex]="selectedTab" #matgroup (selectedTabChange)="onTabChange($event)" class="itemstabs"> -->
+    <!-- <mat-tab label="Alert Manager"> -->
+    <div fxLayout="row wrap">
+      <div fxFlex="60">
+        <button mat-raised-button class="addbutton" (click)="addEmailtoSms()"
+          style="margin-left: 5px; margin-bottom: 8px;">
+          <i class="ti-plus"></i>&nbsp;{{'emailToSmsModule.addEmailtoSMS'| translate}}</button>
+      </div>
+
+      <div fxFlex="40" class="search-align pad-rgt">
+        <div fxFlex="100">
+          <mat-form-field>
+            <input matInput [(ngModel)]="searchdata" (keyup)="searchchange()"
+              placeholder="{{'ActionNames.search' | translate}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="100" *ngIf="searchdata=='' ? true :(pagedemailtosms | EmailtoSmsfilter : emailToSmsList : searchdata)
+        as result" class="smartdir">
+        <div fxFlex.gt-sm="40" *ngIf="(result?.length==0 || emailToSmsList?.length==0)&& !loading"
+          class="pointer example-container mat-elevation-z8 no-shadow bord-all">
+          {{ emailToSmsList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+        </div>
+        <div fxFlex.gt-sm="40" id="mtcampaignact" fxFlex.gt-xs="40" fxFlex="100" class="cmpn-left">
+          <perfect-scrollbar style="height:56vh;">
+            <div  style="padding-right: 8px;">
+              <mat-card class="pointer example-container mat-elevation-z8 no-shadow bord-all"
+                *ngFor="let item of pagedemailtosms | EmailtoSmsfilter : emailToSmsList : searchdata ; first as isFirst;"
+                [class.pbActive]="item?.email2smsId==selectedemailtosmsList?.email2smsId ? true :false">
+                <mat-selection-list>
+                  <mat-card-content (click)="activeEmailtosms(item)">
+                    <div fxFlex="10">
+                      <ngx-avatar class="card-avatar" size="28" name="{{item.name}}"></ngx-avatar>
+                    </div>
+                    <div fxFlex="90">
+                      <div class="grp-title">&nbsp;{{item.name}}</div>
+                    </div>
+                    <div class="Umore-btn" fxFlex="10">
+                      <button mat-icon-button [matMenuTriggerFor]="UcardEdit" class="pull-right"><i
+                          class="ti-more-alt"></i></button>
+                      <mat-menu #UcardEdit="matMenu">
+                        <button mat-menu-item (click)="emailToSmsDetails(selectedemailtosmsList)"><i
+                            class="ti-info-alt"></i> {{'ActionNames.details' | translate}}</button>
+                      </mat-menu>
+                    </div>
+                  </mat-card-content>
+                </mat-selection-list>
+              </mat-card>
+            </div>
+          </perfect-scrollbar>
+          <div *ngIf="emailToSmsList?.length >pageSize && searchdata==''">
+            <mat-card class="example-container mat-elevation-z8 no-shadow bord-all">
+              <mat-card-content class="text-right">
+                <mat-paginator [length]="emailToSmsList?.length" [pageSize]="pageSize" [pageIndex]="initPage"
+                  (page)="getData($event)">
+                </mat-paginator>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <!-- </div> -->
+
+        <div fxFlex.gt-sm="60" fxFlex.gt-xs="60" fxFlex="100" class="cmpn-right" *ngIf="selectedemailtosmsList">
+          <div fxLayout="row wrap" style="padding: 0 8px;">
+            <div fxFlex="100">
+              <h3 class="wraptext"><strong>{{'emailToSmsModule.emailToSMSName'| translate}} :</strong> {{selectedemailtosmsList?.name}}
+              </h3>
+            </div>
+            <!-- <div fxFlex="50" class="text-right" (click)="deleteDialog1(user)">
+        <button mat-raised-button color="warn" class="btn-sm">Abort All</button>
+      </div> -->
+          </div>
+
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-xs="50" fxFlex="100">
+              <div fxLayout="row wrap">
+                <div fxFlex="100">
+                  <mat-card class="no-shadow bord-all">
+                    <mat-card-title class="camptype">
+                      <a *ngIf="selectedemailtosmsList?.status==1"
+                        (click)="updateStatusemailtosms(selectedemailtosmsList,2)"> {{'ActionNames.start' | translate}}
+                      </a>
+                      <a *ngIf="selectedemailtosmsList?.status==2"
+                        (click)="updateStatusemailtosms(selectedemailtosmsList,1)"> {{'ActionNames.stop' | translate}}
+                      </a>
+                      <span class="status"><strong>{{'ActionNames.status' | translate}}: </strong><span
+                          class="text-success">{{statusdata[selectedemailtosmsList?.status+'']}}</span></span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <!-- <small class="text-center campaigndttime">04/23/2019</small> -->
+                      <!-- <small class="messagetext" title="{{selectedemailtosmsList?.message}}" [ngClass]=" _arabic.test(selectedemailtosmsList?.message) ? {arabic : true} : {english : true}">
+                          {{selectedemailtosmsList?.message | truncate : 100 : '...' }}</small> -->
+                      <!-- <small class="messagetext">{{selectedemailtosmsList?.message}}</small> -->
+                      <div class="messagedetails">
+                        <table>
+                          <tr>
+                            <td style="width:48%">
+                              <strong>{{'emailToSmsModule.mailServerName'| translate}}</strong>
+                            </td>
+                            <td>
+                              {{selectedemailtosmsList?.emailServer?.emailServerName}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width:48%">
+                              <strong>{{'emailToSmsModule.senderInfo'| translate}}</strong>
+                            </td>
+                            <td>
+                              {{selectedemailtosmsList.senderInfo?.senderName}}
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td style="width:48%">
+                              <strong>{{'emailToSmsModule.whiteListType'| translate}}</strong>
+                            </td>
+                            <td>
+
+                              {{selectedemailtosmsList?.whitelistType== 1? "Emails" : "Domains"}}
+                            </td>
+                          </tr>
+                          <!-- <tr>
+                              <td>
+                                <strong>{{'Alert Manager.scheduleTime' | translate}}</strong>
+                              </td>
+                              <td>
+                                {{selectedemailtosmsList?.intervalValue}} {{selectedemailtosmsList?.intervalType.intervalName}}
+                              </td>
+                            </tr> -->
+                        </table>
+                      </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <div fxLayout="row wrap" class="actions">
+                        <button mat-raised-button color="green" *ngIf="selectedemailtosmsList?.status==0"
+                          (click)="updateStatusemailtosms(selectedemailtosmsList,1)">
+                          <i class="ti-check"></i>&nbsp; {{'ActionNames.active' | translate}}</button>
+                        <button mat-raised-button color="warn" *ngIf="selectedemailtosmsList?.status==1"
+                          (click)="updateStatusemailtosms(selectedemailtosmsList,0)">
+                          <i class="ti-na"></i>&nbsp; {{'ActionNames.deActive' | translate}}</button>
+                        <!-- <button mat-raised-button color="warn" (click)="deleteAlert(selectedemailtosmsList)">
+                            <i class="ti-na"></i>&nbsp; Abort Alert</button> -->
+                        <button mat-raised-button color="accent" *ngIf="selectedemailtosmsList?.status==1"
+                          (click)="editEmailtoSms(selectedemailtosmsList)">
+                          <i class="ti-pencil-alt"></i> {{'ActionNames.edit'| translate}}</button>
+                      </div>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </mat-tab> -->
+    <!-- <mat-tab label="Profile Manager" *ngIf="profilemanageFlag">
+        <app-profilemanage></app-profilemanage>
+      </mat-tab> -->
+    <!-- </mat-tab-group> -->
+  </mat-card-content>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

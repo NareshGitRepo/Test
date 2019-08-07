@@ -1,0 +1,210 @@
+<div id="page-title">
+  <h2>{{'AppointmentsModule.manage.title' | translate}}</h2>
+  </div>
+  <form [formGroup]="appointmentForm">
+      <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="13" fxFlex="100">
+        <mat-form-field class="w100 pad-rgt">
+          <mat-select placeholder="{{'AppointmentsModule.manage.selectFloor' | translate}}" formControlName="floor" (selectionChange)="loadDepartments($event.value)"  multiple>
+            <mat-option #allFloorSelected [value]="0" (click)="toggleAllSelection('floor')" *ngIf="levellist.length>0">{{'AppointmentsModule.manage.allFloors' | translate}}</mat-option>
+            <mat-option [value]="floor.floorId" *ngFor="let floor of levellist" (click)="togglePerOne('floor')">{{floor.floorName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex.gt-sm="13" fxFlex="100">
+        <mat-form-field class="w100 pad-rgt" >
+          <mat-select placeholder="{{'AppointmentsModule.manage.selectDepartment' | translate}}" formControlName="department" (selectionChange)="loadServices($event.value)" multiple required>
+              <mat-option #allDeptSelected [value]="0" (click)="toggleAllSelection('department')" *ngIf="filterFloorGroup.length>0">{{'AppointmentsModule.manage.allDeptartments' | translate}}</mat-option>
+          <mat-optgroup *ngFor="let floor of filterFloorGroup" [label]="floor.floorName">
+
+            <mat-option [value]="dept" *ngFor="let dept of floor.departments" (click)="togglePerOne('department')">{{dept.deptName}}</mat-option>
+          </mat-optgroup>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="13" fxFlex="100">
+          <mat-form-field class="w100 pad-rgt">
+              <mat-select placeholder="{{'AppointmentsModule.manage.selectService' | translate}}" formControlName="service" multiple required>
+                <mat-option #allServiceSelected [value]="0" (click)="toggleAllSelection('service')" *ngIf="filterDeptGroup.length>0">{{'AppointmentsModule.manage.allServices' | translate}}</mat-option>
+                <mat-optgroup *ngFor="let dept of filterDeptGroup" [label]="dept.deptName">
+                  <mat-option [value]="service.serviceId" *ngFor="let service of dept.services" (click)="togglePerOne('service')">{{service.serviceEngName}}</mat-option>
+                  </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="13" fxFlex="100">
+        <mat-form-field class="w100 pad-rgt">
+          <mat-select placeholder="{{'AppointmentsModule.manage.selectPeriod' | translate}}" formControlName="selectValue" (selectionChange)="selectPeriod($event.value)" required>
+            <mat-option [value]="period.key" *ngFor="let period of selPeriods | keyvalue">{{period.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex.gt-sm="13" fxFlex="100" *ngIf="year">
+
+               <mat-form-field class="w100 pad-rgt" >
+                <mat-select placeholder="{{'AppointmentsModule.manage.selectYear' | translate}}" formControlName="year" (selectionChange)="selectedYear()" required>
+                  <mat-option [value]="year" *ngFor="let year of years">{{year}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+      </div>
+
+      <div fxFlex.gt-sm="13" fxFlex="100" *ngIf="Quarter">
+
+                  <mat-form-field class="w100 pad-rgt">
+                      <mat-select placeholder="{{'AppointmentsModule.manage.selectQuarter' | translate}}" formControlName="quarters" required>
+                          <mat-option value="1">1st</mat-option>
+                        <mat-option value="2">2nd</mat-option>
+                        <mat-option value="3">3rd</mat-option>
+                        <mat-option value="4">4th</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+      </div>
+
+      <div fxFlex.gt-sm="13" fxFlex="100" *ngIf="month">
+          <mat-form-field  class="w100 pad-rgt" >
+             <mat-select placeholder="{{'AppointmentsModule.manage.selectMonth' | translate}}" formControlName="month" (selectionChange)="selectedMonth()" required>
+                  <mat-option [value]="month.monthId" *ngFor="let month of months">{{month.monthName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+    <mat-error *ngIf=""></mat-error>
+
+      </div>
+
+      <div fxFlex.gt-sm="13" fxFlex="100" *ngIf="week">
+
+                  <mat-form-field class="w100 pad-rgt">
+                      <mat-select placeholder="{{'AppointmentsModule.manage.selectWeek' | translate}}" formControlName="weeks" required>
+                        <mat-option [value]="week" *ngFor="let week of weeks; let i=index ">{{weekData[i]}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+      </div>
+
+      <div fxFlex.gt-sm="30" fxFlex="100"  *ngIf="Date">
+          <div fxLayout="row wrap">
+            <div fxFlex="50">
+               <mat-form-field  class="w100 pad-rgt">
+            <input matInput [matDatepicker]="picker6" formControlName="fromDate" placeholder="{{'AppointmentsModule.manage.from' | translate}}"
+            [min]="startDate" [max]="appointmentForm.value.toDate ? appointmentForm.value.toDate : endDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+            <mat-datepicker #picker6></mat-datepicker>
+          </mat-form-field>
+            </div>
+            <div fxFlex="50">
+                <mat-form-field  class="w100 pad-rgt">
+                    <input matInput [matDatepicker]="picker7" formControlName="toDate" placeholder="{{'AppointmentsModule.manage.to' | translate}}"
+                    [min]="appointmentForm.value.fromDate ? appointmentForm.value.fromDate : startDate"
+                    [max]="endDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                    <mat-datepicker #picker7></mat-datepicker>
+                  </mat-form-field>
+            </div>
+
+      </div>
+
+
+      </div>
+
+      <div fxFlex.gt-sm="25" fxFlex="100">
+        <button mat-raised-button color="primary" (click)="getReports()" [disabled]="appointmentForm.invalid">{{'ActionNames.submit' | translate}}</button> &nbsp;
+        <button  mat-raised-button type="reset" (click)="clearAllFields()">{{'ActionNames.clear' | translate}}</button>
+      </div>
+
+      <div fxFlex.gt-sm="13" fxFlex="100">
+      <div class="clearfix mar-btm">
+        <div class="pull-left">
+          <button class="btn pull-right btn-yellow" [matMenuTriggerFor]="SearchGrid"
+          *ngIf="reportsList.length>0  && false">{{'AppointmentsModule.manage.export' | translate}}
+            <i class="ti-angle-down"></i>
+          </button> &nbsp;
+          <mat-menu #SearchGrid="matMenu">
+
+            <button mat-menu-item (click)="ExportTOExcel()">
+              <i class="ti-file"></i> {{'AppointmentsModule.manage.excel' | translate}}</button>
+            <button mat-menu-item (click)="ExportTOCsv()">
+              <i class="ti-file"></i> {{'AppointmentsModule.manage.csv' | translate}}</button>
+          </mat-menu>
+        </div>
+
+      </div></div>
+      </div>
+    </form>
+
+<br>
+<div class="mat-elevation-z8" *ngIf="reportsList.length>0">
+<h4 class="title pad-lft pad-top">{{'AppointmentsModule.manage.from' | translate}}: {{fromDate}} {{'AppointmentsModule.manage.to' | translate}}: {{toDate}}</h4>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()">
+          <ng-container matColumnDef="serviceName">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.service' | translate}} </th>
+            <td mat-cell *matCellDef="let element" class="pad-all"> {{element.serviceName}} </td>
+          </ng-container>
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="totalAppt">
+              <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.appointmentsBooked' | translate}}</th>
+              <td mat-cell *matCellDef="let element" class="pad-all"> {{element.totalAppt}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="patientsArrived">
+              <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.patientsArrived' | translate}} </th>
+              <td mat-cell *matCellDef="let element" class="pad-all"> {{element.patientsArrived}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="arrivedEarly">
+              <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.patientsArrivedEarly' | translate}}</th>
+              <td mat-cell *matCellDef="let element" class="pad-all"> {{element.arrivedEarly}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="arrivedLate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.patientsArrivedLate' | translate}}</th>
+              <td mat-cell *matCellDef="let element" class="pad-all"> {{element.arrivedLate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="avgServedTime">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.avgServeTime' | translate}} </th>
+                <td mat-cell *matCellDef="let element" class="pad-all"> {{element.avgServedTime | dformatTime }} <small>(hh:mm)</small> </td>
+              </ng-container>
+
+              <ng-container matColumnDef="avgWaitingTime">
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.avgWaitingTime' | translate}} </th>
+                  <td mat-cell *matCellDef="let element" class="pad-all"> {{element.avgWaitingTime | dformatTime }} <small>(hh:mm)</small> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="noshowCount">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.noShow' | translate}} </th>
+                  <td mat-cell *matCellDef="let element"  class="pad-all"> {{element.noshowCount}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalVisit">
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.totalVisit' | translate}} </th>
+                  <td mat-cell *matCellDef="let element" class="pad-all"> {{element.totalVisit}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalCalled">
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="pad-all"> {{'AppointmentsModule.manage.totalCalled' | translate}}</th>
+                  <td mat-cell *matCellDef="let element" class="pad-all"> {{element.totalCalled}} </td>
+                </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <div *ngIf="reportsList.length > pageSize" style="width: 100%">
+            <mat-paginator [length]="reportsList.length" [pageSize]="pageSize" [pageIndex]="listPage" showFirstLastButtons
+              (page)="getListData($event)">
+            </mat-paginator>
+          </div>
+        </div><div *ngIf="gridLoad"><span>{{'AppointmentsModule.manage.noData' | translate}}</span></div>
+        <div class="fullloader" *ngIf="loading">
+          <div class="fullloaderInner">
+            <img src="assets/images/loading.gif">
+          </div>
+        </div>

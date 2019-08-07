@@ -1,0 +1,107 @@
+[
+    {
+        "id": "AE",
+        "name": "United Arab Emirates",
+        "timezones": [
+            "Asia/Dubai"
+        ]
+    },{
+        "id": "BH",
+        "name": "Bahrain",
+        "timezones": [
+            "Asia/Qatar"
+        ]
+    }, {
+        "id": "CA",
+        "name": "Canada",
+        "timezones": [
+            "America/St_Johns",
+            "America/Halifax",
+            "America/Glace_Bay",
+            "America/Moncton",
+            "America/Goose_Bay",
+            "America/Blanc-Sablon",
+            "America/Toronto",
+            "America/Nipigon",
+            "America/Thunder_Bay",
+            "America/Iqaluit",
+            "America/Pangnirtung",
+            "America/Resolute",
+            "America/Atikokan",
+            "America/Rankin_Inlet",
+            "America/Winnipeg",
+            "America/Rainy_River",
+            "America/Regina",
+            "America/Swift_Current",
+            "America/Edmonton",
+            "America/Cambridge_Bay",
+            "America/Yellowknife",
+            "America/Inuvik",
+            "America/Creston",
+            "America/Dawson_Creek",
+            "America/Fort_Nelson",
+            "America/Vancouver",
+            "America/Whitehorse",
+            "America/Dawson"
+        ]
+    }, {
+        "id": "IN",
+        "name": "India",
+        "timezones": [
+            "Asia/Calcutta"
+        ]
+    },{
+        "id": "OM",
+        "name": "Oman",
+        "timezones": [
+            "Asia/Dubai"
+        ]
+    }, {
+        "id": "QA",
+        "name": "Qatar",
+        "timezones": [
+            "Asia/Qatar"
+        ]
+    }, {
+        "id": "SA",
+        "name": "Saudi Arabia",
+        "timezones": [
+            "Asia/Riyadh"
+        ]
+    },{
+        "id": "US",
+        "name": "United States",
+        "timezones": [
+            "America/New_York",
+            "America/Detroit",
+            "America/Kentucky/Louisville",
+            "America/Kentucky/Monticello",
+            "America/Indiana/Indianapolis",
+            "America/Indiana/Vincennes",
+            "America/Indiana/Winamac",
+            "America/Indiana/Marengo",
+            "America/Indiana/Petersburg",
+            "America/Indiana/Vevay",
+            "America/Chicago",
+            "America/Indiana/Tell_City",
+            "America/Indiana/Knox",
+            "America/Menominee",
+            "America/North_Dakota/Center",
+            "America/North_Dakota/New_Salem",
+            "America/North_Dakota/Beulah",
+            "America/Denver",
+            "America/Boise",
+            "America/Phoenix",
+            "America/Los_Angeles",
+            "America/Metlakatla",
+            "America/Anchorage",
+            "America/Juneau",
+            "America/Sitka",
+            "America/Yakutat",
+            "America/Nome",
+            "America/Adak",
+            "Pacific/Honolulu"
+        ]
+    }
+    
+]

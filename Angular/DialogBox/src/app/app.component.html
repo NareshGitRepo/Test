@@ -1,0 +1,41 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<button mat-raised-button color="primary" (click)="DialogWithTemplateRef(active)">Activate</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button mat-raised-button color="warn" (click)="DialogWithoutRef()">DeActivate</button>
+
+<ng-template #active>
+  <mat-dialog-content>
+    <p translate>Do You Want to translate It </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose (click)="switchLanguage('hn')" color="primary"><i class="material-icons">done</i>Hindi</button>
+    <button mat-button matDialogClose (click)="switchLanguage('tlg')" color="accent"><i class="material-icons">done</i>Telugu</button>
+    <button mat-button matDialogClose (click)="switchLanguage('arb')" color="accent"><i class="material-icons">done</i>Arabic</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #Reference>
+    <mat-dialog-content>
+      <p>Do You Want to Activate It</p>
+      <mat-slide-toggle>I'm a slide toggle!</mat-slide-toggle>  &nbsp;
+      <mat-checkbox>I'm a checkbox!</mat-checkbox>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button matDialogClose color="primary"><i class="material-icons">done</i>YES</button>
+        <button mat-button matDialogClose color="warn"><i class="material-icons">clear</i>NO</button>
+    </mat-dialog-actions>
+  </ng-template>
+
+  <div class="example-button-row">
+    <button mat-button color="warn"  (click)="switchLanguage('en')">English</button>
+    <button mat-button color="accent" (click)="switchLanguage('hn')">Hindi</button>
+    <button mat-button color="primary" (click)="switchLanguage('tlg')">Telugu</button>
+    <button mat-button color="primary" (click)="switchLanguage('arb')">Arabic</button>
+  </div> <br>
+  
+  <b translate>Name</b>&nbsp;<sub translate>Job</sub>
+  <div>
+   {{ 'Name' | translate }}
+   {{ 'Job' | translate }}
+  </div>
+
+<router-outlet></router-outlet>   

@@ -1,0 +1,52 @@
+<mat-card style="box-shadow: none;">
+    <form>
+        <mat-card-header>
+
+            <h4>{{'CreditManagementModule.userQuota.details.uQD' | translate}}</h4>
+            <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+                    class="ti-close"></i></button>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div fxLayout="row wrap" class="clearfix pad-top">
+                <div fxFlex>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>{{'CreditManagementModule.userQuota.details.userName' | translate}}</strong> </div>
+                    <div class="bord-all pad-all-sm"> {{userQuotaDetails?.login}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top">
+                <div fxFlex *ngIf="userQuotaDetails?.creditType?.creditName != null">
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>{{'CreditManagementModule.departmentquota.setLimit.accountType' | translate}}</strong>
+                    </div>
+                    <div class="bord-all pad-all-sm"> {{userQuotaDetails?.creditType?.creditName}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top" *ngIf="userQuotaDetails?.creditType?.creditCode =='PEP'">
+                <div fxFlex *ngIf="userQuotaDetails?.userCredit?.availableCredit != null">
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>{{'CreditManagementModule.departmentquota.setLimit.availableBalance' | translate}}</strong>
+                    </div>
+                    <div class="bord-all pad-all-sm"> {{userQuotaDetails?.userCredit?.availableCredit}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top" *ngIf="userQuotaDetails.creditType?.creditCode =='POP'">
+                <!-- <div fxFlex>
+                  <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Department Threshold Limit</strong> </div> 
+                  <div class="bord-all pad-all-sm"> {{userQuotaDetails?.departmentThresholdLimit}}</div>
+              </div> -->
+
+                <div fxFlex *ngIf="userQuotaDetails?.userCredit?.thresoldLimit != null">
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>{{'CreditManagementModule.departmentquota.setLimit.currentThreshold' | translate}}
+                        </strong> </div>
+                    <div class="bord-all pad-all-sm"> {{userQuotaDetails?.userCredit?.thresoldLimit}}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </form>
+</mat-card>

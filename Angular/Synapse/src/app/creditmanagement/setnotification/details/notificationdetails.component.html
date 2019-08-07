@@ -1,0 +1,116 @@
+<mat-card style="box-shadow: none;">
+  <form>
+    <mat-card-header>
+
+      <h4>{{'CreditManagementModule.setNotification.details.setAlertDetails' | translate}}</h4>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;">
+        <i class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+             <strong>{{'CreditManagementModule.setNotification.details.alertsName' | translate}}</strong> 
+          </div>
+          <div class="bord-all pad-all-sm"> {{data.alertsName}}</div>
+        </div>
+      </div>
+
+      <!-- <div fxLayout="row wrap" class="clearfix pad-top">
+      <div fxFlex>
+        <div class="bord-all pad-all-sm" style="background: #fafafa">
+           <strong>{{'CreditManagementModule.setNotification.details.emailId' | translate}}</strong>
+        </div>
+        <div class="bord-all pad-all-sm"> {{data.alertDetails[0].emailId}}</div>
+      </div>
+      </div> -->
+
+      <div fxLayout="row wrap" class="clearfix pad-top">
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+            <strong>{{'CreditManagementModule.setNotification.details.channels' | translate}}</strong>
+           </div>
+          <div class="bord-all pad-all-sm"> {{data.channels=='1,2'? "SMS ,EMAIL":(data.channels=='1'? "SMS":"EMAIL")}}</div>
+        </div>
+
+      </div>
+
+      <!-- <div fxLayout="row wrap" class="clearfix pad-top">
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+            <strong>{{'CreditManagementModule.setNotification.details.name' | translate}}</strong>
+           </div>
+          <div class="bord-all pad-all-sm"> {{data.alertDetails[0].name}}</div>
+        </div>
+      </div>  -->
+
+      <!-- <div fxLayout="row wrap" class="clearfix pad-top">
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+             <strong> {{'CreditManagementModule.setNotification.details.mobileNo' | translate}}</strong>
+          </div>
+          <div class="bord-all pad-all-sm"> {{data.alertDetails[0].mobileNo}}</div>
+        </div>
+      </div>  -->
+      <div fxLayout="row wrap" class="clearfix pad-top"> 
+        <div fxFlex *ngIf="data.channels=='1' || data.channels=='1,2'">
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+            <strong>{{'CreditManagementModule.setNotification.details.sender' | translate}}</strong>
+           </div>
+          <div class="bord-all pad-all-sm"> {{senderName}}</div>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> 
+            <strong>{{'CreditManagementModule.setNotification.details.creditsBelow' | translate}} </strong>
+           </div>
+          <div class="bord-all pad-all-sm"> {{data.creditsBelow}}</div>
+        </div>
+        <div fxFlex>
+            <div class="bord-all pad-all-sm" style="background: #fafafa">
+             <strong>{{'CreditManagementModule.setNotification.details.creditsMessage' | translate}}</strong> 
+           </div>
+            <div class="bord-all pad-all-sm"> {{data.creditsMessage}}</div>
+          </div>
+      </div>
+      <!-- <div fxLayout="row wrap" class="clearfix pad-top">
+          
+        </div>   -->
+        <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+            <strong>{{'CreditManagementModule.setNotification.details.expiringInDays' | translate}}</strong>
+          </div>
+          <div class="bord-all pad-all-sm"> {{data.expiringInDays}}</div>
+        </div>
+        <div fxFlex>
+            <div class="bord-all pad-all-sm" style="background: #fafafa"> 
+              <strong>{{'CreditManagementModule.setNotification.details.expiringMessage' | translate}}</strong> 
+            </div>
+           <div class="bord-all pad-all-sm"> {{data.expiringMessage}}</div>
+          </div>
+      </div>
+        <!-- <div fxLayout="row wrap" class="clearfix pad-top">  
+       
+      </div> -->
+      <div class="mar-top">
+        <label><strong>{{'CreditManagementModule.setNotification.details.destinationInfo' | translate}}:</strong></label>
+          <table class="table table-bordered">
+              <tr style="background: #fafafa">
+                  <td><strong>{{'CreditManagementModule.setNotification.details.name' | translate}}</strong></td>
+                  <td><strong>{{'CreditManagementModule.setNotification.details.emailId' | translate}}</strong></td>
+                  <td><strong>{{'CreditManagementModule.setNotification.details.mobileNo' | translate}}</strong></td>
+              </tr>
+              <tr *ngFor="let detail of data.alertDetails;let i of index">
+                  <td style="word-break: break-all; width: 45%;">{{detail?.name}} </td>
+                  <td> {{detail?.emailId}}</td>
+                  <td> {{detail?.mobileNo}}</td>
+              </tr>
+          </table>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

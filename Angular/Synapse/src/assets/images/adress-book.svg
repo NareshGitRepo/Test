@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="3.57795in" height="2.78583in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 3578 2786"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str2 {stroke:#2B2A29;stroke-width:7.87402}
+    .str1 {stroke:#2B2B2B;stroke-width:100}
+    .str3 {stroke:#5B5B5B;stroke-width:166.665}
+    .str0 {stroke:#2B2B2B;stroke-width:166.665}
+    .fil0 {fill:none}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="15816" y="119" width="7111" height="7111"/>
+   </clipPath>
+   <clipPath id="id1">
+    <rect x="7098" y="-4472" width="4880" height="3673"/>
+   </clipPath>
+   <clipPath id="id2">
+    <rect x="-2985" y="3062" width="6833" height="6819"/>
+   </clipPath>
+   <clipPath id="id3">
+    <rect x="5141" y="-5990" width="3556" height="3556"/>
+   </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <circle class="fil0 str0" cx="8486" cy="1487" r="1255"/>
+  <line class="fil0 str0" x1="10368" y1="3294" x2="9314" y2= "2430" />
+  <line class="fil0 str0" x1="7874" y1="1150" x2="9071" y2= "1150" />
+  <line class="fil0 str0" x1="7874" y1="1525" x2="9071" y2= "1525" />
+  <line class="fil0 str0" x1="7874" y1="1911" x2="8472" y2= "1911" />
+  <g style="clip-path:url(#id0)">
+   <image id="market_research-512.png" transform="matrix(1 0 0 1 14026.5 5837.38)" x="1789" y="-5718" width="7111" height="7111" xlink:href="adress-book_Images\adress-book_ImgID1.png"/>
+  </g>
+  <path class="fil0 str1" d="M13066 2516c230,-255 563,-416 933,-416l0 1256 1255 24c-13,684 -571,1231 -1255,1231 -214,0 -416,-54 -593,-148"/>
+  <path class="fil0 str1" d="M15282 3126l-1087 0 0 -1082c0,0 1057,-10 1087,1082z"/>
+  <circle class="fil0 str1" cx="9353" cy="4895" r="445"/>
+  <path class="fil0 str1" d="M12189 4590l1178 0c15,0 28,-12 28,-28l0 -875c0,-204 -167,-370 -370,-370l-494 0c-204,0 -370,167 -370,370l0 875c0,15 12,28 28,28z"/>
+  <g style="clip-path:url(#id1)">
+   <image id="group.png" transform="matrix(1 0 0 1 5308.91 -2191.59)" x="1789" y="-2280" width="4880" height="3673" xlink:href="adress-book_Images\adress-book_ImgID2.png"/>
+  </g>
+  <g style="clip-path:url(#id2)">
+   <image id="box.png" transform="matrix(1 0 0 1 -4774.43 8488.35)" x="1789" y="-5427" width="6833" height="6819" xlink:href="adress-book_Images\adress-book_ImgID3.png"/>
+  </g>
+  <polyline class="fil0 str2" points="-5048,934 -7215,1622 -7215,4872 -4902,5663 -2350,4913 "/>
+  <polyline class="fil0 str2" points="-4413,2236 -4852,2490 -4852,5652 "/>
+  <g style="clip-path:url(#id3)">
+   <image id="Address-Book-icon.png" transform="matrix(1 0 0 1 3352.28 -3827.63)" x="1789" y="-2163" width="3556" height="3556" xlink:href="adress-book_Images\adress-book_ImgID4.png"/>
+  </g>
+  <g id="_669599600">
+   <path class="fil0 str3" d="M737 239l1878 0c132,0 240,108 240,240l0 1828c0,132 -108,240 -240,240l-1878 0c-7,0 -13,-6 -13,-13l0 -2281c0,-7 6,-13 13,-13z"/>
+   <line class="fil0 str3" x1="942" y1="239" x2="942" y2= "2547" />
+   <circle class="fil0 str3" cx="1895" cy="994" r="265"/>
+   <path class="fil0 str3" d="M1890 2012l-572 0c0,-316 256,-572 572,-572 316,0 572,256 572,572 0,4 0,9 0,13l-572 -13z"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,275 @@
+<div fxLayout="row wrap">
+  
+  <div fxFlex="60">
+    <button mat-raised-button  class="addbutton" (click)="setLimit()" style="margin-left: 5px; margin-bottom: 8px;">
+      <i class="ti-ruler-alt-2"></i>&nbsp; Set Limit</button>
+  </div>
+
+  <div fxFlex="40" class="text-right pad-rgt">
+    <div fxFlex="85">
+       <a [matMenuTriggerFor]="SearchGrid"><img src="assets/images/filter-icon.png" width="12" /></a> &nbsp;
+    <mat-form-field>
+            <mat-menu #SearchGrid="matMenu">
+              <button mat-menu-item>Department</button>
+              <button mat-menu-item> User</button>
+              <button mat-menu-item>Postpaid</button>
+              <button mat-menu-item>Prepaid</button>
+            </mat-menu>      
+          <input matInput [(ngModel)]="searchdata" placeholder="Search"> 
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="15">
+    <div style="margin-top: 18px; font-size: 16px;">
+        <i class="ti-layout-grid2-alt  text-muted"  matTooltip="Grid View" (click)="loadGrid()" style="cursor: pointer;  "></i>&nbsp;
+       <i class="ti-menu text-muted"  matTooltip="List View" (click)="loadList()" style="cursor: pointer; "></i>
+      </div>
+      </div>
+  </div>
+
+</div>
+
+<div fxLayout="row wrap" *ngIf="!listflag">
+  <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let item of filterUserQuota | Userquotafilter : userQuotaList : searchdata">
+    <mat-card fxFlex class="usercard no-shadow mat-elevation-z0" [ngClass]="{'prepaidcard':item.accountType =='Prepaid','postpaidcard':item.accountType=='Postpaid'}">
+      <mat-card-content>
+        <div fxLayout="row wrap">
+          <div fxFlex="98" class="UcardLeft">
+            <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+              <div fxLayout="row wrap" class="clearfix card-top">
+                <div class="card-image">
+                  <div class="card-avatar">
+                    <img src="assets/images/customer_icon.svg"/>
+                  </div>
+                </div>
+                <div fxFlex="77">
+                  <div class="card-details">
+                    <h3>{{item.userName}}</h3>
+                    <small *ngIf="item.accountType=='Prepaid'">Department Credits : {{item.departmentCredit}}</small>
+                    <small *ngIf="item.accountType=='Prepaid'">Available Balance : {{item.availableBalance}}</small>
+                    <small *ngIf="item.accountType=='Postpaid'">Current Threshold Limit : {{item.currentThresholdLimit}}</small>
+                    <small>Type : <span class="typetext">{{item.accountType}}</span></small>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+          
+            <div class="Umore-btn">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                <button mat-menu-item (click)="updateQuotaDetails(item)"><i class="ti-pencil-alt"></i> Update Limit</button>
+                <button mat-menu-item (click)="userQuotaDetails(item)"><i class="ti-info-alt"></i> Details</button>
+              </mat-menu>
+            </div>
+          
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+    
+  </div>
+  <div *ngIf="userQuotaList.length> pageSize" style="width: 100%">
+    <mat-paginator [length]="userQuotaList.length" [pageSizeOptions]="[6, 12, 18]" showFirstLastButtons (page)="getData($event)">
+    </mat-paginator>
+  </div> 
+</div>
+
+<div *ngIf="listflag">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="listtable">
+        <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>User Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="deptName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Department</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.deptName}} </mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="platformCredits">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-actions">Platform Credits</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="mat-column-actions"> {{element.platformCredits}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="accountType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Account Type</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.accountType}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="currentThresholdLimit">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Threshold Lmt</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.currentThresholdLimit}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="departmentCredit">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Dept Credits</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.departmentCredit}} </mat-cell>
+          </ng-container>
+  
+        <ng-container matColumnDef="availableBalance">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-actions">Available Balance</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="mat-column-actions">{{element.availableBalance}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="adjustmentType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Adjustment Type</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.adjustmentType}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="expirydate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.expiryDate}}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <i class="ti-pencil-alt"  matTooltip="Update Limit" (click)="updateQuotaDetails(element)"></i>&nbsp;&nbsp;
+                <i class="ti-info-alt link"  matTooltip="Details" (click)="userQuotaDetails(element)"></i>&nbsp;&nbsp;
+            </mat-cell>
+          </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <div *ngIf="userQuotaList.length> pageSize" style="width: 100%">
+        <mat-paginator #paginator [length]="userQuotaList.length" [pageSize]="pageSize" [pageIndex]="listPage"
+        showFirstLastButtons (page)="getListData($event)">
+      </mat-paginator>
+  </div> 
+
+   </div>
+<br><br>
+   <div *ngIf="listflag">
+      <h3>Transaction History:</h3> 
+      <div fxLayout="row wrap" >
+        <div fxFlex="100" [formGroup]="historyForm">
+            <mat-form-field fxFlex="14" class="pad-rgt">
+                <input matInput [matDatepicker]="picker" placeholder="From" formControlName="fromDate"
+                  parse-format="MM/dd/yyyy" readonly (focus)="picker.open()" [min]="fromDate" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+      
+            <mat-form-field fxFlex="14"  class="pad-rgt">
+                  <input matInput [matDatepicker]="picker2" placeholder="To" formControlName="toDate" readonly
+                    (focus)="picker2.open()" required
+                    [min]="today" [max]="toDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+      
+          <mat-form-field fxFlex="14" class="pad-rgt">
+              <mat-select  placeholder="Account Type" formControlName="accountType">
+                <mat-option value="prepaid">Prepaid</mat-option>
+                <mat-option value="postpaid">Postpaid</mat-option>
+              </mat-select>
+          </mat-form-field>
+      
+          <mat-form-field fxFlex="14" class="pad-rgt">
+              <mat-select  placeholder="Adjustment Type" formControlName="adjustmentType">
+                <mat-option value="topup">Recharge</mat-option>
+                <mat-option value="rollback">Rollback</mat-option>
+              </mat-select>
+          </mat-form-field>
+    
+          <mat-form-field fxFlex="14" class="pad-rgt">
+            <input matInput placeholder="Credits From" formControlName="creditsFrom">
+          </mat-form-field>
+      
+          <mat-form-field fxFlex="14" class="pad-rgt">
+              <input matInput placeholder="Credits Upto" formControlName="creditsUpto">
+          </mat-form-field>
+    
+          <div>
+            <button mat-raised-button class="submitbutton" type="submit" >Search</button>
+          </div>  
+      </div>
+    </div>
+    
+    
+     <div>
+        <div fxLayout="row wrap" class="mar-btm">
+          <div fxFlex="60"></div>
+          <div fxFlex="40" class="search-align">
+            <span class="export">{{'ActionNames.export'|translate}}</span>
+            <button mat-icon-button><img src="assets/images/pdf.svg" width="25" height="25"></button>
+            <button mat-icon-button><img src="assets/images/excel.svg" width="25" height="25"></button>
+            <button mat-icon-button><img src="assets/images/csv.svg" width="25" height="25"></button>
+          </div>
+        </div>
+    </div>
+    
+    
+    <div>
+        <mat-table [dataSource]="historyDataSource" matSort (matSortChange)="sortData()" class="listtable">
+            
+          <ng-container matColumnDef="txnDateTime">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>TxnDateTime</mat-header-cell>
+            <mat-cell *matCellDef="let element">23/04/2019 13:56:59</mat-cell>
+          </ng-container>     
+          
+          <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>UserName</mat-header-cell>
+            <mat-cell *matCellDef="let element">User1</mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="deptName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Dept Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">IT</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="accountType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Account Type</mat-header-cell>
+            <mat-cell *matCellDef="let element">Prepaid</mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="departmentCredit">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Department Credits</mat-header-cell>
+              <mat-cell *matCellDef="let element"> 1000</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="adjustmentType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Adjustment Type</mat-header-cell>
+            <mat-cell *matCellDef="let element">Recharge</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="platformCredits">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Platform Credits</mat-header-cell>
+            <mat-cell *matCellDef="let element">10,000</mat-cell>
+          </ng-container>
+      
+      
+          <ng-container matColumnDef="availableBalance">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Available Balance</mat-header-cell>
+            <mat-cell *matCellDef="let element">550</mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="credits">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Credits</mat-header-cell>
+            <mat-cell *matCellDef="let element">2000</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="expiryDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 13/06/2019 </mat-cell>
+          </ng-container>
+      
+         
+          <mat-header-row *matHeaderRowDef="historyDisplayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: historyDisplayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+    
+    </div>
+  
+
+
+
+
+

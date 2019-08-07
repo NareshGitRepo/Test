@@ -1,0 +1,50 @@
+<mat-card>
+  <form [formGroup]="levelForm">
+    <mat-card-header>
+      <div fxLayout="row wrap" style="margin-top:5px;">
+        <h4>
+          {{ (_editLeveldata != null ?  'levelModule.levelCreate.etitle' : 'levelModule.levelCreate.title') | translate }}
+        </h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content class="pad-all2">
+      <div fxLayout="row wrap" class="mar-btm">
+
+        <div fxFlex.gt-sm="100" class="example-container mar-rgt">
+
+          <mat-form-field class="full-width">
+            <input matInput cdkFocusInitial placeholder="{{'levelModule.levelCreate.levelName' | translate }}"
+              allow-Service-English1 formControlName="levelName" maxlength="20" minlength="5" autocomplete="off"
+              required>
+            <mat-error *ngIf="levelForm.controls.levelName.errors?.required">{{ 'ActionNames.errorMessage' | translate }}
+            </mat-error>
+            <mat-error *ngIf="levelForm.get('levelName').hasError('minlength')"> {{'ActionNames.minLengthError5' | translate}}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="{{'levelModule.levelCreate.LevelArabicName' | translate }}"
+              allow-Service-Arbic1 formControlName="floorArbName" [ngClass]="{arabic: true}" maxlength="20"
+              minlength="5" autocomplete="off" required>
+            <mat-error *ngIf="levelForm.controls.floorArbName.errors?.required">{{ 'ActionNames.errorMessage' | translate }}
+            </mat-error>
+            <mat-error *ngIf="levelForm.get('floorArbName').hasError('minlength')"> {{'ActionNames.minLengthError5' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="pad-ver clearfix w100">
+          <button mat-raised-button color="primary" [disabled]="levelForm.invalid"
+            (click)="createLevel()">{{ 'ActionNames.submit' | translate }}</button>
+        </div>
+      </div>
+
+
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

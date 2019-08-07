@@ -1,0 +1,169 @@
+<div fxLayout="row wrap">
+
+  <div fxFlex="60">
+    <button mat-raised-button (click)="addSmstoEmail()" class="addbutton">
+      <img src="assets/images/add-user-button.svg" width="18" />&nbsp;
+      {{'smstoemail.create.addsmstoeamil'| translate}}</button>
+  </div>
+
+  <div fxFlex="40" class="search-align pad-rgt">
+    <div fxFlex="92">
+      <a [matMenuTriggerFor]="SearchGrid"><img src="assets/images/filter-icon.png" width="12" /></a> &nbsp;
+      <mat-form-field>
+        <mat-menu #SearchGrid="matMenu">
+          <button mat-menu-item (click)="searchFilter('1')"><i class="ti-check"></i>
+            {{'ActionNames.active' | translate}}</button>
+          <button mat-menu-item (click)="searchFilter('0')"><i class="ti-close"></i>
+            {{'ActionNames.inActive' | translate}}</button>
+          <button mat-menu-item (click)="searchFilter('')"><i class="ti-reload"></i>
+            {{'ActionNames.reset' | translate}}</button>
+        </mat-menu>
+        <input matInput [(ngModel)]="searchdata" (keyup)="applyFilter($event.target.value)"
+          placeholder="{{'ActionNames.search' | translate}}">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="8">
+      <div style="margin-top: 18px; font-size: 16px;">
+        <i *ngIf="listflag" class="ti-layout-grid2-alt  text-muted" matTooltip="{{'ActionNames.gridView' | translate}}"
+          (click)="loadGrid()" style="cursor: pointer; "></i>
+        <i *ngIf="!listflag" class="ti-menu text-muted" matTooltip="{{'ActionNames.listView' | translate}}" (click)="loadList()"
+          style="cursor: pointer;"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!listflag">
+  <div fxLayout="row wrap"
+    *ngIf="searchdata=='' ? true :(filtersmstoEmailList | SmstoEmailfilter : smstoEmailList : searchdata) as result">
+    <!-- *ngFor="let item of filtersmstoEmailList | SmstoEmailfilter : smstoEmailList : searchdata" -->
+    <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" fxFlex="100"
+      *ngFor="let item of filtersmstoEmailList | SmstoEmailfilter : smstoEmailList : searchdata">
+      <mat-card fxFlex class="usercard">
+        <mat-card-content>
+          <div fxLayout="row wrap">
+            <div fxFlex="98" class="UcardLeft">
+              <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+                <div fxLayout="row wrap" class="clearfix card-top">
+                  <div class="card-avatar">
+                    <div class="image-inner">
+                      <img src="assets/images/sms-to-email.svg" />
+                      <span class="status-g"  ngClass="{{item.status == 1 ? 'active' :'inactive'}}"></span>
+                    </div>
+                  </div>
+
+                  <div fxFlex="77">
+                    <div class="card-details">
+                      <span>{{item.smsToEmailName}}</span>
+
+                      <small>{{'smstoemail.create.sender'| translate}}:
+                        <strong>{{item.senderInfo.senderName}}</strong></small>
+                      <small>{{'smstoemail.create.mailserver'| translate}}:<strong>{{item.emailServer.emailServerName}}</strong></small>
+                      
+                          <small style="color:green;" *ngIf="item?.status=='-1'"><strong>
+                              {{'ActionNames.status'| translate}}:</strong><strong>{{'ActionNames.pending'| translate}}
+                            </strong></small>
+                          <small style="color:red;" *ngIf="item?.status=='-2'"><strong>
+                              {{'ActionNames.status'| translate}}:</strong><strong>{{'ActionNames.rejected'| translate}}</strong></small>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <div class=" Umore-btn">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                <button *ngIf="item?.status == '1'" mat-menu-item (click)="editSMStoEmail(item)"><i
+                    class="ti-pencil-alt"></i>{{'ActionNames.edit'| translate}}</button>
+                <button *ngIf="item?.status == '1'"
+                   mat-menu-item (click)="applyFilterStatus(item,0)"><i class="ti-close"></i>{{'ActionNames.inActive'| translate}}</button>
+                <button *ngIf="item?.status=='0'" mat-menu-item (click)="
+                applyFilterStatus(item,1)"><i class="ti-check"></i>{{'ActionNames.active'| translate}}</button>
+                <button 
+                  mat-menu-item (click)="smstoEmailDetails(item)"><i class="ti-info-alt"></i>{{'ActionNames.details'| translate}}</button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+
+    <div style="width: 100%" *ngIf="smstoEmailList.length> pageSize && searchdata==''">
+      <mat-paginator [length]="smstoEmailList.length" [pageSize]="pageSize" [pageIndex]="initPage" showFirstLastButtons
+        (page)="getData($event)">
+      </mat-paginator>
+    </div>
+    <div *ngIf="(result.length==0 || smstoEmailList?.length==0)&& !loading">
+      {{ smstoEmailList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+    </div>
+  </div>
+</div>
+<div *ngIf="listflag && (searchdata=='' ? smstoEmailList?.length>0 : dataSource.filteredData.length>0)"
+  class="example-container mat-elevation-z8 no-shadow bord-all">
+
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="full-width-table listtable">
+
+    <ng-container matColumnDef="smsToEmailName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{'smstoemail.create.name'| translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.smsToEmailName}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="emailServerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{'smstoemail.create.mailserver'| translate}}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.emailServer.emailServerName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="toEmail">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{'smstoemail.create.to'| translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.toEmail}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ccEmail">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{'smstoemail.create.cc'| translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ccEmail}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="mat-column-actions">
+        {{'ActionNames.actions'| translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-actions">
+        <span>
+          <i class="ti-info-alt link" matTooltip="{{'ActionNames.details' | translate}}"
+            (click)="smstoEmailDetails(element)"></i>
+          <i *ngIf="element.status == '1'" class="ti-pencil-alt link" matTooltip="{{'ActionNames.edit' | translate}}"
+            (click)="editSMStoEmail(element)"></i>
+          <i *ngIf="element.status == '1'" class="ti-close link" matTooltip="{{'ActionNames.inActive' | translate}}"
+            (click)="applyFilterStatus(element,0)"></i>
+          <i *ngIf="element.status == '0'" class="ti-check link" matTooltip="{{'ActionNames.active' | translate}}"
+            (click)="applyFilterStatus(element,1)"></i>
+        </span>
+
+
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div style="width: 100%" *ngIf="smstoEmailList.length>pageSize && searchdata==''">
+    <mat-paginator #paginator [length]="smstoEmailList.length" [pageSize]="pageSize" [pageIndex]="listPage"
+      showFirstLastButtons (page)="getListData($event)">
+    </mat-paginator>
+  </div>
+</div>
+<div *ngIf="listflag && (searchdata=='' ? smstoEmailList.length==0 : dataSource.filteredData.length==0)">
+  {{ smstoEmailList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

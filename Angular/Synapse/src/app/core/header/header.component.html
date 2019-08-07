@@ -1,0 +1,86 @@
+<mat-toolbar class="main-header" color="light">
+  <button (click)="toggleSidenav.emit()" mat-icon-button>
+    <!-- <mat-icon>menu</mat-icon> -->
+    <i class="ti-menu"></i>
+  </button>
+  <div class="branding">
+    <div class="logo" style="background-image: url('assets/images/s8-logo.svg')"></div>
+  </div>
+
+  <div style="flex: 1 1 0%;box-sizing: border-box;">
+    <!-- <div class="search-bar" fxFlex>
+       <form class="search-form" [ngStyle.xs]="{display: 'none'}">
+         <mat-icon>search</mat-icon>
+         <input type="text" placeholder="Search" autofocus="true" />
+       </form>
+     </div> -->
+  </div>
+
+
+  <a [matMenuTriggerFor]="language" class="ml-xs headerlink" style="font-size: 12px;">
+    {{currentLang=='en' ?('english' | translate) :('arabic' | translate)}}&nbsp;<i class="ti-angle-down"
+      style="font-size: 7px;"></i>
+  </a>&nbsp;&nbsp;
+
+  <mat-menu #language="matMenu" x-position="before">
+    <a class="headerlink"> <button mat-menu-item [disabled]="currentLang=='en'" (click)="changeLangEvent('en')">
+        {{('english' | translate)}}</button></a>
+    <a class="headerlink"> <button mat-menu-item [disabled]="currentLang=='ar'" (click)="changeLangEvent('ar')">
+        {{('arabic' | translate)}}</button>
+    </a>
+  </mat-menu>
+
+
+  <button (click)="openSmsComponent()" mat-icon-button matTooltip="{{'simpleSMS' | translate}}">
+    <!-- <mat-icon>SendSMS</mat-icon> -->
+    <!-- <i class="ti-email"></i> -->
+    <img src="assets/images/sms.svg" width="40%"/> 
+  </button> 
+  <button (click)="fullScreenToggle()" mat-icon-button>
+    <!-- <mat-icon>fullscreen</mat-icon> -->
+    <i class="ti-fullscreen"></i>
+  </button>
+
+  <!-- toggleNotificationSidenav.emit() -->
+  <button *ngIf="_tokenInfo?.checker == 1 " (click)="actionCall('/approval',false)" mat-icon-button
+    class="ml-xs overflow-visible">
+    <i class="ti-bell"></i>
+    <span class="notification-label" *ngIf="ApprovalsCount>0">{{ApprovalsCount}}</span>
+  </button>
+
+
+
+  <!-- <a [matMenuTriggerFor]="user" class="ml-xs headerlink" style="font-size: 12px;">
+    <img class="userImg" #profilepic src="assets/images/f-logo.svg"
+    title="Fujairah Municipality" />{{_firstname}} <i class="ti-angle-down" style="font-size: 7px;"></i>
+  </a> -->
+
+  <a [matMenuTriggerFor]="user" class="ml-xs headerlink" style="font-size: 12px;">
+    <span class="user-header-logo" #profilepic title="user logo"></span>{{_firstname}} <i class="ti-angle-down"
+      style="font-size: 7px;"></i>
+  </a>
+
+
+
+  <mat-menu #user="matMenu" x-position="before">
+
+    <a (click)="actionCall('/profile',false)" class="headerlink">
+      <button mat-menu-item>
+        <!-- <mat-icon>account_box</mat-icon> -->
+        <i class="ti-user"></i>
+        {{'profileName' | translate}}
+      </button></a>
+    <a (click)="actionCall('/',true)" class="headerlink">
+      <button mat-menu-item>
+        <!-- <mat-icon>exit_to_app</mat-icon> -->
+        <i class="ti-power-off"></i>
+        {{'signout' | translate}}
+      </button>
+    </a>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="head2">{{_rolename}} <div *ngIf="displayCreditFlag" class="availablecredits">
+    {{'availableCredit' | translate }} <span [ngClass]="availableCredits>0?'abovethreshold' : 'belowthreshold'">{{availableCredits}}
+     </span></div>
+</div>

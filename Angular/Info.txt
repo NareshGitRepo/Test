@@ -1,0 +1,4 @@
+Name,Job,Sal,Loc
+Naresh,UI,10000,hyd
+Anil,UI,10000,hyd
+Linga,Java,10000,hyd

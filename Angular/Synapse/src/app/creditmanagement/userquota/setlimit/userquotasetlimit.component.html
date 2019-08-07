@@ -1,0 +1,118 @@
+<mat-card>
+  <form [formGroup]="userQuotaSetlimitForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <mat-card-title style="margin-top: 8px;">
+        <span> {{this.editUserdata.login}}
+          {{'CreditManagementModule.departmentquota.setLimit.setLimit' | translate}}</span>
+      </mat-card-title>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+
+          <div class="example-container">
+
+
+
+            <!-- <mat-form-field class="full-width">
+              <mat-select placeholder="User Name" formControlName="userName" required>
+                <mat-option *ngFor="let user of userList" [value]="user">{{user.login}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="userQuotaSetlimitForm.controls.userName.errors?.required">User Name is required
+              </mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field class="full-width">
+              <input matInput
+                placeholder="{{'CreditManagementModule.departmentquota.setLimit.accountType' | translate}}"
+                formControlName="accountType" readonly required>
+            </mat-form-field>
+
+
+            <!-- <mat-form-field class="full-width" *ngIf="prepaidFlag">
+              <input matInput
+                placeholder="{{'CreditManagementModule.departmentquota.setLimit.availableBalance' | translate}}"
+                formControlName="availableBalance" maxlength="10" required readonly>
+            </mat-form-field> -->
+
+            <mat-form-field class="full-width">
+              <input matInput
+                placeholder="{{postPaidFlag ? ('CreditManagementModule.departmentquota.setLimit.currentThreshold' | translate):('CreditManagementModule.departmentquota.setLimit.currentbalance' | translate)}}"
+                formControlName="currentThresholdLimit" maxlength="10" required readonly>
+            </mat-form-field>
+
+
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="{{'CreditManagementModule.departmentquota.setLimit.adjustmentType' | translate}}"
+                formControlName="adjustmentType" required>
+                <mat-option value="topup">{{'CreditManagementModule.departmentquota.setLimit.topUp' | translate}}
+                </mat-option>
+                <mat-option value="rollback"
+                  *ngIf="editUserdata.userCredit.availableCredit>0">
+                  {{'CreditManagementModule.departmentquota.setLimit.rollback' | translate}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userQuotaSetlimitForm.controls.adjustmentType.errors?.required">
+                {{'CreditManagementModule.departmentquota.setLimit.aTIR' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput
+                placeholder="{{ ( postPaidFlag ? 'CreditManagementModule.departmentquota.setLimit.updateThreshold' : 'CreditManagementModule.departmentquota.setLimit.Credits' ) | translate}}"
+                formControlName="credits" allow-number-nospace autocomplete="off" maxlength="10" required>
+              <mat-error *ngIf="userQuotaSetlimitForm.controls.credits.errors?.required">
+                {{ ( postPaidFlag ? 'CreditManagementModule.departmentquota.setLimit.uTIR' : 'CreditManagementModule.departmentquota.setLimit.cIR' ) | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-error
+              *ngIf="prepaidFlag &&  userQuotaSetlimitForm.value.adjustmentType == 'rollback' && userQuotaSetlimitForm.value.credits > editUserdata.userCredit.availableCredit">
+              {{'CreditManagementModule.departmentquota.setLimit.aBSBGTC' | translate}}
+            </mat-error>
+
+            <mat-error
+              *ngIf="postPaidFlag && userQuotaSetlimitForm.value.adjustmentType == 'rollback' && userQuotaSetlimitForm.value.credits > editUserdata.userCredit.availableCredit">
+              {{'CreditManagementModule.departmentquota.setLimit.aTSGTUT' | translate}}
+            </mat-error>
+
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <!-- <mat-card-actions class="toast-top-right">
+      <div style="margin-left: 12px;">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!userQuotaSetlimitForm.valid"
+          (click)="addCredits()">Submit</button>
+      </div>
+    </mat-card-actions> -->
+
+    <mat-card-actions class="toast-top-right">
+      <div style="margin-left: 12px;" *ngIf="postPaidFlag">
+        <button [disabled]="!userQuotaSetlimitForm.valid || (userQuotaSetlimitForm.value.adjustmentType == 'rollback'
+           && userQuotaSetlimitForm.value.credits > editUserdata.userCredit.availableCredit) || loading"
+           actionClick (debounceClick)="addCredits()" mat-raised-button class="submitbutton">{{'ActionNames.save' | translate}}</button>
+      </div>
+
+      <div style="margin-left: 12px;" *ngIf="prepaidFlag">
+        <button [disabled]="!userQuotaSetlimitForm.valid || (userQuotaSetlimitForm.value.adjustmentType == 'rollback'
+           && userQuotaSetlimitForm.value.credits > editUserdata.userCredit.availableCredit) || loading"
+           actionClick (debounceClick)="addCredits()" mat-raised-button class="submitbutton">{{'ActionNames.save' | translate}}</button>
+      </div>
+
+    </mat-card-actions>
+
+
+  </form>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

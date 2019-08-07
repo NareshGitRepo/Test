@@ -1,0 +1,70 @@
+<mat-card class="no-shadow" style="position: relative;">
+
+  <mat-card-header class="pad-all">
+    <div class="details-heading clearfix">{{doctor?.drName}}</div>
+    <button mat-icon-button (click)="close()" style="position: absolute; right: 1%; top: 1%;">
+      <i class="ti-close"></i>
+    </button>
+  </mat-card-header>
+  <mat-card-content class="pad-all2">
+
+  <mat-table #table [dataSource]="dataSource" cdkFocusInitial style="box-shadow: none; margin:0;" class="mar-no pad-no">
+
+
+      <ng-container matColumnDef="tokenNo">
+        <mat-header-cell *matHeaderCellDef class="pad-hor">{{'DoctorServingModule.token' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor"> {{element.tokenNo}} / {{element.patientName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="mrnNo">
+        <mat-header-cell *matHeaderCellDef class="pad-hor">{{'DoctorServingModule.mrnNo' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor"> {{element.mrnNo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="apptDate">
+        <mat-header-cell *matHeaderCellDef class="pad-hor">{{'DoctorServingModule.apptDate' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor"> {{element.apptDate}} / {{element.serviceEngName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="waitingTime">
+        <mat-header-cell *matHeaderCellDef class="pad-hor">{{'DoctorServingModule.waiting' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor">{{element.checkinTime}} / {{element.waitingTime  | dformatTime}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="roomId">
+        <mat-header-cell *matHeaderCellDef class="pad-hor"> {{'DoctorServingModule.room' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor">
+          <mat-select placeholder="{{'DoctorServingModule.selectRoom' | translate}}" [(ngModel)]="element.roomId" style="width: 80%;">
+            <mat-option *ngFor="let room of rooms" [value]=room.roomId>{{room?.roomNameEn}}:{{room?.roomNumber}} </mat-option>
+          </mat-select>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="pad-hor"> {{'DoctorServingModule.actions' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="pad-hor">
+          <button class="btn btn-success"[disabled]="row.roomId == 0" (click)="serveToken(row)">{{'DoctorServingModule.serve' | translate}}</button> &nbsp;
+          <button class="btn btn-danger" (click)="endToken(row)">{{'DoctorServingModule.end' | translate}}</button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="vitalStatus">
+        <mat-header-cell *matHeaderCellDef class="pad-hor tbl-c">{{'DoctorServingModule.vital' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor tbl-c" ><i class="ti-check" *ngIf="element.vitalStatus!=0"></i></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="journey">
+        <mat-header-cell *matHeaderCellDef class="pad-hor tbl-c">{{'DoctorServingModule.journey' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="pad-hor tbl-c"><img src="assets/images/journey-icon.svg" width="60%" style="cursor: pointer;" 
+          (click)="servejourney(element)"/></mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"  style="padding-left: 8px;"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" matTooltip="{{row?.tokenStatus == 3 ? 'Last no showed at '+row?.engRoomName+' : '+row?.roomNo +' , '+ row?.noshowTime:''}}"
+      [matTooltipPosition]="'above'" [ngClass]="{'activerow': 0 == row?.tokenStatus ,'rowyellow': 3 == row?.tokenStatus ,'rowblue': 4 == row?.tokenStatus}"></mat-row>
+    </mat-table>
+
+
+  </mat-card-content>
+
+  <div class="fullloader3" *ngIf="loading">
+    <div class="fullloaderInner">
+      <img src="assets/images/loading.gif">
+    </div>
+  </div>
+
+</mat-card>

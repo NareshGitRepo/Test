@@ -1,0 +1,176 @@
+<h2 class="pageheading">{{'ReportsModule.UserReports.userReports'|translate}}</h2>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100" class="clearfix">
+    <form [formGroup]="userReportsForm">
+      <div fxLayout="row wrap" class="mar-btm selectcontainer">
+          <div fxFlex.gt-sm="33" *ngIf="_roleCode=='SA' || _roleCode=='PA'">
+          <mat-form-field class="full-width rightpad-45">
+              <mat-label>{{'ReportsModule.userType'|translate}}</mat-label>
+              <mat-select  formControlName="userType" (selectionChange)="changeUserType()" required>
+                  <mat-option value="0">{{'ReportsModule.GlobalUsers'|translate}}</mat-option>
+                  <mat-option value="1">{{'ReportsModule.DeptUsers'|translate}}</mat-option>
+              </mat-select>    
+            <!-- <mat-error *ngIf="userReportsForm.controls.userType.errors?.required">{{'ReportsModule.CampaignReports.departError'|translate}}
+            </mat-error> -->
+          </mat-form-field>
+          </div>
+
+        <div fxFlex.gt-sm="33" *ngIf="(_roleCode=='SA' || _roleCode=='PA') && userReportsForm.controls.userType.value=='1'">
+          <mat-form-field class="full-width rightpad-45" >
+            <mat-select placeholder="{{'ReportsModule.UserReports.selectDepart'|translate}}" multiple (selectionChange)="departSelected()" formControlName="department"
+              required>
+              <mat-select-trigger> 
+                  {{deptName}}
+                  <span *ngIf="(userReportsForm?.value.department)?.length>
+                    1" class="example-additional-selection">
+                    (+{{(userReportsForm?.value.department)?.length - 1}} others)
+                  </span>
+                </mat-select-trigger>
+              <mat-option *ngFor="let dept of departmentWithUsersList" [value]="dept">{{dept.deptName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="userReportsForm.controls.department.errors?.required">{{'ReportsModule.UserReports.departError'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="33" *ngIf="_roleCode!='NA'">
+          <mat-form-field class="full-width rightpad-45">
+            <mat-select placeholder="{{'ReportsModule.UserReports.selectUser'|translate}}" (selectionChange)="UserSelection()" multiple formControlName="user" required>
+                <mat-select-trigger> 
+                    {{userName ? userName : ''}}
+                    <span *ngIf="(userReportsForm?.value.user)?.length>
+                      1" class="example-additional-selection">
+                      (+{{(userReportsForm?.value.user)?.length - 1}} others)
+                    </span>
+                  </mat-select-trigger>
+              <mat-option *ngFor="let user of (userReportsForm?.value.userType=='1'? usersList: globalUsers)" [value]="user.userId">{{user?.login}}
+               
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="userReportsForm.controls.user.errors?.required">{{'ReportsModule.UserReports.userError'|translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="100">
+        <div fxFlex.gt-sm="33">
+          <mat-form-field class="full-width rightpad-45">
+            <mat-select autofocus cdkFocusInitial placeholder="{{'ReportsModule.UserReports.selectDate'|translate}}"
+              (selectionChange)="DateSelection($event.value)" formControlName="dateType" required>
+              <mat-option *ngFor="let datetype of DateType" [value]="datetype.id">
+                {{datetype.type}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="userReportsForm.controls.dateType.errors?.required">{{'ReportsModule.UserReports.dateError'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="66" *ngIf="isToday">
+          <div fxFlex.gt-sm="50">
+            <mat-form-field class="full-width rightpad-45">
+              <input matInput [matDatepicker]="picker" placeholder="{{'ActionNames.from'|translate}}" formControlName="fromDate"
+                parse-format="MM/dd/yyyy" readonly (focus)="picker.open()" [min]="fromDate" required
+                [max]="userReportsForm.value.toDate ? userReportsForm.value.toDate : toDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+              <mat-error *ngIf="userReportsForm.controls.fromDate.errors">
+                <div *ngIf="userReportsForm.controls.fromDate.errors.required">
+                  {{'ActionNames.startDate'|translate}}
+                </div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50">
+            <mat-form-field class="full-width rightpad-45">
+              <input matInput [matDatepicker]="picker2" placeholder="{{'ActionNames.to'|translate}}" required formControlName="toDate" readonly
+                (focus)="picker2.open()"
+                [min]="userReportsForm.value.fromDate ? userReportsForm.value.fromDate : fromDate" [max]="toDate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="userReportsForm.controls.toDate.errors">
+                <div *ngIf="userReportsForm.controls.toDate.errors.required">
+                  {{'ActionNames.endDate'|translate}}
+                </div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+        <div fxFlex.gt-sm="50">
+          <button mat-raised-button (click)="onSubmit()" [disabled]="userReportsForm.invalid"
+          class="submitbutton">{{'ActionNames.submit'|translate}}</button>
+        </div>
+      
+      </div>
+    </form>
+  </div>
+
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" *ngIf="userReportsList.length > 0">
+
+    <div fxLayout="row wrap" class="mar-btm">
+      <div fxFlex="60"></div>
+      <div fxFlex="40" class="search-align">
+        <span class="export">{{'ActionNames.export'|translate}} </span>
+        <button mat-icon-button (click)="ExportTOExcel()"><img src="assets/images/excel.svg" width="30"
+            height="30"></button>
+        <button mat-icon-button (click)="ExportTOCsv()"><img src="assets/images/csv.svg" width="30"
+            height="30"></button>
+            <button mat-icon-button (click)="ExportTOPdf()"><img src="assets/images/pdf.svg" width="30"
+              height="30"></button>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="example-container mat-elevation-z8 no-shadow bord-all" style="width:100%">
+        <table mat-table [dataSource]="dataSource" matSort  (matSortChange)="sortData()" class="full-width-table listtable">
+          <ng-container matColumnDef="UserName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.UserReports.userName'|translate}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.UserName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.UserReports.departname'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.Department}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.UserReports.date'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{convertData(element.Date) | date :'yyyy-MM-dd'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Sent">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.UserReports.sent'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.Sent}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Delivered">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.UserReports.delivered'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.Delivered}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="Failed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.UserReports.failed'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.Failed}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+        </table>
+        <div *ngIf="userReportsList?.length> pageSize" style="width: 100%">
+          <mat-paginator [length]="userReportsList?.length" [pageSize]="pageSize" [pageIndex]="listPage"
+            showFirstLastButtons (page)="getListData($event)">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" *ngIf="userReportsFlag && userReportsList?.length==0">
+    <span>{{'ActionNames.notFound'|translate}}</span>
+  </div>
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

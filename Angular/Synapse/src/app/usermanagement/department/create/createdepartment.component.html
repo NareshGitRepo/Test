@@ -1,0 +1,85 @@
+<mat-card>
+  <form [formGroup]="departmentsForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <div fxLayout="row wrap">
+        <h4>
+          {{_editDeptdata ? ('departmentModule.create.editTitleName' | translate) : ('departmentModule.create.title' | translate)}}
+        </h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+
+          <div class="w100">
+            <mat-form-field class="w95">
+              <input autocomplete="off" matInput autofocus placeholder="{{ 'departmentModule.deptName' | translate}}"
+                formControlName="deptName" minlength="2" required
+                (change)="!departmentsForm.controls.deptName.errors?.required && departmentsForm.controls.deptName.valid ?
+              departmentsForm.get('validateDepartmentName').setValue(departmentsForm.value.deptName): departmentsForm.get('validateDepartmentName').setValue(null)"
+                allow-alpha-numeric-singlespace cdkFocusInitial maxlength="50" required>
+              <mat-error *ngIf="departmentsForm.controls.deptName.errors?.required">
+                {{ 'departmentModule.create.deptNameRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="departmentsForm.controls.deptName.errors?.minlength">
+                {{ 'departmentModule.create.deptMinimum' | translate}}
+              </mat-error>
+
+            </mat-form-field>
+            <mat-error *ngIf="!departmentsForm.controls.validateDepartmentName.errors?.required &&
+            !departmentsForm.controls.deptName.errors?.required && !departmentsForm.controls.validateDepartmentName.errors?.invalid
+            " style="display: inline;"><i class=" ti-check text-success"></i></mat-error>
+            <mat-error *ngIf="departmentsForm.controls.validateDepartmentName.errors?.invalid"><i class="ti-close
+                text-danger">
+                <small style="font-family: Arial, Helvetica, sans-serif;">
+                  {{ 'departmentModule.create.deptNameExist' | translate}}</small>
+              </i></mat-error>
+          </div>
+          <mat-form-field style="width: 100%;">
+            <input matInput allow-all-space placeholder="{{ 'departmentModule.description' | translate}}"
+              formControlName="description" minlength="5" maxlength="100" required>
+            <mat-error *ngIf="departmentsForm.controls.description.errors?.required">
+              {{ 'departmentModule.create.descRequired' | translate}}
+            </mat-error>
+            <mat-error *ngIf="departmentsForm.controls.description.errors?.minlength">
+              {{ 'departmentModule.create.descMinimum' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%;">
+            <mat-select placeholder="{{ 'departmentModule.creditType' | translate}}" [disabled]="_editDeptdata"
+              formControlName="creditType" required>
+              <mat-option *ngFor="let type of creditTypes" [value]="type.creditTypeId">{{type.creditName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="departmentsForm.controls.creditType.errors?.required">
+              {{ 'departmentModule.create.creditRequired' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="toast-top-right">
+        <!-- <div style="margin-left: 12px;">
+            <button mat-raised-button class="submitbutton" type="submit" [disabled]="!departmentsForm.valid || loading"
+            actionClick (debounceClick)="createDepartment()">{{_editDeptdata ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+          </div> -->
+      <div style="margin-left: 12px;">
+        <button mat-raised-button class="submitbutton" type="submit" [disabled]="!departmentsForm.valid || loading"
+        actionClick (debounceClick)="createDepartment()">{{_editDeptdata ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+      </div>
+
+    </mat-card-actions>
+
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

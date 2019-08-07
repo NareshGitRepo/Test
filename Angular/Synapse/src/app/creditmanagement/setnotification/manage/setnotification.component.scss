@@ -1,0 +1,29 @@
+.usercard .card-avatar i {font-size: 24px; position: absolute; top: 12px; left: 13px}
+.mat-column-actions {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    vertical-align: top   
+  }
+
+  .mat-column-smstext{
+    flex: 0 0 15% !important;
+    width: 15% !important;
+  }
+
+  .mat-column-days{
+    flex: 0 0 11% !important;
+    width: 11% !important;
+  }
+  .mat-column-actions i { margin-left: 5px}
+  .mat-column-actions div { margin-right: 5px}
+
+  .longtext { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 10px }

@@ -1,0 +1,42 @@
+<mat-card style="box-shadow: none;">
+    <form>
+        <mat-card-header>
+
+            <h4>{{'groupManagementModule.details.title' | translate}}</h4>
+            <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+                    class="ti-close"></i></button>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+                <div fxFlex>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'groupManagementModule.create.groupName' | translate}}</strong> </div>
+                    <div class="bord-all pad-all-sm"> {{groupDetails?.groupName}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top">
+                <div fxFlex>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'groupManagementModule.description' | translate}}</strong> </div>
+                    <div class="bord-all pad-all-sm"> {{groupDetails?.description}}</div>
+                </div>
+            </div>
+
+            <div class="mar-top">
+                <table class="table table-bordered">
+                    <tr style="background: #fafafa">
+                        <td><strong>{{'groupManagementModule.users' | translate}}</strong></td>
+                        <td><strong>{{'groupManagementModule.details.firstName' | translate}}</strong></td>
+                        <td><strong>{{'groupManagementModule.details.lastName' | translate}}</strong></td>
+                    </tr>
+                    <tr *ngFor="let group of userData;let i of index">
+                        <td style="word-break: break-all; width: 45%;">{{group?.login}} </td>
+                        <td> {{group?.firstname}}</td>
+                        <td> {{group?.lastname}}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </mat-card-content>
+    </form>
+</mat-card>

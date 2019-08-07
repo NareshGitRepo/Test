@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="3.57795in" height="2.78583in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 3578 2786"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#2B2B2B;stroke-width:100}
+    .str0 {stroke:#2B2B2B;stroke-width:166.665}
+    .fil0 {fill:none}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="15816" y="119" width="7111" height="7111"/>
+   </clipPath>
+   <clipPath id="id1">
+    <rect x="7098" y="-4472" width="4880" height="3673"/>
+   </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <circle class="fil0 str0" cx="8486" cy="1487" r="1255"/>
+  <line class="fil0 str0" x1="10368" y1="3294" x2="9314" y2= "2430" />
+  <line class="fil0 str0" x1="7874" y1="1150" x2="9071" y2= "1150" />
+  <line class="fil0 str0" x1="7874" y1="1525" x2="9071" y2= "1525" />
+  <line class="fil0 str0" x1="7874" y1="1911" x2="8472" y2= "1911" />
+  <g style="clip-path:url(#id0)">
+   <image id="market_research-512.png" transform="matrix(1 0 0 1 14026.5 5837.38)" x="1789" y="-5718" width="7111" height="7111" xlink:href="segmentation_Images\segmentation_ImgID1.png"/>
+  </g>
+  <path class="fil0 str1" d="M1133 581c230,-255 563,-416 933,-416l0 1256 1255 24c-13,684 -571,1231 -1255,1231 -214,0 -416,-54 -593,-148"/>
+  <path class="fil0 str1" d="M3349 1191l-1087 0 0 -1082c0,0 1057,-10 1087,1082z"/>
+  <circle class="fil0 str1" cx="831" cy="927" r="445"/>
+  <path class="fil0 str1" d="M256 2655l1178 0c15,0 28,-12 28,-28l0 -875c0,-204 -167,-370 -370,-370l-494 0c-204,0 -370,167 -370,370l0 875c0,15 12,28 28,28z"/>
+  <g style="clip-path:url(#id1)">
+   <image id="group.png" transform="matrix(1 0 0 1 5308.91 -2191.59)" x="1789" y="-2280" width="4880" height="3673" xlink:href="segmentation_Images\segmentation_ImgID2.png"/>
+  </g>
+ </g>
+</svg>

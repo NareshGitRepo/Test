@@ -1,0 +1,52 @@
+<mat-card style="box-shadow: none;">
+  <form>
+    <mat-card-header>
+
+      <h4>{{'MailServer.mailServerDetails' | translate}}</h4>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'MailServer.Name' | translate}}</strong> </div>
+          <div class="bord-all pad-all-sm"> {{mailserverDetails?.emailServerName}}</div>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" class="clearfix pad-top">
+      <div fxFlex>
+        <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'MailServer.mailAccount' | translate}}</strong> </div>
+        <div class="bord-all pad-all-sm"> {{mailserverDetails?.emailFromId}}</div>
+      </div>
+      </div>
+
+      <div fxLayout="row wrap" class="clearfix pad-top">
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+            <strong>{{'MailServer.serverIP' | translate}}</strong> </div>
+          <div class="bord-all pad-all-sm"> {{mailserverDetails?.serverIp}}</div>
+        </div>
+
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'MailServer.port' | translate}}</strong> </div>
+          <div class="bord-all pad-all-sm"> {{mailserverDetails?.serverPort}}</div>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'MailServer.mailBoxType' | translate}}</strong> </div>
+          <div class="bord-all pad-all-sm"> {{mailserverDetails?.emailBoxType == 3?"IMAP":(mailserverDetails?.emailBoxType == 2?"POP3":"SMTP")}}</div>
+        </div>
+
+        <div fxFlex *ngIf="mailserverDetails.emailBoxType == 3 || mailserverDetails.emailBoxType == 2">
+          <div class="bord-all pad-all-sm" style="background: #fafafa">
+            <strong>{{'MailServer.mailInterval' | translate}}</strong> </div>
+          <div class="bord-all pad-all-sm"> {{mailserverDetails?.checkInterval}} Seconds</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

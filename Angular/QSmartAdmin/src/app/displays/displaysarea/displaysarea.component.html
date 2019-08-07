@@ -1,0 +1,10 @@
+<div *ngIf="_actionFlag">
+  <div *ngIf="_receptionflag && _actionFlag">
+    <app-receptionarea [TotelData]="ReceptionList"></app-receptionarea>
+  </div>
+  <div *ngIf="!_receptionflag && _actionFlag">
+    <app-waitingarea [WaitingList]="WaitingList"></app-waitingarea>
+  </div>
+</div>
+<div *ngIf="_errorFlag">
+  <app-displayerror [data]="_errorCode"></app-displayerror></div>

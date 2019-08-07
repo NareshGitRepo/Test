@@ -1,0 +1,184 @@
+<div fxLayout="row wrap">
+
+  <div fxFlex="57">
+  </div>
+
+  <div fxFlex="43" class="search-align pad-rgt">
+    <div fxFlex="42">
+      <mat-form-field>
+        <input matInput [(ngModel)]="searchdata" (keyup)="applyFilter($event.target.value)"
+          placeholder="{{'ActionNames.search' | translate}}">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="45" *ngIf="deptList?.length >0" style="margin-left: 10px">
+      <form [formGroup]="userquotaForm">
+        <mat-form-field>
+          <mat-select placeholder="{{'CreditManagementModule.userQuota.sBD' | translate}}" formControlName="depts"
+            (selectionChange)="selectedDepts()">
+            <mat-option *ngFor="let dept of deptList" [value]="dept.deptId">{{dept.deptName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div fxFlex="13" *ngIf="deptList?.length >0">
+      <div style="margin-top: 18px; font-size: 16px;">
+        <!-- <i class="ti-reload" style="color:blue" (click)="reset()" matTooltip="Refresh Departments"></i>&nbsp; -->
+        <img src="assets/images/reload.svg" (click)="reset()" matTooltip="{{'ActionNames.reset' | translate}}"
+          style="width:27%; margin-bottom: 6px" class="link">&nbsp;
+        <i *ngIf="listflag" class="ti-layout-grid2-alt  text-muted" matTooltip="{{'ActionNames.gridView' | translate}}"
+          (click)="loadGrid()" style="cursor: pointer;"></i>
+        <i *ngIf="!listflag" class="ti-menu text-muted" matTooltip="{{'ActionNames.listView' | translate}}"
+          (click)="loadList()" style="cursor: pointer; "></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!listflag">
+  <div fxLayout="row wrap"
+    *ngIf="searchdata=='' ? true :(filterUserQuota | UserQuotafilter : userQuotaList : searchdata) as result">
+    <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" fxFlex="100"
+      *ngFor="let item of filterUserQuota | UserQuotafilter : userQuotaList : searchdata">
+      <mat-card fxFlex class="usercard no-shadow mat-elevation-z0"
+        [ngClass]="{'prepaidcard':item.userCredit?item.userCredit.creditTypeId =='2':[],'postpaidcard':item.userCredit?item.userCredit.creditTypeId=='1':[]}">
+        <mat-card-content>
+          <div fxLayout="row wrap">
+            <div fxFlex="98" class="UcardLeft">
+              <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+                <div fxLayout="row wrap" class="clearfix card-top">
+                  <div>
+                    <div class="card-avatar">
+                      <div class="image-inner">
+                        <img src="assets/images/customer_icon.svg" />
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="75">
+                    <div class="card-details">
+                      <h3>{{item.login}}</h3>
+                      <!-- 
+                      <div *ngIf="item.userCredit?.creditTypeId ==1">
+                        <small
+                          *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='2'">{{'CreditManagementModule.userQuota.setLimit.currentThreshold' | translate}}
+                          :
+                          {{item?.userCredit?.thresoldLimit}}</small>
+                      </div>
+                      <div *ngIf="item.userCredit?.creditTypeId !=1">
+                        <small
+                          *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='2'">{{'CreditManagementModule.userQuota.setLimit.availableBalance' | translate}}
+                          :
+                          {{item?.userCredit?.availableCredit}}</small>
+                      </div> -->
+                      <div>
+                        <small
+                          *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='2'">{{item.userCredit?.creditTypeId !=1 ?('CreditManagementModule.userQuota.manage.availableBalance' | translate):('CreditManagementModule.userQuota.manage.availableThreshold' | translate)}}:
+                          {{item?.userCredit?.thresoldLimit}}</small>
+                        <small
+                          *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='2'">{{item.userCredit?.creditTypeId !=1 ? ('CreditManagementModule.userQuota.manage.currentBalance' | translate):('CreditManagementModule.userQuota.manage.currentThreshold' | translate)}}:
+                          {{item?.userCredit?.availableCredit}}</small>
+
+                      </div>
+                      <!-- <small *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='2'">Department Credits :
+                      {{item.departmentCrditsAvailable}}</small> -->
+                      <!-- <small *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='2'">Available Balance :
+                      {{item?.userCredit?.availableCredit}}</small>
+                    <small *ngIf="item.userCredit?item.userCredit.creditTypeId:'' =='1'">Current Threshold Limit :
+                      {{item?.userCredit?.thresoldLimit}}</small> -->
+
+                      <small
+                        *ngIf="item.userCredit">{{'CreditManagementModule.departmentquota.setLimit.type' | translate}} :
+                        <span
+                          class="typetext">{{item.userCredit?.creditTypeId ==1 ? 'Postpaid':'Prepaid'}}</span></small>
+                      <!-- <small>Type : <span class="typetext">{{item.accountType}}</span></small> -->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="Umore-btn">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                <button mat-menu-item (click)="setLimit(item)"><i class="ti-pencil-alt"></i>
+                  {{'CreditManagementModule.departmentquota.setLimit.setLimit' | translate}}</button>
+                <button mat-menu-item (click)="userQuotaDetails(item)"><i class="ti-info-alt"></i>
+                  {{'ActionNames.details' | translate}}</button>
+                <!-- <button mat-menu-item (click)="userQuotaHistory()"><i class="ti-time"></i> History</button> -->
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="userQuotaList?.length> pageSize && searchdata==''" style="width: 100%">
+      <mat-paginator [length]="userQuotaList?.length" [pageSize]="pageSize" [pageIndex]="initPage" showFirstLastButtons
+        (page)="getData($event)"> {{userQuotaList?.length}}
+      </mat-paginator>
+    </div>
+    <div *ngIf="(result?.length==0 || userQuotaList?.length==0)&& !loading">
+      {{ userQuotaList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+    </div>
+  </div>
+</div>
+<div *ngIf="listflag && (searchdata=='' ? userQuotaList?.length>0 : dataSource.filteredData.length>0)">
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="listtable">
+    <ng-container matColumnDef="login">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{'CreditManagementModule.userQuota.details.userName' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.login}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="creditTypeId">
+      <mat-header-cell *matHeaderCellDef>
+        {{'CreditManagementModule.departmentquota.setLimit.accountType' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.userCredit?.creditTypeId ==1 ? 'Postpaid':'Prepaid'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="thresoldLimit">
+      <mat-header-cell *matHeaderCellDef>
+        {{'CreditManagementModule.departmentquota.setLimit.cTL' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.userCredit?element?.userCredit?.thresoldLimit:'0'}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="availableCredit">
+      <mat-header-cell *matHeaderCellDef>
+        {{'CreditManagementModule.departmentquota.setLimit.availableBalance' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.userCredit?element?.userCredit?.availableCredit:'0'}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="mat-column-actions">
+        {{'ActionNames.actions' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <i class="ti-pencil-alt link" matTooltip="{{'CreditManagementModule.userQuota.manage.setLimit' | translate}}"
+          (click)="setLimit(element)"></i>&nbsp;&nbsp;
+        <i class="ti-info-alt link" matTooltip="{{'CreditManagementModule.userQuota.manage.details' | translate}}"
+          (click)="userQuotaDetails(element)"></i>&nbsp;&nbsp;
+        <!-- <i class="ti-time" matTooltip="History" (click)="userQuotaHistory()"></i> -->
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="userQuotaList.length>pageSize && searchdata==''" style="width: 100%">
+    <mat-paginator #paginator [length]="userQuotaList?.length" [pageSize]="pageSize" [pageIndex]="listPage"
+      showFirstLastButtons (page)="getListData($event)">
+    </mat-paginator>
+  </div>
+
+</div>
+<div *ngIf="listflag && (searchdata=='' ? userQuotaList?.length==0 : dataSource.filteredData?.length==0)">
+  {{ userQuotaList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

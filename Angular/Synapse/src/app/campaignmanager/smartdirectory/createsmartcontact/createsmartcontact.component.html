@@ -1,0 +1,214 @@
+<mat-card>
+  <mat-card-header>
+    <div fxLayout="row wrap">
+      <h4>
+        {{editData?.type ? ('smartDirectoryModule.editTitle' | translate):('smartDirectoryModule.title' | translate)}}
+      </h4>
+    </div>
+    <button mat-icon-button actionClick (debounceClick)="close()" style="position: absolute;  right: 5px; top: 5px;"><i
+        class="ti-close"></i></button>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="smartContactForm">
+      <div fxLayout="row wrap" class="col-sm-12">
+        <div fxFlex="100">
+
+          <div style="margin-bottom: 15px" *ngIf="!editData">
+            <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="inputType">
+              <mat-button-toggle value="1" (click)="singleContact()"><i
+                  class="ti-user"></i>&nbsp;{{'smartDirectoryModule.createsmartcontact.single' | translate}}
+              </mat-button-toggle>
+
+              <mat-button-toggle [ngxFilePicker]="readMode" accept=".csv, .txt, .xls, .xlsx" value="2"
+                (change)="onFileUpload($event)"><i
+                  class="ti-upload"></i>&nbsp;{{'smartDirectoryModule.createsmartcontact.bulk' | translate}}
+              </mat-button-toggle>
+
+            </mat-button-toggle-group>
+            <!-- <div class="helpicon"><i class="ti-help-alt" (click)="showpopup=true"></i></div> -->
+            <mat-error *ngIf="smartContactForm.value.inputType == 2 && !smartContactForm.value.fileType"
+              style="padding-top: 5px;">
+              <small>{{'smartDirectoryModule.createsmartcontact.inputSourceError' | translate}}</small>
+            </mat-error>
+            <mat-error
+              *ngIf="smartContactForm.value.inputType == 2 && smartContactForm.value.fileType && (_count == 0|| (_count >0 && selectheaders.length==0))"
+              style="padding-top: 5px;">
+              <small>{{'smartDirectoryModule.createsmartcontact.validFile' | translate}}</small>
+            </mat-error>
+          </div>
+          <div>
+            <div *ngIf="smartContactForm.value.inputType == 2">{{smartContactForm.value.filename}}</div>
+            <div *ngIf="-1 < _count && smartContactForm.value.inputType == 2" class="recordcount text-primary">
+              <em>{{_count}} {{'campaigns.create.count' | translate}}</em></div>
+          </div>
+          <div *ngIf="smartContactForm.value.inputType == 1">
+            <mat-form-field class="w100">
+              <input matInput cdkFocusInitial allow-alphabets-singlespace minlength="2" maxlength="10"
+                placeholder="{{'smartDirectoryModule.createsmartcontact.firstName' | translate}}"
+                formControlName="firstName" autocomplete="off" required>
+              <mat-error *ngIf="smartContactForm.controls.firstName.errors?.required">
+                {{'smartDirectoryModule.errorMessage' | translate}}</mat-error>
+              <mat-error *ngIf="smartContactForm.controls.firstName.errors?.minlength">
+                {{'smartDirectoryModule.minimum' | translate}}</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'smartDirectoryModule.createsmartcontact.lastName' | translate}}"
+                minlength="2" maxlength="10" allow-alphabets-singlespace formControlName="lastName"
+                autocomplete="off" required>
+              <mat-error *ngIf="smartContactForm.controls.lastName.errors?.required">
+                {{'smartDirectoryModule.errorMessage' | translate}}</mat-error>
+              <mat-error *ngIf="smartContactForm.controls.lastName.errors?.minlength">
+                {{'smartDirectoryModule.minimum' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'smartDirectoryModule.createsmartcontact.mobile' | translate}}"
+                allow-mobilenumber-nospace minlength="12" maxlength="15" formControlName="mobileNo" autocomplete="off"
+                required>
+              <mat-error *ngIf="smartContactForm.controls.mobileNo.errors?.required">
+                {{'smartDirectoryModule.errorMessage' | translate}}</mat-error>
+              <mat-error *ngIf="smartContactForm.controls.mobileNo.errors?.minlength">
+                {{'smartDirectoryModule.createsmartcontact.mobileMinimum' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'smartDirectoryModule.createsmartcontact.email' | translate}}"
+                (keyup)="mailValidation()" allow-email-charecters maxlength="50" formControlName="emailId"
+                autocomplete="off">
+              <mat-error *ngIf="smartContactForm.controls.emailId.errors?.required">
+                {{'smartDirectoryModule.createsmartcontact.emailRequired' | translate}}</mat-error>
+              <mat-error *ngIf="smartContactForm.controls.emailId.errors?.pattern">
+                {{ 'smartDirectoryModule.createsmartcontact.emailValid' | translate }}</mat-error>
+
+              <!-- <mat-error *ngIf="smartContactForm.get('emailId').hasError('pattern')">
+                  {{'smartDirectoryModule.createsmartcontact.validEmail' | translate}}</mat-error> -->
+              <!-- <mat-error *ngIf=" smartContactForm.controls.emailId.errors?.emailId">Please enter valid email
+            </mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="smartContactForm.value.inputType == 2">
+            <mat-form-field class="w100"
+              *ngIf="(smartContactForm.value.fileType == 'xls' || smartContactForm.value.fileType == 'xlsx')">
+              <mat-select formControlName="selectSheet"
+                placeholder="{{'smartDirectoryModule.createsmartcontact.sheetSelection' | translate}}"
+                (selectionChange)="selectSheet($event)" required>
+                <mat-option *ngFor="let sheet of _excelSheetNames" [value]="sheet">{{sheet}}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="smartContactForm.controls.selectSheet.errors?.required">
+                {{'smartDirectoryModule.createsmartcontact.sheetRequired' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select formControlName="firstNameField"
+                placeholder="{{'smartDirectoryModule.createsmartcontact.fNameField' | translate}}" required>
+                <mat-option *ngFor="let column of selectheaders" [value]="column" >
+                  {{column}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="smartContactForm.controls.firstNameField.errors?.required">
+                {{'smartDirectoryModule.createsmartcontact.fNameRequired' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select formControlName="lastNameField"
+                placeholder="{{'smartDirectoryModule.createsmartcontact.lNameField' | translate}}" required>
+                <mat-option *ngFor="let column of selectheaders" [value]="column" >
+                  {{column}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="smartContactForm.controls.lastNameField.errors?.required">
+                {{'smartDirectoryModule.createsmartcontact.fNameRequired' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select formControlName="mobileNumberField"
+                placeholder="{{'smartDirectoryModule.createsmartcontact.mobileField' | translate}}" required>
+                <mat-option *ngFor="let column of selectheaders" [value]="column" >
+                  {{column}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="smartContactForm.controls.mobileNumberField.errors?.required">
+                {{'smartDirectoryModule.createsmartcontact.mobileNoRequired' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select formControlName="emailAddressField"
+                placeholder="{{'smartDirectoryModule.createsmartcontact.emailField' | translate}}">
+                <mat-option *ngFor="let column of selectheaders" [value]="column" >
+                  {{column}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="w100" *ngIf="globalFlag && !editData?.type">
+            <mat-select multiple placeholder="{{'smartDirectoryModule.createsmartcontact.groupSelection' | translate}}"
+              formControlName="group" required (selectionChange)="forGroupCount($event.value)">
+              <mat-select-trigger> 
+                {{groupname}}
+                <span *ngIf="(smartContactForm?.value.group)?.length>
+                  1" class="example-additional-selection">
+                  (+{{(smartContactForm?.value.group)?.length - 1}} others)
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let group of globalGroup" [value]="group.cntGroupId">
+                {{group?.cntGroupName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="smartContactForm.controls.group.errors?.required">
+              {{'smartDirectoryModule.errorSelectMessage' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w100" *ngIf="departementFlag && !editData?.type">
+            <mat-select multiple placeholder="{{'smartDirectoryModule.createsmartcontact.groupSelection' | translate}}"
+              formControlName="group" required (selectionChange)="forDepartmentCount($event.value)">
+              <mat-select-trigger> 
+                {{groupname}}
+                <span *ngIf="(smartContactForm?.value.group)?.length>
+                  1" class="example-additional-selection">
+                  (+{{(smartContactForm?.value.group)?.length - 1}} others)
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let group of departementGroup" [value]="group.groupDeptId">
+                {{group?.groupName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="smartContactForm.controls.group.errors?.required">
+              {{'smartDirectoryModule.errorSelectMessage' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w100" *ngIf="normalFalag && !editData?.type">
+            <mat-select multiple placeholder="{{'smartDirectoryModule.createsmartcontact.groupSelection' | translate}}"
+              formControlName="group" required (selectionChange)="forUSerCount($event.value)">
+              <mat-select-trigger> 
+                {{groupname}}
+                <span *ngIf="(smartContactForm?.value.group)?.length>
+                  1" class="example-additional-selection">
+                  (+{{(smartContactForm?.value.group)?.length - 1}} others)
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let group of normalGroup" [value]="group.groupUserId">
+                {{group?.groupName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="smartContactForm.controls.group.errors?.required">
+              {{'smartDirectoryModule.errorSelectMessage' | translate}}</mat-error>
+          </mat-form-field>
+
+          <div class="mar-top">
+            <button mat-raised-button class="submitbutton" [disabled]="smartContactForm.invalid || loading"
+            actionClick (debounceClick)="createContact()" *ngIf="!editData?.type"> {{'ActionNames.save' | translate}}</button> &nbsp;
+            <button mat-raised-button class="submitbutton" [disabled]="smartContactForm.invalid || loading"
+            actionClick (debounceClick)="updateContact()" *ngIf="editData?.type"> {{'ActionNames.update' | translate}}</button> &nbsp;
+            <!-- <button mat-raised-button type="reset">Clear</button> -->
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

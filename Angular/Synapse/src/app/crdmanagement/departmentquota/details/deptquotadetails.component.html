@@ -1,0 +1,101 @@
+<mat-card style="box-shadow: none;">
+    <form>
+        <mat-card-header>
+            <h4>Department Quota Details</h4>
+            <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+                    class="ti-close"></i></button>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- {{departmentQuotaDetails | json}} -->
+            <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+                <div fxFlex ="50">
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Platform Credits</strong>
+                    </div>
+                    <div class="bord-all pad-all-sm"> {{departmentQuotaDetails.platformCredits}}</div>
+                </div>
+
+                <div fxFlex ="50">
+                        <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Department</strong>
+                        </div>
+                        <div class="bord-all pad-all-sm"> {{departmentQuotaDetails.department}}</div>
+                    </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top">
+                <div fxFlex ="50">
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>Account Type</strong>
+                    </div>
+                    <div class="bord-all pad-all-sm"> {{departmentQuotaDetails.accountType}}</div>
+                </div>
+
+                <div fxFlex ="50">
+                        <div class="bord-all pad-all-sm" style="background: #fafafa">
+                            <strong>Adjustment Type</strong>
+                        </div>
+                        <div class="bord-all pad-all-sm">Recharge</div>
+                    </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top"
+                *ngIf="departmentQuotaDetails.accountType =='Prepaid'">
+                <div fxFlex ="50">
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>Availabale Balance</strong>
+                    </div>
+                    <div class="bord-all pad-all-sm"> {{departmentQuotaDetails?.availableBalance}}</div>
+                </div>
+
+                <div fxFlex ="50">
+                        <div class="bord-all pad-all-sm" style="background: #fafafa">
+                            <strong>Expiry Date</strong>
+                        </div>
+                        <div class="bord-all pad-all-sm"> {{departmentQuotaDetails?.expiryDate}}</div>
+                    </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix pad-top"
+                *ngIf="departmentQuotaDetails.accountType =='Postpaid'">
+                <div fxFlex>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa">
+                        <strong>Current Threshold Limit
+                        </strong> </div>
+                    <div class="bord-all pad-all-sm">{{departmentQuotaDetails?.currentThreshouldLimit}}</div>
+                </div>
+            </div>
+
+            <!-- <div fxLayout="row wrap" class="clearfix pad-top" *ngIf="departmentQuotaDetails.creditType=='postpaid'"> -->
+            <!-- <div fxFlex>
+                  <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Credits Usage</strong> </div> 
+                  <div class="bord-all pad-all-sm"> {{departmentQuotaDetails?.creditsUsage}}</div>
+              </div>
+
+              <div fxFlex>
+                  <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Upper Limit</strong> </div> 
+                  <div class="bord-all pad-all-sm"> {{departmentQuotaDetails?.upperLimit}}</div>
+              </div> -->
+
+            <!-- <div fxFlex>
+                  <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Threshold Limit</strong> </div> 
+                  <div class="bord-all pad-all-sm"> {{departmentQuotaDetails?.thresoldLimit}}</div>
+              </div> -->
+            <!-- </div> -->
+
+            <div fxLayout="row wrap" class="clearfix pad-top">
+            <div fxFlex>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Created By</strong> </div> 
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"><strong>Modified By</strong></div>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Created Date</strong> </div> 
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"><strong>Modified Date</strong></div>
+                </div>
+    
+                <div fxFlex>
+                    <div class="bord-all pad-all-sm">Admin</div> 
+                    <div class="bord-all pad-all-sm"> Admin</div>
+                    <div class="bord-all pad-all-sm"> 23/04/2019</div>
+                    <div class="bord-all pad-all-sm"> 23/04/2019</div>
+                </div>
+      </div>
+        </mat-card-content>
+    </form>
+</mat-card>

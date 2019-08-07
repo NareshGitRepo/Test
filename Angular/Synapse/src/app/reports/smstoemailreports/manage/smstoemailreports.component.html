@@ -1,0 +1,199 @@
+<h2 class="pageheading">{{'ReportsModule.SmsToEmailReports.smsToEmailReports'|translate}}</h2>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="clearfix">
+    <form [formGroup]="sms2EmailReportsForm">
+
+      <div fxLayout="row wrap" class="mar-btm selectcontainer">
+        <!-- <div fxFlex.gt-sm="100">
+        <div fxFlex.gt-sm="50" *ngIf="_roleCode=='SA' || _roleCode=='PA'">
+          <mat-form-field class="full-width rightpad-45">
+            <mat-select placeholder="{{'ReportsModule.SmsToEmailReports.selectDepart'|translate}}" required (selectionChange)="departSelected()" formControlName="department">
+              <mat-option *ngFor="let dept of departmentWithUsersList" [value]="dept">{{dept.deptName}}</mat-option>
+              
+            </mat-select>
+            <mat-error *ngIf="sms2EmailReportsForm.controls.department.errors?.required">{{'ReportsModule.SmsToEmailReports.departError'|translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="50" *ngIf="_roleCode!='NA'">
+          <mat-form-field class="full-width rightpad-45">
+            <mat-select placeholder="{{'ReportsModule.SmsToEmailReports.selectUser'|translate}}" formControlName="user" required>
+              <mat-option *ngFor="let user of usersList" [value]="user.userId">{{user?.firstname}} {{ user?.lastname}}
+              </mat-option>
+
+            </mat-select>
+            <mat-error *ngIf="sms2EmailReportsForm.controls.user.errors?.required">{{'ReportsModule.SmsToEmailReports.userError'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        </div> -->
+
+        <div fxFlex.gt-sm="50" class="full-width rightpad-45">
+          <mat-form-field class="full-width ">
+            <input matInput [matDatepicker]="picker" placeholder="{{'ActionNames.from'|translate}}"
+              formControlName="fromDate" parse-format="MM/dd/yyyy" readonly (focus)="picker.open()" [min]="fromDate"
+              required [max]="sms2EmailReportsForm.value.toDate ? sms2EmailReportsForm.value.toDate : toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="sms2EmailReportsForm.controls.fromDate.errors">
+              <div *ngIf="sms2EmailReportsForm.controls.fromDate.errors.required">
+                {{'ActionNames.startDate'|translate}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="50" class="full-width rightpad-45">
+          <mat-form-field class="full-width ">
+            <input matInput [matDatepicker]="picker2" placeholder="{{'ActionNames.to'|translate}}"
+              formControlName="toDate" readonly (focus)="picker2.open()" required
+              [min]="sms2EmailReportsForm.value.fromDate ? sms2EmailReportsForm.value.fromDate : fromDate"
+              [max]="toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="sms2EmailReportsForm.controls.toDate.errors">
+              <div *ngIf="sms2EmailReportsForm.controls.toDate.errors.required">
+                {{'ActionNames.endDate'|translate}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- <div fxFlex.gt-sm="33">
+          <mat-form-field class="full-width rightpad-45">
+            <input matInput placeholder="Mobile Number" formControlName="smstoEmailMobile"required maxlength="50">
+            <mat-error *ngIf="smstoEmailReportsForm.controls.smstoEmailMobile.errors?.required">Mobile Number is required
+            </mat-error>
+        </mat-form-field>
+        </div> -->
+
+        <div fxFlex.gt-sm="50">
+          <button mat-raised-button class="submitbutton" (click)="onSubmit()"
+            [disabled]="sms2EmailReportsForm.invalid">{{'ActionNames.submit'|translate}}</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" *ngIf="sms2EmailReportsList.length>0">
+    <!-- *ngIf="sms2EmailReportsList.length>0"> -->
+    <div fxLayout="row wrap" class="mar-btm">
+      <div fxFlex="60"></div>
+      <div fxFlex="40" class="search-align">
+        <span class="export">{{'ActionNames.export'|translate}}</span>
+
+        <button mat-icon-button (click)="ExportTOExcel()"><img src="assets/images/excel.svg" width="30"
+            height="30"></button>
+        <button mat-icon-button (click)="ExportTOCsv()"><img src="assets/images/csv.svg" width="30"
+            height="30"></button>
+
+        <button mat-icon-button (click)="ExportTOPdf()"><img src="assets/images/pdf.svg" width="30"
+            height="30"></button>
+        <!-- <mat-form-field class="mar-lft">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+              </mat-form-field> -->
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="example-container mat-elevation-z8 no-shadow bord-all" style="width:100%">
+        <table mat-table [dataSource]="dataSource" class="full-width-table listtable" matSort
+          (matSortChange)="sortData()">
+          <ng-container matColumnDef="senderName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.shortCode'|translate}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.senderName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="message">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.message'|translate}}</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.messageVisibility ? element.message :( element.message | truncate : 50 : '...') }}
+              <a *ngIf="element.message.length>50" color="primary"
+                (click)="element.messageVisibility = !element.messageVisibility">
+                {{ element.messageVisibility ?  ('ActionNames.less'|translate) :('ActionNames.more'|translate) }}</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="mobileNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.mobileNumber'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.mobileNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="forwardMailTolist">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.forwardMailTo'|translate}}</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.tovisibility ? element.forwardMailTolist :( element.forwardMailTolist | truncate : 50 : '...') }}
+              <a *ngIf="element.forwardMailTolist.length>50" color="primary"
+                (click)="element.tovisibility = !element.tovisibility">
+                {{ element.tovisibility ?  ('ActionNames.less'|translate) :('ActionNames.more'|translate) }}</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="forwardMailCclist">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.forwardMailCc'|translate}}</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.ccvisibility ? element.forwardMailCclist :( element.forwardMailCclist | truncate : 50 : '...') }}
+              <a *ngIf="element.forwardMailCclist? element.forwardMailCclist.length>50:false" color="primary"
+                (click)="element.ccvisibility = !element.ccvisibility">
+                {{ element.ccvisibility ?  ('ActionNames.less'|translate) :('ActionNames.more'|translate) }}</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="receivedDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.receivedDate'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.receivedDate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="forwardTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{'ReportsModule.SmsToEmailReports.forwardTime'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.forwardTime}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.SmsToEmailReports.reason'|translate}}
+            </th>
+            <td mat-cell *matCellDef="let element">{{element.reason}} </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="activityInfo">
+            <th mat-header-cell *matHeaderCellDef>Activity Info</th>
+            <td mat-cell *matCellDef="let element">{{element.activityInfo}}</td>
+          </ng-container> -->
+
+          <!-- <ng-container matColumnDef="sourceIP">
+            <th mat-header-cell *matHeaderCellDef>Source IP</th>
+            <td mat-cell *matCellDef="let element">{{element.sourceIP}} </td>
+          </ng-container> -->
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+        </table>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        <div *ngIf="sms2EmailReportsList.length>pageSize">
+
+          <mat-paginator [pageSize]="pageSize" [length]="sms2EmailReportsList.length" [pageIndex]="listPage"
+            showFirstLastButtons (page)="getListData($event)">
+          </mat-paginator>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+    *ngIf="sms2EmailReportsFlag && sms2EmailReportsList.length==0">
+    <span>{{'ActionNames.notFound'|translate}}</span></div>
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

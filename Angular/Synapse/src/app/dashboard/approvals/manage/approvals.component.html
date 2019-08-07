@@ -1,0 +1,136 @@
+<div fxLayout="row wrap">
+  <div fxFlex="80">
+  </div>
+
+  <div fxFlex="20" class="search-align pad-rgt">
+    <div fxFlex="85">
+      <form [formGroup]="approvalForm">
+        <mat-form-field>
+          <mat-select multiple placeholder="{{ 'ApprovalModule.searchModules' | translate}}" formControlName="module"
+            (selectionChange)="selectedModule($event.value)">
+            <mat-select-trigger> 
+              {{'ModuleNames.'+modulename | translate}}
+              <span *ngIf="(approvalForm?.value.module)?.length>
+                1" class="example-additional-selection">
+                (+{{(approvalForm?.value.module)?.length - 1}} others)
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let module of moduleInfo" [value]="module.moduleId">{{'ModuleNames.'+module.modulename | translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div fxFlex="15" *ngIf="ApprovalsList?.length != 0">
+      <div style="margin-top: 18px; font-size: 16px;">
+          <i *ngIf="listflag" class="ti-layout-grid2-alt  text-muted" matTooltip="{{'ActionNames.gridView' | translate}}"
+            (click)="loadGrid()" style="cursor: pointer; "></i>
+          <i *ngIf="!listflag" class="ti-menu text-muted" matTooltip="{{'ActionNames.listView' | translate}}" (click)="loadList()"
+            style="cursor: pointer;"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<span *ngIf="ApprovalsList?.length == 0 && notfound == true">
+  {{ 'ApprovalModule.noDataFound' | translate}}
+</span>
+
+<div fxLayout="row wrap" *ngIf="!listflag">
+  <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let approval of filterApprovals  ||  ApprovalsList">
+    <mat-card fxFlex class="usercard">
+      <mat-card-content>
+        <div fxLayout="row wrap">
+          <div fxFlex="98" class="UcardLeft">
+            <div class="pad-all2 clearfix">
+              <div fxLayout="row wrap" class="clearfix card-top">
+                <div>
+                  <div class="card-avatar">
+                    <div class="image-inner">
+                      <img src="assets/images/approval.svg" />
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="77">
+                  <div class="card-details">
+                    <small><strong>{{ 'ApprovalModule.moduleName' | translate}} : </strong>
+                      {{approval.moduleName}}</small>
+                    <small><strong>{{ 'ApprovalModule.info' | translate}} : </strong> {{approval.info}}</small>
+                    <small><strong>{{ 'ApprovalModule.createdBy' | translate}} : </strong> {{approval.userName}}</small>
+                    <small><strong>{{ 'ApprovalModule.createdOn' | translate}} :
+                      </strong>{{approval.requestTime}}</small>
+                    <!-- <small><strong>Status: </strong>{{approval.status== 1 ? 'active' :'inactive'}}</small> -->
+                  </div>
+                  <div class="text-right mar-top"><button mat-raised-button class="submitbutton mar-lft" type="submit"
+                      (click)="confirmApproval(approval)">{{ 'ActionNames.click' | translate}} &nbsp;
+                      <i class="ti-arrow-circle-right"></i></button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <!-- <div class="checekconfirm"><button mat-raised-button color="primary" type="submit" class="mar-lft">Click <i class="ti-arrow-circle-right"></i></button></div> -->
+  </div>
+
+  <div *ngIf="ApprovalsList?.length> pageSize" style="width: 100%">
+    <mat-paginator [length]="ApprovalsList?.length" [pageSize]="pageSize" [pageIndex]="listPage" showFirstLastButtons
+      (page)="getData($event)">
+    </mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="listflag && ApprovalsList.length != 0" class="example-container mat-elevation-z8 no-shadow bord-all">
+
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="listtable">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="moduleName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'ApprovalModule.moduleName' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.moduleName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="info">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'ApprovalModule.info' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.info}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="createdBy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'ApprovalModule.createdBy' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="createdOn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'ApprovalModule.createdOn' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.requestTime}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell class="mat-column-actions" *matHeaderCellDef> {{ 'ActionNames.actions' | translate}}
+      </mat-header-cell>
+      <mat-cell clas="mat-column-actions" *matCellDef="let element">
+        <i class="ti-arrow-circle-right link" matTooltip="{{'ActionNames.details' | translate}}"
+          (click)="confirmApproval(element)"></i>&nbsp;&nbsp;
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div *ngIf="ApprovalsList?.length >pageSize">
+    <mat-paginator #paginator [length]="ApprovalsList?.length" [pageSize]="pageSize" [pageIndex]="listPage"
+      showFirstLastButtons (page)="getListData($event)">
+    </mat-paginator>
+  </div>
+</div>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

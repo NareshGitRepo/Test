@@ -1,0 +1,48 @@
+.usercard .card-avatar img{width: 88%;}
+.prepaidcard {
+  border-right: 12px solid #5A9EE5 !important
+}
+.prepaidcard .typetext, .prepaidtext {
+  color: #5A9EE5
+}
+.postpaidcard {
+  border-right: 12px solid #FF583D !important
+}
+.postpaidcard .typetext, .postpaidtext {
+  color: #FF583D
+}
+
+.mat-column-createtime, .mat-column-modifytime {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 15% !important;
+  width: 15% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;   
+}
+
+.mat-column-actions {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 7% !important;
+  width: 7% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;   
+}
+.mat-column-actions i { margin-right: 10px}
+.mat-column-actions div { margin-right: 5px}
+

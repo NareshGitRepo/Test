@@ -1,0 +1,237 @@
+<mat-card>
+  <form [formGroup]="customerProfileForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <div fxLayout="row wrap">
+        <h4>
+          {{rowData?.type=='2' ? ('CustomermanagementModule.segmentManagement.create.editTitle' | translate):('CustomermanagementModule.segmentManagement.create.title' | translate)}}
+        </h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+
+          <div class="clearfix">
+            <mat-form-field class="w95">
+              <input matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.customerName' | translate }}"
+                formControlName="customerName"
+                (change)="!customerProfileForm.controls.customerName.errors?.required && customerProfileForm.controls.customerName.valid ?
+                customerProfileForm.get('validateCustomerName').setValue(customerProfileForm.value.customerName): customerProfileForm.get('validateCustomerName').setValue(null)"
+                allow-alpha-numeric-singlespace cdkFocusInitial [readonly]="rowData?.type=='2'" maxLength="20"
+                autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.customerName.errors?.required"><small>
+                  {{'CustomermanagementModule.segmentManagement.create.cNR' | translate }}</small></mat-error>
+            </mat-form-field>
+            <mat-error *ngIf=" !customerProfileForm.controls.validateCustomerName.errors?.required &&
+                !customerProfileForm.controls.customerName.errors?.required && !customerProfileForm.controls.validateCustomerName.errors?.invalid
+                " style="display: inline;"><i class=" ti-check text-success"></i></mat-error>
+            <mat-error *ngIf="customerProfileForm.controls.validateCustomerName.errors?.invalid"><i class="ti-close
+                text-danger">
+                <small style="font-family: Arial, Helvetica, sans-serif;">
+                  {{'CustomermanagementModule.segmentManagement.create.cNAExists' | translate }}</small>
+              </i></mat-error>
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'CustomermanagementModule.segmentManagement.create.address' | translate }}"
+                formControlName="address" maxLength="30" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.address.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.aIsRequired' | translate }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'CustomermanagementModule.segmentManagement.create.City' | translate }}"
+                formControlName="city" allow-alpha-numeric-singlespace autocomplete="off" maxLength="10" required>
+              <mat-error *ngIf="customerProfileForm.controls.city.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.cIsRequired' | translate }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'CustomermanagementModule.segmentManagement.create.country' | translate }}"
+                formControlName="country" allow-alpha-numeric-singlespace maxLength="10" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.country.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.cntIsRequired' | translate }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.mobileNumber' | translate }}"
+                formControlName="mobileNo" allow-mobilenumber-nospace minlength="12" maxLength="15" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.mobileNo.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.mobileNumisreq' | translate }}
+              </mat-error>
+              <mat-error *ngIf="customerProfileForm.controls.mobileNo.errors?.minlength">
+                {{'CustomermanagementModule.segmentManagement.create.mobileMinimumRequired' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput placeholder="{{'CustomermanagementModule.segmentManagement.create.emailId' | translate }}"
+                formControlName="emailId" allow-email-charecters maxlength="25" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.emailId.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.eIsRequired' | translate }}
+              </mat-error>
+              <mat-error *ngIf="customerProfileForm.controls.emailId.errors?.pattern">
+                {{'CustomermanagementModule.segmentManagement.create.validemail' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput [matDatepicker]="picker"
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.dob' | translate }}"
+                formControlName="dob" autocomplete="off" [max]="maxDate" parse-format="MM/dd/yyyy" readonly
+                (focus)="picker.open()" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="customerProfileForm.controls.dob.errors">
+                <div *ngIf="customerProfileForm.controls.dob.errors.required">
+                  {{'CustomermanagementModule.segmentManagement.create.dobReq' | translate }}
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.placeofBirth' | translate }}"
+                formControlName="pob" allow-characters-singlespace maxLength="15" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.pob.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.pOfBRequired' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.residency/visa' | translate }}"
+                formControlName="residenceType" required>
+                <mat-option value="R"> {{'CustomermanagementModule.segmentManagement.create.Residency' | translate }}
+                </mat-option>
+                <mat-option value="V"> {{'CustomermanagementModule.segmentManagement.create.Visa' | translate }}
+                </mat-option>
+              </mat-select>
+              <!-- <input matInput placeholder="Residency / Visa" formControlName="residenceType"
+                allow-alphabets-singlespace maxLength="1" autocomplete="off" required (keyup)="customerProfileForm.get('residenceType').setValue(customerProfileForm.value.residenceType.toUpperCase())"> -->
+              <mat-error *ngIf="customerProfileForm.controls.residenceType.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.residencyorVisaisrequired' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.nationality' | translate }}"
+                formControlName="nationality" allow-characters-singlespace maxLength="20" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.nationality.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.nationalityisrequired' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.passportNumber' | translate }}"
+                formControlName="passportNo" allow-alpha-numeric-singlespace maxLength="9" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.passportNo.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.passNumisreq' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.NationalId' | translate }}"
+                formControlName="nationalId" allow-numbers-nospace maxLength="10" autocomplete="off" required>
+              <mat-error *ngIf="customerProfileForm.controls.nationalId.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.NatIdisreq' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field class="w100">
+              <mat-select placeholder="{{'CustomermanagementModule.segmentManagement.create.custSeg' | translate }}"
+                formControlName="segmentMaster" required>
+                <mat-option [value]="segment.segmentId" *ngFor="let segment of segmentList">{{segment.segmentName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="customerProfileForm.controls.segmentMaster.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.segIsReq' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select multiple
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.prefChannels' | translate }}"
+                formControlName="channelId" required>
+                <mat-option *ngFor="let channel of channelsList" [value]="channel.channelId">
+                  {{channel.channelName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="customerProfileForm.controls.channelId.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.chIsRequired' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.prefLanguage' | translate }}"
+                formControlName="language" required>
+                <mat-option value="0">{{'CustomermanagementModule.segmentManagement.create.english' | translate }}
+                </mat-option>
+                <mat-option value="8"> {{'CustomermanagementModule.segmentManagement.create.arabic' | translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="customerProfileForm.controls.language.errors?.required">
+                {{'CustomermanagementModule.segmentManagement.create.langisRequired' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <!-- customerProfileForm.value.endTime?customerProfileForm.value.endTime:endTime  -->
+            <mat-form-field class="w100">
+              <ng-template #popTemplate>
+                <timepicker formControlName="startTime" [min]="minTime"
+                  [max]="customerProfileForm.value.endTime ? customerProfileForm.value.endTime : maxTime"
+                  [showMeridian]="false">
+                </timepicker>
+              </ng-template>
+              <input matInput readonly
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.startTime' | translate }}"
+                [value]="customerProfileForm.value.startTime | date: 'HH:mm'" [popover]="popTemplate"
+                [outsideClick]="true" placement="bottom" autocomplete="off" required />
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <ng-template #popTemplate1>
+                <timepicker formControlName="endTime" [max]="maxTime"
+                  [min]="customerProfileForm.value.startTime ? customerProfileForm.value.startTime : minTime"
+                  [showMeridian]="false"></timepicker>
+              </ng-template>
+              <input readonly matInput
+                placeholder="{{'CustomermanagementModule.segmentManagement.create.endTime' | translate }}"
+                [value]="customerProfileForm.value.endTime | date: 'HH:mm' " [popover]="popTemplate1"
+                [outsideClick]="true" placement="bottom" autocomplete="off" required />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+    </mat-card-content>
+
+    <mat-card-actions class="toast-top-right">
+      <!-- <div style="margin-left: 12px;" *ngIf="rowData?.type!=2">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!customerProfileForm.valid"
+          (click)="createProfile()">{{'ActionNames.save' | translate}}</button>
+      </div>
+      <div style="margin-left: 12px;" *ngIf="rowData?.type==2">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!customerProfileForm.valid"
+          (click)="createProfile()">{{'ActionNames.save' | translate}}</button>
+      </div> -->
+      <div style="margin-left: 12px;">
+        <button mat-raised-button class="submitbutton" type="submit" [disabled]="!customerProfileForm.valid || loading"
+          actionClick (debounceClick)="createProfile()">{{rowData?.type=='2' ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+      </div>
+
+    </mat-card-actions>
+
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="50mm" height="60mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 5000 6000"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#687378;stroke-width:338.67}
+    .str1 {stroke:#687378;stroke-width:338.67;stroke-linecap:round;stroke-linejoin:round}
+    .str2 {stroke:#687378;stroke-width:1016}
+    .fil0 {fill:none}
+    .fil2 {fill:#FEFEFE}
+    .fil1 {fill:#687378}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="-28330" y="691" width="7055" height="7055"/>
+   </clipPath>
+   <clipPath id="id1">
+    <rect x="44059" y="-368" width="18062" height="18062"/>
+   </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g style="clip-path:url(#id0)">
+   <image id="_199792-200.png" transform="matrix(1 0 0 1 -30830.1 4745.86)" x="2500" y="-4055" width="7055" height="7055" xlink:href="sms_Images\sms_ImgID1.png"/>
+  </g>
+  <path class="fil0 str0" d="M2249 1375l1914 0c262,0 476,214 476,476l0 1041c0,262 -214,479 -476,476l-1041 -12 -610 549c-46,27 -75,-8 -71,-52l-7 -485 -185 0c-262,0 -414,-214 -414,-476l0 -1041c0,-262 153,-476 414,-476z"/>
+  <path class="fil0 str1" d="M3497 3806l0 1520c0,148 -122,270 -270,270l-2595 0c-149,0 -270,-122 -270,-270l0 -4649c0,-148 122,-270 270,-270l2595 0c149,0 270,122 270,270l0 282"/>
+  <line class="fil0 str1" x1="1522" y1="4937" x2="2285" y2= "4937" />
+  <line class="fil0 str1" x1="2442" y1="2672" x2="4025" y2= "2672" />
+  <line class="fil0 str1" x1="2442" y1="2072" x2="4025" y2= "2072" />
+  <g style="clip-path:url(#id1)">
+   <image id="bell-icon-17.png" transform="matrix(1 0 0 1 41559.5 14694.6)" x="2500" y="-15062" width="18062" height="18062" xlink:href="sms_Images\sms_ImgID2.png"/>
+  </g>
+  <circle class="fil1" cx="28220" cy="1044" r="944"/>
+  <path class="fil1" d="M30179 13928c444,-1 531,650 543,1176 31,1276 -1059,2489 -2502,2511 -1443,22 -2518,-1330 -2487,-2509 13,-506 115,-1171 581,-1172l3865 -7z"/>
+  <path class="fil0 str2" d="M21481 14405l13196 0c700,9 1114,-94 596,-641 -833,-878 -1608,-1923 -2518,-3769 -414,-1349 -788,-2729 -776,-4410 29,-1523 -417,-3434 -3775,-3775 -2672,379 -3510,1147 -3836,3836 86,1336 -230,2636 -661,3925 -480,1336 -1217,2869 -2553,4173 -318,310 -178,686 329,660z"/>
+  <path class="fil2" d="M26827 15126c13,267 144,1235 1366,1387 226,34 274,294 -22,282 -385,-16 -1517,-187 -1654,-1652 -26,-277 298,-274 310,-18z"/>
+ </g>
+</svg>

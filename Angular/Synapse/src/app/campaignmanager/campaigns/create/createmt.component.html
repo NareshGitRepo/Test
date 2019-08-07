@@ -1,0 +1,517 @@
+<mat-card>
+  <mat-card-header>
+    <div fxLayout="row wrap">
+      <h4>{{data ? ('campaigns.editTitle' | translate):('campaigns.title' | translate)}}</h4>
+    </div>
+
+    <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;">
+      <i class="ti-close"></i>
+    </button>
+  </mat-card-header>
+  <mat-card-content class="pad-lft">
+    <div class="clearfix">
+      <div class="row">
+        <div class="mystepper">
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="_campData">
+              <form [formGroup]="_campData">
+                <ng-template matStepLabel>{{'campaigns.create.sourceLabel' | translate}}</ng-template>
+                <div class="stepcontainer">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="100">
+                      <div cdkFocusInitial>
+
+                        <mat-form-field style="width: 97%">
+                          <input matInput placeholder="{{'campaigns.create.campName' | translate}}" 
+                            formControlName="campName" name="campaignname" [readonly]="data != null" autocomplete="off"
+                            (change)="!_campData.controls.campName.errors?.required && _campData.controls.campName.valid ?
+                                _campData.get('validatecampName').setValue(_campData.value.campName): _campData.get('validatecampName').setValue(null)"
+                            allow-alpha-numeric-nospacewithdot maxLength="30" required> 
+                          <mat-error *ngIf="_campData.controls.campName.errors?.required">
+                            {{'campaigns.create.campNameRequired' | translate}}
+                          </mat-error>
+                          <mat-error *ngIf="_campData.controls.campName.errors?.minlength">
+                            {{'campaigns.create.campNameMinimum' | translate}}</mat-error>  
+                        </mat-form-field>
+                        <mat-error *ngIf=" !data && !_campData.controls.validatecampName.errors?.required &&
+                !_campData.controls.campName.errors?.required && !_campData.controls.validatecampName.errors?.invalid
+                " style="display: inline;"><i class=" ti-check text-success"></i></mat-error>
+                        <mat-error *ngIf="_campData.controls.validatecampName.errors?.invalid">
+                          <i class="ti-close text-danger">
+                            <small
+                              style="font-family: Arial, Helvetica, sans-serif;">{{'campaigns.create.campNameExist' | translate}}</small>
+                          </i></mat-error>
+
+                        <!-- <mat-form-field style="width: 97%">
+                          <input matInput cdkFocusInitial placeholder="Campaign Name" formControlName="campName"
+                            name="campaignname" [readonly]="data != null" allow-all-space maxLength="30">
+                          <mat-error *ngIf="_campData.controls.campName.errors?.required">Campaign Name is required
+                          </mat-error>
+                          <mat-error *ngIf="_campData.controls.campName.errors?.minlength">Minimum 5 characters is
+                            required </mat-error>
+                        </mat-form-field> -->
+                        <!-- <mat-error style="width: 10%; float: left;" *ngIf="!_campData.controls.validateCampName.errors?.required && !_campData.controls.campName.errors?.required && !_campData.controls.validateCampName.errors?.invalid "><i
+                    class="ti-check text-success"></i></mat-error> [readonly]="campaignDetailsModel.campId"
+                <mat-error style="width: 10%; float: left;" *ngIf="_campData.controls.validateCampName.errors?.invalid"><i class="ti-close text-danger">Campaign
+                    Name already</i></mat-error> -->
+                      </div>
+
+                      <div class="mb-1" formGroupName="inputData">
+                        <mat-dialog-actions>
+                          <div class="mar-btm pull-left mar-rgt pad-lft">
+                            <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="inputType"  
+                              (click)="validationMethod(group.value)">
+
+                              <mat-button-toggle [ngxFilePicker]="readMode" accept=".csv, .txt, .xls, .xlsx"
+                                (change)="onFileUpload($event)" value="1"><i class="ti-upload"></i>
+                                {{'campaigns.create.upload' | translate}}
+                              </mat-button-toggle>
+                              <mat-button-toggle value="2">
+                                <img src="assets/images/adress-book.svg" width="23" *ngIf="group.value=== '1'" />
+                                <img src="assets/images/adress-book-white.svg" width="17" *ngIf="group.value=== '2'" />
+                                {{'campaigns.create.addressBook' | translate}}</mat-button-toggle>
+                              <!-- <mat-button-toggle value="3">Segments</mat-button-toggle> -->
+                            </mat-button-toggle-group>&nbsp;
+                            <div class="helpicon"><i class="ti-help-alt" actionClick
+                                (debounceClick)="showpopup=true"></i></div>
+                            <mat-error *ngIf="_inputData.controls.inputType.errors?.required "
+                              style="padding-top: 5px;">
+                              <small>{{'campaigns.create.inputSourceError' | translate}}</small>
+                            </mat-error>
+                            <mat-error *ngIf="_inputData.value.inputType == 1 && _countValue == 0"
+                              style="padding-top: 5px;">
+                              <small>{{'campaigns.create.validFile' | translate}}</small>
+                            </mat-error>
+
+                          </div>
+
+                          <div>
+                            <div *ngIf="_inputData.value.inputType == 1">{{_inputData.value.filename}}</div>
+                            <div *ngIf="-1 < _countValue" class="recordcount text-primary">
+                              <em>{{_countValue}} {{'campaigns.create.count' | translate}}</em></div>
+                          </div>
+                        </mat-dialog-actions>
+
+
+
+                        <div class="mb-1 mar-top">
+                          <div class="mb-1" *ngIf="_inputData.value.inputType == 1">
+
+
+                            <!-- <div class="mar-top mar-btm">
+                              <mat-checkbox class="example-margin" color="primary" name="isheaders"
+                                formControlName="isHeader" (change)="isHeadersPresent(2)">Headers</mat-checkbox>
+                            </div> -->
+
+                            <!-- && _excelSheetNames.length > 1 -->
+                            <div class="clearfix"
+                              *ngIf="(_inputData.value.fileType == 'xls' || _inputData.value.fileType == 'xlsx')">
+                              <mat-form-field class="example-full-width">
+                                <mat-select [(value)]="selectedSheet" formControlName="selectSheet"
+                                  (selectionChange)="selectSheet($event)"
+                                  placeholder="{{'campaigns.create.sheetSelection' | translate}}" required>
+                                  <mat-option *ngFor="let sheet of _excelSheetNames" [value]="sheet" required>{{sheet}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="_inputData.controls.selectSheet.errors?.required">
+                                  {{'campaigns.create.sheetRequired' | translate}}</mat-error>
+                              </mat-form-field>
+                            </div>
+
+                          </div>
+                          <!-- _inputData.value.columns?.length>1 && -->
+                          <div class="clearfix" *ngIf=" _inputData.value.inputType == 1">
+                            <mat-form-field class="example-full-width">
+                              <mat-select placeholder="{{'campaigns.create.mobileSelection' | translate}}"
+                                formControlName="mobileColumn" required>
+                                <mat-option *ngFor="let mobile of _sms.value.selectcolumnlist" [value]="mobile">
+                                  {{mobile}}</mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="_inputData.controls.mobileColumn.errors?.required">
+                                {{'campaigns.create.mobileRequired' | translate}}</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="mb-1" *ngIf="_inputData.value.inputType == 2">
+                            <div class="dirglobalGroups">
+                              <mat-form-field class="select-form example-full-width">
+                                <mat-select multiple placeholder="{{'campaigns.create.selectGroupTypes' | translate}}"
+                                  (selectionChange)='onChange(true)' formControlName="groupTypes" required>
+
+                                  <mat-option *ngFor="let dirInfo of totaldir;" value="{{dirInfo}}">{{dirInfo}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="_inputData.controls.groupTypes.errors?.required">
+                                  {{'campaigns.groupRequired' | translate}} </mat-error>
+                              </mat-form-field>
+                              <span *ngIf="_inputData.value.groupTypes != null" class="recordcount2 example-margin">
+                                <b>{{_inputData.value.groupTypes.length}}</b>
+                                {{'campaigns.create.groupSelected' | translate}}</span>
+                            </div>
+
+
+                            <div class="dirglobalGroups" *ngIf="selglobal">
+                              <mat-form-field class="select-form example-full-width">
+                                <mat-select multiple placeholder="{{'campaigns.create.globalGroup' | translate}} "
+                                  (selectionChange)='onChange(true)' formControlName="globalgroupId" required>
+                                  <mat-select-trigger> 
+                                    {{globalGroup}}
+                                    <span *ngIf="(_inputData?.value.globalgroupId)?.length>
+                                      1" class="example-additional-selection">
+                                      (+{{(_inputData?.value.globalgroupId)?.length - 1}} others)
+                                    </span>
+                                  </mat-select-trigger>
+                                  <mat-option *ngFor="let ggroup of globalGroups;" value="{{ggroup.cntGroupId}}">
+                                    {{ggroup.cntGroupName}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="_inputData.controls.globalgroupId.errors?.required">
+                                  {{'campaigns.groupRequired' | translate}} </mat-error>
+                              </mat-form-field>
+                              <span *ngIf="_inputData.value.globalgroupId != null" class="recordcount2 example-margin">
+                                <b>{{_inputData.value.globalgroupId.length}}</b>
+                                {{'campaigns.create.groupsSelected' | translate}}</span>
+                            </div>
+                            <div class="dirdeptGroups" *ngIf="seldept">
+                              <mat-form-field class="select-form example-full-width">
+                                <mat-select multiple placeholder="{{'campaigns.create.deptGroup' | translate}}"
+                                  (selectionChange)='onChange(true)' formControlName="deptgroupId" required>
+                                  <mat-select-trigger> 
+                                    {{globalDepts}}
+                                    <span *ngIf="(_inputData?.value.deptgroupId)?.length>
+                                      1" class="example-additional-selection">
+                                      (+{{(_inputData?.value.deptgroupId)?.length - 1}} others)
+                                    </span>
+                                  </mat-select-trigger>
+                                  <mat-option *ngFor="let dgroup of deptGroup;" value="{{dgroup.groupDeptId}}">
+                                    {{dgroup.groupName}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="_inputData.controls.deptgroupId.errors?.required">
+                                  {{'campaigns.groupRequired' | translate}}</mat-error>
+                              </mat-form-field>
+                              <span *ngIf="_inputData.value.deptgroupId != null" class="recordcount2 example-margin">
+                                <b>{{_inputData.value.deptgroupId.length}}</b>
+                                {{'campaigns.create.groupsSelected' | translate}}</span>
+                            </div>
+                            <div class="diruserGroups" *ngIf="seluser">
+                              <mat-form-field class="select-form example-full-width">
+                                <mat-select multiple placeholder="{{'campaigns.create.userGroup' | translate}}"
+                                  (selectionChange)='onChange(true)' formControlName="usergroupId" required>
+                                  <mat-select-trigger> 
+                                    {{globalUser}}
+                                    <span *ngIf="(_inputData?.value.usergroupId)?.length>
+                                      1" class="example-additional-selection">
+                                      (+{{(_inputData?.value.usergroupId)?.length - 1}} others)
+                                    </span>
+                                  </mat-select-trigger>
+                                  <mat-option *ngFor="let ugroup of groupUser;" value="{{ugroup.groupUserId}}">
+                                    {{ugroup.groupName}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="_inputData.controls.usergroupId.errors?.required">
+                                  {{'campaigns.groupRequired' | translate}}</mat-error>
+                              </mat-form-field>
+                              <span *ngIf="_inputData.value.usergroupId != null" class="recordcount2 example-margin">
+                                <b>{{_inputData.value.usergroupId.length}}</b>
+                                {{'campaigns.create.groupsSelected' | translate}}</span>
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+                      <div style="padding-top: 10px;">
+                        <mat-radio-group formControlName="campType">
+                          <mat-radio-button color="primary" value="0">{{'campaigns.create.bulk' | translate}}
+                          </mat-radio-button>
+                          <mat-radio-button color="primary" [disabled]="_inputData.value.inputType ==2" value="1">
+                            {{'campaigns.create.custom' | translate}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mar-top">
+                    <button matStepperNext mat-raised-button type="button"
+                      class="submitbutton">{{'campaigns.next' | translate}}</button>
+                  </div>
+
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="_sms">
+              <form [formGroup]="_sms">
+                <div class="stepcontainer">
+                  <!-- class="col-sm-7" -->
+                  <div class="col-sm-7">
+                    <ng-template matStepLabel>{{'campaigns.create.sms' | translate}}</ng-template>
+
+                    <div>
+                      <mat-form-field style="width: 100%;">
+
+                        <mat-select placeholder="{{'campaigns.create.senderSelection' | translate}}"
+                          formControlName="senderId" required>
+                          <mat-option *ngFor="let sender of senderdata;" value="{{sender.senderId}}">
+                            {{sender.senderName}}</mat-option>
+
+                        </mat-select>
+                        <mat-error *ngIf="_sms.controls.senderId.errors?.required">
+                          {{'campaigns.create.senderRequired' | translate}} </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div *ngIf="true">
+                      <mat-checkbox [checked]="true" color="primary" formControlName="usetemplate"
+                        (change)="usetemplate(_sms.controls.usetemplate.value)">
+                        {{'campaigns.create.template' | translate}}</mat-checkbox>
+                      <mat-form-field style="width: 100%;" *ngIf="_sms.controls.usetemplate.value">
+                        <mat-select formControlName="seltemplate"
+                          placeholder="{{'campaigns.create.selectTemplate' | translate}}"
+                          (selectionChange)="templateSelection()" required>
+                          <mat-option *ngFor="let temp of SmsTemplatesList" [value]="temp?.message">
+                            {{temp.templateName}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="_sms.controls.seltemplate.errors?.required">
+                          {{'campaigns.create.templateRequired' | translate}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="mb-1" *ngIf="_campData.value.campType == '1'">
+                      <mat-form-field>
+                        <mat-select placeholder="{{'campaigns.create.customSelection' | translate}}"
+                          formControlName="customfield">
+                          <mat-option *ngFor="let state of _sms.value.selectcolumnlist" [value]="state">{{state}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>&nbsp;
+                      <label *ngIf="_sms.value.customfield != null" for="focus-input" type="button"
+                        class="btn btn-primary"
+                        (click)="addCustomField()">{{'campaigns.create.add' | translate}}</label>
+                    </div>
+                    <div class="mb-1">
+                      <mat-form-field class="example-full-width group-top-margin" style="width: 100%;">
+                        <textarea matInput placeholder="{{'ActionNames.'+msgPlaceHolder | translate}}"
+                          formControlName="msgtxt" class="typewriter" #message name="focus-input"
+                          matTextareaAutosize matAutosizeMinRows="5"  matAutosizeMaxRows="5" rows="5"
+                          maxlength="{{msglength}}"
+                          [ngClass]=" _arabic.test(_sms.value.msgtxt) ? {arabic : true} : {english : true}" required>
+                      </textarea>
+                        <!-- <mat-icon matSuffix>personal_video</mat-icon> -->
+                        <!-- <mat-hint  *ngIf="!templateData?.length"><a #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu1">Insert Template</a></mat-hint> -->
+                        <mat-hint align="end" style="color: green;font-weight: bold">{{charcount}}
+                          {{'campaigns.create.character' | translate}}(s) |
+                          {{msgCount}} {{'campaigns.create.msg' | translate}}(s)</mat-hint>
+                        <mat-error *ngIf="_sms.controls.msgtxt.errors?.required">
+                          {{'campaigns.create.msgRequired' | translate}}</mat-error>
+                      </mat-form-field>
+                      <!--               
+                    <mat-menu #menu1="matMenu">
+                      <div *ngFor="let i of templateData">
+                        <a (click)="smsFormGroup.get('msgtxt').setValue(i.message)" mat-menu-item> {{i.template}} </a>
+                      </div>
+                    </mat-menu> -->
+                    </div>
+
+                    <!-- <app-classicsms [smsFormGroup]="_sms"></app-classicsms> -->
+
+                    <div class="mar-top">
+                      <button matStepperPrevious mat-raised-button>{{'campaigns.back' | translate}}</button>
+                      <button matStepperNext mat-raised-button
+                        class="submitbutton">{{'campaigns.next' | translate}}</button>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-5 text-center">
+                    <div class="">
+                      <div class="sndrid-sec">
+                        <div class="senderidview">{{_senderName | slice:0:2}}</div>
+                        <div class="sender-id">{{_senderName}}</div>
+                      </div>
+                      <br>
+                      <div class="phonepreview"
+                        [ngClass]=" _arabic.test(_sms.value.msgtxt) ? {arabic : true} : {english : true}">
+                        {{replacedColumnData && _sms.value.msgtxt && _campData.value.campType == '1' ? (_sms.value.msgtxt | messgaereplace:replacedColumnData) :_sms.value.msgtxt}}
+                      </div>
+                      <img src="assets/images/i-phone10.svg" class="mobile">
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="_camaDetails">
+              <form [formGroup]="_camaDetails">
+                <ng-template matStepLabel>{{'campaigns.create.campDetails' | translate}}</ng-template>
+                <div class="row stepcontainer">
+                  <div class="clearfix">
+                    <div class="col-sm-12">
+                      <div class="clearfix">
+                        <mat-form-field style="width: 100%;">
+                          <mat-select placeholder="{{'campaigns.create.priority' | translate}}"
+                            formControlName="priority" name="priority" required >
+                            <mat-option value="11">{{'campaigns.create.low' | translate}}</mat-option>
+                            <mat-option value="10">{{'campaigns.create.medium' | translate}}</mat-option>
+                            <mat-option value="9">{{'campaigns.create.high' | translate}}</mat-option>
+                          </mat-select>
+
+                        </mat-form-field>
+                        <mat-error *ngIf="_camaDetails.controls.priority.errors?.required">
+                          {{'campaigns.create.priorityRequired' | translate}} </mat-error>
+                      </div>
+
+                      <div class="clearfix mar-btm">
+                        <!-- <mat-checkbox name="CampaignType" formControlName="isPromo">
+                  <span> Campaign Type : </span>
+                  <span *ngIf="_camaDetails.value.isPromo">Promotional</span>
+                  <span *ngIf="!_camaDetails.value.isPromo">Transactional</span></mat-checkbox> -->
+                        <div class="clearfix">
+                          <div style="margin-bottom: 10px;">{{'campaigns.create.campType' | translate}}: </div>
+                          <mat-radio-group name="CampaignType" formControlName="campMode"
+                            (change)="onCampaignTypeSelection()">
+                            <mat-radio-button color="primary" value="0">{{'campaigns.create.promotional' | translate}}
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="1">{{'campaigns.create.transactional' | translate}}
+                            </mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="clearfix">
+                    <div class="col-sm-12">
+                      <div style="margin-bottom: 10px;"> {{'campaigns.create.schedule' | translate}} : </div>
+                      <mat-radio-group formControlName="scheduletype" (change)="changeScheduleType()">
+                        <mat-radio-button color="primary" value="0">{{'campaigns.create.sendNow' | translate}}
+                        </mat-radio-button>
+                        <mat-radio-button color="primary" value="1">{{'campaigns.create.scheduleLater' | translate}}
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    <div class="col-sm-12 mar-top" *ngIf="_camaDetails.controls.scheduletype.value=='1'">
+                      <mat-form-field style="width: 100%;">
+                        <mat-placeholder>{{'campaigns.create.scheduleDate' | translate}}</mat-placeholder>
+                        <mat-datetimepicker-toggle [for]="end" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker #end type="datetime"   openOnFocus="true"   timeInterval="1">
+                        </mat-datetimepicker>
+
+                        <input formControlName="campSchedule" [min]='todayTimeCheck ? promotionalMinDate:today'
+                          onkeypress="return (event.charCode == 0)" allow-camp-cal-characters
+                          matInput [matDatepickerFilter]="myFilter"  [matDatetimepicker]="end"  autocomplete="false"
+                          readonly required>
+                        <mat-error
+                          *ngIf="_camaDetails.value.campSchedule!=null &&_camaDetails.controls.campSchedule.errors?.required">
+                          {{'campaigns.create.scheduleRequired' | translate}}</mat-error>
+                        <mat-error *ngIf="_camaDetails.value.campSchedule <= today">
+                          {{'campaigns.create.errortime' | translate}}</mat-error>
+                      </mat-form-field>
+
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <button matStepperPrevious mat-raised-button> {{'campaigns.back' | translate}}</button>
+                  <button matStepperNext mat-raised-button
+                    class="submitbutton">{{'campaigns.next' | translate}}</button>
+                </div>
+
+              </form>
+            </mat-step>
+
+            <mat-step>
+              <form>
+                <ng-template matStepLabel>
+                  {{data ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}} </ng-template>
+                <div class="stepcontainer">
+                  <div class="wizardForm">
+                    <table class="table table-bordered campaigndetails">
+                      <tbody>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.campName' | translate}}</td>
+                          <td>{{_campData.value.campName}}</td>
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.sourceType' | translate}}</td>
+                          <td *ngIf="_inputData.value.inputType == '2'">{{'campaigns.create.addressBook' | translate}}
+                          </td>
+                          <td *ngIf="_inputData.value.inputType == '1'">{{_inputData.value.fileType}} File</td>
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.mobileField' | translate}}</td>
+                          <td *ngIf="_inputData.value.inputType == '2'">N/A</td>
+                          <td *ngIf="_inputData.value.inputType == '1'">{{_inputData.value.mobileColumn}}</td>
+
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.count' | translate}}</td>
+                          <td>{{_countValue}}</td>
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.customMessage' | translate}}</td>
+                          <td>{{_campData.value.campType == '0' ? 'NO' :'Yes'}}</td>
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.campType' | translate}}</td>
+                          <td>{{_camaDetails.value.campMode == '1' ? 'Transactional' :'Promotional'}}</td>
+                          <!-- <td *ngIf="!_camaDetails.value.isPromo">Promotional</td> -->
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.selectSenderId' | translate}}</td>
+                          <td>{{_senderName}}</td>
+
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.scheduleDates' | translate}}</td>
+                          <td>
+                            {{_camaDetails.value.scheduletype == '1' ? datePipe.transform(_camaDetails.value.campSchedule, "yyyy-MM-dd HH:mm:ss") :'Send Now'}}
+                          </td>
+
+                        </tr>
+                        <tr>
+                          <td style="width:35%;">{{'campaigns.create.msg' | translate}}</td>
+                          <td [ngClass]=" _arabic.test(_sms.value.msgtxt) ? {arabic : true} : {english : true}">
+                            {{_sms.value.msgtxt}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <div class="pad-all2">
+                    <button matStepperPrevious mat-raised-button>{{'campaigns.back' | translate}}</button>
+                    <button mat-raised-button class="submitbutton" actionClick (debounceClick)="submit()"
+                      [disabled]="loading">{{data ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+                  </div>
+
+                </div>
+              </form>
+            </mat-step>
+          </mat-vertical-stepper>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>
+
+<div *ngIf="showpopup" class="helppop">
+  <div class="helppop_title"><i class="ti-close" actionClick (debounceClick)="showpopup=false"></i></div>
+  <div style="padding: 10px; ">
+    <ul>
+      <li>{{'campaigns.helper.row1' | translate}}</li>
+      <li>{{'campaigns.helper.row2' | translate}}</li>
+      <li>{{'campaigns.helper.row3' | translate}}</li>
+      <li>{{'campaigns.helper.row4' | translate}}</li>
+      <li>{{'campaigns.helper.row5' | translate}}</li>
+      <li>{{'campaigns.helper.row6' | translate}}</li>
+    </ul>
+    <img src="assets/images/help.jpg">
+  </div>
+</div>

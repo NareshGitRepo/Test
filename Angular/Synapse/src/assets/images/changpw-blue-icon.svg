@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2.39685in" height="2.39213in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2397 2392"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ enable-background="new 0 0 300 300">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str2 {stroke:#2B2A29;stroke-width:7.87402}
+    .str3 {stroke:#D2CDE7;stroke-width:7.87402}
+    .str1 {stroke:#2B2B2B;stroke-width:100}
+    .str0 {stroke:#2B2B2B;stroke-width:166.665}
+    .fil0 {fill:none}
+    .fil1 {fill:#00CCFF}
+    .fil3 {fill:#1884BC}
+    .fil2 {fill:#5EBBE7}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="15225" y="-78" width="7111" height="7111"/>
+   </clipPath>
+   <clipPath id="id1">
+    <rect x="6507" y="-4669" width="4880" height="3673"/>
+   </clipPath>
+   <clipPath id="id2">
+    <rect x="-7951" y="-1231" width="6833" height="6819"/>
+   </clipPath>
+    <clipPath id="id3">
+     <rect x="18351" y="9017" width="3125" height="3125"/>
+    </clipPath>
+   <clipPath id="id4">
+    <rect x="6025" y="4663" width="7111" height="7111"/>
+   </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <circle class="fil0 str0" cx="22859" cy="8040" r="1255"/>
+  <line class="fil0 str0" x1="24742" y1="9847" x2="23687" y2= "8983" />
+  <line class="fil0 str0" x1="22248" y1="7703" x2="23444" y2= "7703" />
+  <line class="fil0 str0" x1="22248" y1="8079" x2="23444" y2= "8079" />
+  <line class="fil0 str0" x1="22248" y1="8464" x2="22846" y2= "8464" />
+  <g style="clip-path:url(#id0)">
+   <image id="market_research-512.png" transform="matrix(1 0 0 1 14026.5 5837.38)" x="1198" y="-5915" width="7111" height="7111" xlink:href="talam_Images\talam_ImgID1.png"/>
+  </g>
+  <path class="fil0 str1" d="M22507 12940c230,-255 563,-416 933,-416l0 1256 1255 24c-13,684 -571,1231 -1255,1231 -214,0 -416,-54 -593,-148"/>
+  <path class="fil0 str1" d="M24723 13550l-1087 0 0 -1082c0,0 1057,-10 1087,1082z"/>
+  <circle class="fil0 str1" cx="22204" cy="13285" r="445"/>
+  <path class="fil0 str1" d="M21630 15013l1178 0c15,0 28,-12 28,-28l0 -875c0,-204 -167,-370 -370,-370l-494 0c-204,0 -370,167 -370,370l0 875c0,15 12,28 28,28z"/>
+  <g style="clip-path:url(#id1)">
+   <image id="group.png" transform="matrix(1 0 0 1 5308.91 -2191.59)" x="1198" y="-2477" width="4880" height="3673" xlink:href="talam_Images\talam_ImgID2.png"/>
+  </g>
+  <g style="clip-path:url(#id2)">
+   <image id="box.png" transform="matrix(1 0 0 1 -9149.43 4392.01)" x="1198" y="-5623" width="6833" height="6819" xlink:href="talam_Images\talam_ImgID3.png"/>
+  </g>
+  <polyline class="fil0 str2" points="-5639,737 -7805,1425 -7805,4675 -5493,5467 -2941,4717 "/>
+  <polyline class="fil0 str2" points="-5003,2039 -5443,2293 -5443,5456 "/>
+  <g id="ange-password-icon-png-transparent-4.svg">
+   <g style="clip-path:url(#id3)">
+    <image id="image0" transform="matrix(1 0 0 1 17153.1 10945.8)" x="1198" y="-1929" width="3125" height="3125" xlink:href="talam_Images\talam_ImgID4.png"/>
+   </g>
+  </g>
+  <path class="fil0" d="M16134 8025c100,0 181,81 181,181 0,72 -42,134 -103,163l0 238 -153 0 0 -237c-62,-29 -105,-91 -105,-164 0,-100 81,-181 181,-181z"/>
+  <path class="fil0" d="M15938 7874l0 -283c59,-173 165,-148 234,-149 124,23 136,104 160,179l0 278 -394 0 0 -24z"/>
+  <rect class="fil1 str3" x="-252" y="3527" width="1278" height="1111"/>
+  <polygon class="fil2" points="1557,488 1865,60 2052,561 "/>
+  <path class="fil3" d="M947 1054l499 0c101,0 183,82 183,183l0 347c0,101 -82,183 -183,183l-499 0c-101,0 -183,-82 -183,-183l0 -347c0,-101 82,-183 183,-183zm252 142c72,0 131,59 131,131 0,52 -31,98 -75,119l0 173 -111 0 0 -172c-45,-21 -76,-66 -76,-119 0,-72 59,-131 131,-131z"/>
+  <path class="fil3" d="M936 1136c0,-70 -11,-278 10,-330 97,-243 422,-245 503,24 26,85 13,245 13,339l-527 0 0 -32zm120 -49c0,-45 -7,-190 7,-223 52,-127 227,-126 269,6 19,60 10,168 10,235l-286 0 0 -18z"/>
+  <path class="fil2" d="M1198 57c241,0 465,75 650,203l-108 110c-156,-102 -342,-162 -542,-162 -545,0 -987,442 -987,987 0,545 442,987 987,987 545,0 987,-442 987,-987 0,-91 -12,-179 -35,-263l146 -39c26,96 41,197 41,302 0,629 -510,1139 -1139,1139 -629,0 -1139,-510 -1139,-1139 0,-629 510,-1139 1139,-1139z"/>
+  <g style="clip-path:url(#id4)">
+   <image id="Profile-512.png" transform="matrix(1 0 0 1 4826.67 10577.7)" x="1198" y="-5915" width="7111" height="7111" xlink:href="talam_Images\talam_ImgID5.png"/>
+  </g>
+  <circle class="fil0 str2" cx="18605" cy="10527" r="2528"/>
+  <path class="fil0 str2" d="M9581 4788c1895,0 3431,1536 3431,3431 0,1895 -1536,3431 -3431,3431 -1895,0 -3431,-1536 -3431,-3431 0,-1895 1536,-3431 3431,-3431zm-2032 4934c32,-79 121,-241 355,-421 0,0 222,-181 573,-181l2260 0c0,0 199,-28 570,201 0,0 189,126 323,376 301,-416 478,-927 478,-1480 0,-1396 -1132,-2528 -2528,-2528 -1396,0 -2528,1132 -2528,2528 0,563 184,1084 496,1504z"/>
+  <path class="fil0 str2" d="M16474 5291c1895,0 3431,1536 3431,3431 0,1895 -1536,3431 -3431,3431 -1895,0 -3431,-1536 -3431,-3431 0,-1895 1536,-3431 3431,-3431zm0 903c1396,0 2528,1132 2528,2528 0,1396 -1132,2528 -2528,2528 -1396,0 -2528,-1132 -2528,-2528 0,-1396 1132,-2528 2528,-2528z"/>
+  <circle class="fil0 str2" cx="9591" cy="7599" r="1104"/>
+  <path class="fil0 str2" d="M9255 11724c-377,-535 -82,-1055 375,-1396 0,0 840,-517 889,-1149 0,0 774,-122 1125,632 351,753 -455,642 -455,642l-1264 451 -670 819z"/>
+  <rect class="fil0 str2" x="3289" y="1996" width="590" height="764"/>
+ </g>
+</svg>

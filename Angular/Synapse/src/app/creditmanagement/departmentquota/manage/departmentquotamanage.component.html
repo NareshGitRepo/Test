@@ -1,0 +1,180 @@
+<div fxLayout="row wrap">
+
+  <div fxFlex="60">
+  </div>
+
+  <div fxFlex="40" class="search-align pad-rgt">
+    <div fxFlex="92">
+      <mat-form-field>
+        <input matInput [(ngModel)]="searchdata" (keyup)="applyFilter($event.target.value)"
+          placeholder="{{'ActionNames.search' | translate}}">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="8">
+      <div style="margin-top: 18px; font-size: 16px;">
+          <i *ngIf="listflag" class="ti-layout-grid2-alt  text-muted" matTooltip="{{'ActionNames.gridView' | translate}}"
+            (click)="loadGrid()" style="cursor: pointer;  "></i>
+          <i *ngIf="!listflag" class="ti-menu text-muted" matTooltip="{{'ActionNames.listView' | translate}}" (click)="loadList()"
+            style="cursor: pointer; "></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!listflag">
+  <div fxLayout="row wrap"
+    *ngIf="searchdata=='' ? true :(filterDepartmentQuota | DeptQuotafilter : departmentQuotaList : searchdata) as result">
+    <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" fxFlex="100"
+      *ngFor="let item of filterDepartmentQuota | DeptQuotafilter : departmentQuotaList : searchdata">
+      <mat-card fxFlex class="usercard no-shadow mat-elevation-z0"
+        [ngClass]="{'prepaidcard':item.deptcredit?item.deptcredit.creditTypeId =='2':[],'postpaidcard':item.deptcredit?item.deptcredit.creditTypeId=='1':[]}">
+        <mat-card-content>
+          <div fxLayout="row wrap">
+            <div fxFlex="98" class="UcardLeft">
+              <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+                <div fxLayout="row wrap" class="clearfix card-top">
+                  <div>
+                    <div class="card-avatar">
+                      <div class="image-inner">
+                        <img src="assets/images/customer_icon.svg" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 1-Postpaid 2-Prepaid -->
+                  <div fxFlex="75">
+
+                    <div class="card-details">
+                      <h3>{{item?.deptName}}</h3>
+                      <!-- <div >
+                        <small
+                          *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='2'">{{item.deptcredit?.creditTypeId !=1 ? ('CreditManagementModule.departmentquota.manage.currentThreshold' | translate):('CreditManagementModule.departmentquota.setLimit.currentBalance' | translate)}}
+                          :
+                          {{item?.deptcredit?.availableCredit}}</small>
+                        <small *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='2'">
+                          {{item.deptcredit?.creditTypeId !=1 ?('CreditManagementModule.departmentquota.setLimit.availableThreshold' | translate):('CreditManagementModule.departmentquota.setLimit.availableBalance' | translate)}}:
+                          {{item?.deptcredit?.thresoldLimit}}</small>
+                      </div> -->
+                      <div>
+                          <small *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='2'">
+                          {{item.deptcredit?.creditTypeId ==1 ?('CreditManagementModule.departmentquota.setLimit.availableThreshold' | translate):('CreditManagementModule.departmentquota.setLimit.availableBalance' | translate)}}:
+                          {{item?.deptcredit?.thresoldLimit}}</small>
+                          <small
+                          *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='2'">{{item.deptcredit?.creditTypeId ==1 ? ('CreditManagementModule.departmentquota.setLimit.currentThreshold' | translate):('CreditManagementModule.departmentquota.manage.currentBalance' | translate)}}
+                          :
+                          {{item?.deptcredit?.availableCredit}}</small>
+                          
+                          </div>
+                      <!-- <div *ngIf="item.deptcredit?.creditTypeId !=1">
+                        <small
+                          *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='2'">{{'CreditManagementModule.departmentquota.setLimit.availableBalance' | translate}}
+                          :
+                          {{item?.deptcredit?.availableCredit}}</small>
+                      </div> -->
+
+                      <!-- <small *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='2'">Available Balance :
+                      {{item?.deptcredit?.availableCredit}}</small> -->
+                      <!-- <small *ngIf="item.deptcredit?item.deptcredit.creditTypeId:'' =='1'">Current Threshold Limit :
+                      {{item?.deptcredit?.thresoldLimit}}</small> -->
+                      <!-- <small *ngIf="item.accountType=='Postpaid'">Usage : {{item.accountType}}</small>
+                    <small>Threshold Limit : {{item.thresholdLimit}}</small>
+                    <small *ngIf="item.accountType=='Postpaid'">Upper Limit : {{item.upperLimit}}</small> -->
+                      <small *ngIf="item.deptcredit">
+                        {{'CreditManagementModule.departmentquota.setLimit.type' | translate}}: <span
+                          class="typetext">{{item.deptcredit?.creditTypeId ==1 ? 'Postpaid':'Prepaid'}}</span></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="Umore-btn">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                <button mat-menu-item (click)="setLimit(item)"><i class="ti-pencil-alt"></i>
+                  {{'CreditManagementModule.departmentquota.manage.setLimit' | translate}}</button>
+                <!-- <button mat-menu-item (click)="deptQuotaDetails(item)"><i class="ti-info-alt"></i> Details</button>
+              <button mat-menu-item (click)="deptQuotaHistory()"><i class="ti-time"></i> History</button> -->
+              </mat-menu>
+            </div>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+    <div *ngIf="departmentQuotaList?.length> pageSize && searchdata==''" style="width: 100%">
+      <mat-paginator [length]="departmentQuotaList.length" [pageSize]="pageSize" [pageIndex]="initPage"
+        showFirstLastButtons (page)="getData($event)">
+      </mat-paginator>
+    </div>
+    <div *ngIf="(result?.length==0 || departmentQuotaList?.length==0) && !loading">
+      {{ departmentQuotaList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+    </div>
+  </div>
+</div>
+<div *ngIf="listflag && (searchdata=='' ? departmentQuotaList?.length>0 : dataSource.filteredData.length>0)">
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="listtable">
+    <ng-container matColumnDef="deptName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{'CreditManagementModule.departmentquota.setLimit.department' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.deptName}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="creditTypeId">
+      <mat-header-cell *matHeaderCellDef>
+        {{'CreditManagementModule.departmentquota.setLimit.accountType' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.deptcredit?.creditTypeId ==1 ? 'Postpaid':'Prepaid'}} </mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="thresoldLimit">
+      <mat-header-cell *matHeaderCellDef >
+        {{'CreditManagementModule.departmentquota.setLimit.cTL' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.deptcredit?element?.deptcredit?.thresoldLimit:'0'}}</mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="availableCredit">
+      <mat-header-cell *matHeaderCellDef >
+        {{'CreditManagementModule.departmentquota.setLimit.availableBalance' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.deptcredit?element?.deptcredit?.availableCredit:'0'}}
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="mat-column-actions">
+        {{'CreditManagementModule.departmentquota.manage.actions' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <i class="ti-pencil-alt link"
+          matTooltip="{{'CreditManagementModule.departmentquota.manage.setLimit' | translate}}"
+          (click)="setLimit(element)"></i>
+        <!-- <i class="ti-info-alt link" matTooltip="Details" (click)="deptQuotaDetails(element)"></i>&nbsp;&nbsp;
+        <i class="ti-time" matTooltip="History" (click)="deptQuotaHistory(element)"></i> -->
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div  *ngIf="departmentQuotaList.length>pageSize && searchdata==''" style="width:
+    100%">
+    <mat-paginator #paginator [length]="departmentQuotaList.length" [pageSize]="pageSize" [pageIndex]="listPage"
+      showFirstLastButtons (page)="getListData($event)">
+    </mat-paginator>
+  </div>
+
+</div>
+<div *ngIf="listflag && (searchdata=='' ? departmentQuotaList?.length==0 : dataSource.filteredData?.length==0)">
+  {{ departmentQuotaList?.length==0 ? ('ActionNames.noDataFound' | translate) :('ActionNames.noFilterDataFound' | translate)}}
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

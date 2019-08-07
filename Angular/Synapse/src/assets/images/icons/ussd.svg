@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="42.3332mm" height="42.3332mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 4233 4233"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#FF8E27;stroke-width:135.47}
+    .str1 {stroke:#FF8E27;stroke-width:135.47;stroke-linecap:round;stroke-linejoin:round}
+    .fil1 {fill:none}
+    .fil0 {fill:#FF8E27;fill-rule:nonzero}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <path d="M4474 261l3710 -116 75 4217 -3710 -28 -75 -4072z"/>
+   </clipPath>
+   <clipPath id="id1">
+    <rect x="-4961" y="252" width="3996" height="3996"/>
+   </clipPath>
+   <clipPath id="id2">
+    <rect x="12191" y="1135" width="11227" height="5182"/>
+   </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g style="clip-path:url(#id0)">
+   <image id="tmp2.jpg" transform="matrix(10.0197 0 0 10.0197 -89105.5 14864.4)" x="2117" y="-3065" width="11227" height="5182" xlink:href="ussd_Images\ussd_ImgID1.png"/>
+  </g>
+  <g style="clip-path:url(#id1)">
+   <image id="mobile-12-512.png" transform="matrix(1 0 0 1 -7077.31 2131.13)" x="2117" y="-1880" width="3996" height="3996" xlink:href="ussd_Images\ussd_ImgID2.png"/>
+  </g>
+  <path class="fil0" d="M-7577 263l25 -76c57,20 98,37 124,52 -7,-64 -10,-109 -11,-133l78 0c-1,35 -5,79 -12,133 37,-18 79,-36 126,-51l25 76c-45,15 -90,25 -133,30 22,19 52,53 92,101l-64 46c-21,-28 -45,-67 -73,-115 -27,50 -50,89 -70,115l-63 -46c41,-51 71,-85 89,-101 -46,-9 -90,-19 -131,-30z"/>
+  <path id="1" class="fil0" d="M-7128 919l47 -228 -91 0 0 -80 107 0 40 -194 -147 0 0 -80 163 0 47 -230 81 0 -47 230 168 0 47 -230 80 0 -47 230 93 0 0 80 -109 0 -40 194 149 0 0 80 -165 0 -47 228 -81 0 47 -228 -168 0 -47 228 -80 0zm143 -309l168 0 40 -194 -168 0 -40 194z"/>
+  <g style="clip-path:url(#id2)">
+   <image id="tmp2.jpg_0" transform="matrix(1 0 0 1 10074.5 4199.45)" x="2117" y="-3065" width="11227" height="5182" xlink:href="ussd_Images\ussd_ImgID3.png"/>
+  </g>
+  <g id="_749599008">
+   <rect class="fil1 str0" x="1155" y="339" width="1946" height="3556" rx="234" ry="234"/>
+   <line class="fil1 str0" x1="1132" y1="3437" x2="3062" y2= "3437" />
+   <line class="fil1 str0" x1="1132" y1="780" x2="3062" y2= "780" />
+   <line class="fil1 str1" x1="1859" y1="3660" x2="2406" y2= "3660" />
+  </g>
+  <path class="fil0" d="M1668 1883l23 -70c52,18 90,34 114,48 -6,-59 -10,-101 -10,-123l72 0c-1,33 -5,73 -11,122 34,-17 73,-33 117,-47l23 70c-42,14 -83,23 -123,28 20,17 48,49 85,93l-59 42c-19,-26 -42,-62 -68,-106 -25,46 -46,82 -64,106l-58 -42c38,-47 65,-78 82,-93 -42,-8 -83,-18 -121,-28z"/>
+  <path id="1" class="fil0" d="M2082 2488l43 -211 -84 0 0 -74 99 0 37 -179 -135 0 0 -74 150 0 43 -212 74 0 -43 212 155 0 43 -212 74 0 -43 212 86 0 0 74 -101 0 -37 179 138 0 0 74 -153 0 -43 211 -74 0 43 -211 -155 0 -43 211 -74 0zm132 -285l155 0 37 -179 -155 0 -37 179z"/>
+ </g>
+</svg>

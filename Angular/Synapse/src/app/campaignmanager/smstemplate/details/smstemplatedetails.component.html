@@ -1,0 +1,49 @@
+<mat-card style="box-shadow: none;">
+  <form>
+    <mat-card-header>
+
+      <h4>Department Details</h4>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Department Name</strong> </div>
+          <div class="bord-all pad-all-sm"> {{departmentDetails?.deptName}}</div>
+        </div>
+
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Credit Type</strong> </div>
+          <!-- <div class="bord-all pad-all-sm"> {{departmentDetails?.creditType.creditId}}</div> -->
+          <div class="bord-all pad-all-sm"> {{departmentDetails?.creditType.creditName}}</div>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" class="clearfix pad-top">
+        <div fxFlex>
+          <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Description</strong> </div>
+          <div class="bord-all pad-all-sm"> {{departmentDetails?.description}}</div>
+        </div>
+      </div>
+
+      <!-- <div fxLayout="row wrap" class="clearfix pad-top">
+            <div fxFlex>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Created By</strong> </div> 
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"><strong>Modified By</strong></div>
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>Created Date</strong> </div> 
+                    <div class="bord-all pad-all-sm" style="background: #fafafa"><strong>Modified Date</strong></div>
+                </div>
+    
+                <div fxFlex>
+                    <div class="bord-all pad-all-sm">{{departmentDetails?.createdBy}}</div> 
+                    <div class="bord-all pad-all-sm"> {{departmentDetails?.modifiedBy}}</div>
+                    <div class="bord-all pad-all-sm"> {{departmentDetails?.createdDate}}</div>
+                    <div class="bord-all pad-all-sm"> {{departmentDetails?.modifiedDate}}</div>
+                </div>
+      </div> -->
+
+    </mat-card-content>
+  </form>
+</mat-card>

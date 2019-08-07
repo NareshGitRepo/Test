@@ -1,0 +1,98 @@
+<mat-card>
+  <form [formGroup]="smstemplateFrom">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <div fxLayout="row wrap">
+        <h4>{{_editSmsdata ? ('smsTemplateModule.editTitle' | translate):('smsTemplateModule.title' | translate)}}</h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+          <div class="example-container">
+            <div class="w100">
+            <mat-form-field class="w95">
+              <input matInput autofocus [readonly]="_editSmsdata"
+                placeholder="{{'smsTemplateModule.tempName' | translate}}" formControlName="templateName" minlength="4"
+                required
+                (change)="!smstemplateFrom.controls.templateName.errors?.required && smstemplateFrom.controls.templateName.valid ?
+              smstemplateFrom.get('validateSmsTemplate').setValue(smstemplateFrom.value.templateName): smstemplateFrom.get('validateSmsTemplate').setValue(null)"
+                allow-alpha-special-singlespace cdkFocusInitial maxlength="50" required>
+              <mat-error *ngIf="smstemplateFrom?.controls.templateName.errors?.required">
+                {{'smsTemplateModule.create.tempNameRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="smstemplateFrom.controls.templateName.errors?.minlength">
+                {{'smsTemplateModule.create.tempMinimum' | translate}}
+              </mat-error>
+
+            </mat-form-field>
+            <mat-error *ngIf="!smstemplateFrom.controls.validateSmsTemplate.errors?.required &&
+            !smstemplateFrom.controls.templateName.errors?.required && !smstemplateFrom.controls.validateSmsTemplate.errors?.invalid
+            " style="display: inline;"><i class=" ti-check text-success"></i></mat-error>
+            <mat-error *ngIf="smstemplateFrom.controls.validateSmsTemplate.errors?.invalid"><i class="ti-close
+                text-danger">
+                <small
+                  style="font-family: Arial, Helvetica, sans-serif;">{{'smsTemplateModule.create.tempNameExist' | translate}}</small>
+              </i></mat-error>
+            </div>
+            <mat-form-field style="width: 100%;">
+              <input matInput allow-all-space placeholder="{{'smsTemplateModule.description' | translate}}"
+                formControlName="description" minlength="5" maxlength="100" required>
+              <mat-error *ngIf="smstemplateFrom.controls.description.errors?.required">
+                {{'smsTemplateModule.create.descRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="smstemplateFrom.controls.description.errors?.minlength">
+                {{'smsTemplateModule.create.descMinimum' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%;">
+              <mat-select placeholder="{{'smsTemplateModule.create.tempType' | translate}}"
+                formControlName="templateType" required>
+                <mat-option [value]="0">{{'smsTemplateModule.create.static' | translate}}</mat-option>
+                <!-- <mat-option [value]="1">{{'smsTemplateModule.create.dynamic' | translate}}</mat-option> -->
+              </mat-select>
+              <mat-error *ngIf="smstemplateFrom.controls.templateType.errors?.required">
+                {{'smsTemplateModule.create.tempTypeRequired' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%;">
+              <textarea matInput placeholder="{{'ActionNames.'+msgPlaceHolder | translate}}" formControlName="message" minlength="1"
+                maxlength="{{msglength}}"
+                [ngClass]="_arabic.test(smstemplateFrom.value.message) ? {arabic : true} : {english : true}"
+                matTextareaAutosize matAutosizeMinRows="5"  matAutosizeMaxRows="5" required></textarea>
+              <!-- <mat-icon matSuffix>{{'smsTemplateModule.create.personal' | translate}}</mat-icon> -->
+              <mat-hint *ngIf="smstemplateFrom.value.message" align="end" style="color: green;font-weight: bold">
+                {{charcount}}
+                {{'smsTemplateModule.create.character' | translate}} | {{msgCount}}
+                {{'smsTemplateModule.msg' | translate}}</mat-hint>
+              <mat-error *ngIf="smstemplateFrom.controls.message.errors?.required">
+                {{'smsTemplateModule.create.msgRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="smstemplateFrom.controls.message.errors?.minlength">
+                {{'smsTemplateModule.create.msgMinimum' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="toast-top-right">
+      <div style="margin-left: 12px;">
+        <button mat-raised-button class="submitbutton" type="submit" [disabled]="!smstemplateFrom.valid || loading"
+        actionClick (debounceClick)="createSmsTemplate()">{{_editSmsdata ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

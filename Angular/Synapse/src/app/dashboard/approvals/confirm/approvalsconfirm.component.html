@@ -1,0 +1,78 @@
+<mat-card>
+  <form [formGroup]="approvalsForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <h4>{{'ActionNames.approve' | translate}}</h4>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12" cdkFocusInitial>
+
+          <div class="example-container">
+            <!-- <input type="hidden" formControlName="isChecker"> -->
+            <mat-form-field class="w100">
+              <input matInput placeholder="Module Name" formControlName="moduleName" cdkFocusInitial required
+                maxlength="50" readonly>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="w100"> -->
+            <input type="hidden" placeholder="Info" formControlName="info" maxlength="50" readonly required>
+            <!-- </mat-form-field> -->
+
+            <!-- <mat-form-field class="w100">
+                  <mat-select placeholder="Department *" formControlName="groupDepartment" multiple disabled>
+                    <mat-option value="Accounts">Accounts</mat-option>
+                    <mat-option value="Sales">Sales</mat-option>
+                    <mat-option value="IT">IT</mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+
+            <!-- <mat-form-field class="w100">
+                    <mat-select placeholder="User *" formControlName="groupUsers" multiple disabled>
+                      <mat-option value="Sales User 1">Sales User 1</mat-option>
+                      <mat-option value="Sales User 2">Sales User 2</mat-option>
+                      <mat-option value="Sales User 3">Sales User 3</mat-option>
+                      <mat-option value="Sales User 4">Sales User 4</mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+
+            <!-- <p>Status</p>
+                    <mat-slide-toggle color="primary" formControlName="groupStatus" disabled>{{approvalsForm.value.groupStatus ? 'Active' : 'Passive'}}</mat-slide-toggle> -->
+
+            <div fxLayout="row wrap" class="checkerbuttons">
+              <div fxFlex="25">
+
+                <div class="card-avatar" style="width:50px; margin-bottom: 10px; margin-left: 15px">
+                  <img src="assets/images/success.svg" />
+                </div>
+
+                <button mat-raised-button type="button" class="green-button" (click)="approveGroup()">{{'ActionNames.approve' | translate }}</button>
+              </div>
+              <div fxFlex="75">
+                <mat-form-field class="full-width">
+                  <textarea matInput matTextareaAutosize matAutosizeMinRows="5"  matAutosizeMaxRows="5"
+                    placeholder=" {{'ApprovalModule.rejectReason' | translate }}" formControlName="rejectReason" required></textarea>
+                  <mat-error *ngIf="approvalsForm.controls.rejectReason.errors?.required ">
+                    {{'ApprovalModule.rejectReasonReq' | translate }} </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button type="submit" class="red-button" (click)="rejectGroup()"
+                  [disabled]="!approvalsForm.valid">{{'ActionNames.reject' | translate }}</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <!-- <mat-card-actions class="toast-top-right">
+        <div style="margin-left: 12px;">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!approvalsForm.valid" (click)="createGroup()">Save</button>
+        </div>
+      </mat-card-actions> -->
+
+  </form>
+</mat-card>

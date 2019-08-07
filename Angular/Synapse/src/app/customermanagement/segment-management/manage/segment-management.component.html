@@ -1,0 +1,191 @@
+<div fxLayout="row wrap" style="clear:both">
+  <div fxFlex="40">
+    <button mat-raised-button (click)="addSegment()" class="addbutton">
+      <i class="ti-plus"></i> &nbsp;
+      {{'CustomermanagementModule.segmentManagement.create.addSegment' | translate }}</button>&nbsp;&nbsp;
+    <button mat-raised-button (click)="addCustomer()" class="addbutton-new">
+      <i class="ti-plus"></i> &nbsp;
+      {{'CustomermanagementModule.segmentManagement.create.addCustomer' | translate }}</button>
+  </div>
+</div>
+<div fxLayout="row wrap"
+  *ngIf="searchdata=='' ? true :(filteredSegmentList | segmentfilter : segmentsList : searchdata) as result">
+
+  <div id="sndrActv" class="clearfix left-sec left-col" fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+    <div class="search">
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="searchdata" (keyup)="searchFilter($event.target.value)"
+          placeholder="{{'ActionNames.search'| translate}}">
+      </mat-form-field>
+    </div>
+
+    <perfect-scrollbar style="height:48vh;">
+      <div style="padding-right: 8px;">
+        <mat-card style="cursor: pointer;padding:0;word-break: break-all; word-wrap:break-word;" class=" no-shadow bord-all" *ngFor="let segment of filteredSegmentList |  segmentfilter
+        : segmentsList : searchdata : 'segmentName';first as isFirst"
+          [class.pbActive]="segmentId == 0 ? isFirst : (segment?.segmentId ==  segmentId ? true :false)"
+          (click)="activeClass($event)">
+          <mat-card-content (click)="segmentId == segment?.segmentId ? false :assignCustomers(segment)">
+              <div fxFlex="10">
+                  <ngx-avatar class="card-avatar pull-left" size="25" name="{{segment.segmentName}}"></ngx-avatar>
+                  </div>
+            <div fxFlex="90">
+              <div class="itemtext" [style.text-decoration]="segment.status ?'' : 'line-through'">
+                {{segment?.segmentName}}</div>
+              <!-- <span [style.text-decoration]="senderDetails.isActive ?'' : 'line-through'">{{segment?.segmentName}}</span>  -->
+            </div>
+            <div class="Umore-btn" *ngIf="segment.status=='-1'|| segment.status=='-2'">
+              <!-- <small style="color:green;"
+                *ngIf="segment.status=='-1'"><strong>{{'CustomermanagementModule.segmentManagement.manage.pendingforApproval' | translate }}</strong></small>
+              <small style="color:red;"
+                *ngIf="segment.status=='-2'"><strong>{{'CustomermanagementModule.segmentManagement.manage.rejected' | translate }}</strong></small> -->
+                <small *ngIf="segment?.status==1|| segment?.status==0">{{segment?.status==1?'Active':'InActive'}}</small>
+                  <small style="color:green;" *ngIf="segment?.status=='-1'"><strong>{{'ActionNames.pending'| translate}}
+                    </strong></small>
+                  <small style="color:red;" *ngIf="segment?.status=='-2'"><strong>{{'ActionNames.rejected'| translate}}</strong></small>
+              </div>
+
+            <div class="Umore-btn" fxFlex="10" *ngIf="segment.status==0 || segment.status==1">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                <button mat-menu-item (click)="addCustomerunderSement(segment)" [disabled]="segment.status==0"><i
+                    class="ti-plus"></i>{{'CustomermanagementModule.segmentManagement.create.addCustomer' | translate }}</button>
+                <button mat-menu-item (click)="editSegment(segment)" [disabled]="segment.status==0"><i
+                    class="ti-pencil-alt"></i>{{'CustomermanagementModule.segmentManagement.create.editSegment' | translate }}</button>
+                <button mat-menu-item (click)="deleteSegment(segment)"><i class="ti-trash"></i>
+                  {{'ActionNames.delete' | translate}}</button>
+                <button mat-menu-item (click)="segmentDetails(segment)"><i class="ti-info-alt"></i>
+                  {{'ActionNames.details' | translate}}</button>
+                <div *ngIf="segment.status==0">
+                  <button mat-menu-item (click)="applyFilterStatus(segment,1)"><i class="ti-check"></i>
+                    {{'ActionNames.active' | translate}}</button>
+                </div>
+                <div *ngIf="segment.status==1">
+                  <button mat-menu-item (click)="applyFilterStatus(segment,0)"><i class="ti-close"></i>
+                    {{'ActionNames.inActive' | translate}}</button>
+                </div>
+              </mat-menu>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div *ngIf="(result?.length==0 || segmentsList?.length==0) && !loading"
+        class=" no-shadow">
+        {{segmentsList?.length==0 ?('ActionNames.noDataFound' | translate): ('ActionNames.noFilterDataFound' | translate) }}
+      </div>
+      </div>
+    </perfect-scrollbar>
+
+    <div *ngIf="segmentsList?.length >pageSize && searchdata==''" class="paging">
+      <mat-paginator [length]="segmentsList?.length" [pageSize]="pageSize" [pageIndex]="initPage"
+        (page)="getData($event)">
+      </mat-paginator>
+    </div>
+  </div>
+
+  <div fxFlex.gt-sm="75" fxFlex.gt-xs="75" fxFlex="100" class="cmpn-right">
+    <h2 class="heading">
+      <strong>{{'CustomermanagementModule.segmentManagement.manage.customersData' | translate }}</strong></h2>
+    <div *ngIf="customersList ? customersList?.length>0 :false">
+      <perfect-scrollbar style="height:60vh;">
+        <div fxLayout="row wrap">
+
+          <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="33.3" class="pad-no"
+            *ngFor="let customer of filteredCutomerList || customersList">
+
+            <mat-card fxFlex class="usercard">
+
+              <mat-card-content>
+                <div class="clearfix">
+                  <div fxLayout="row wrap" class="pad-all">
+                    <div style="float: left" fxFlex>
+                      <div class="icon-avatar" style="margin-top:8px">
+                        <ngx-avatar class="card-avatar pull-left" size="30" name="{{customer.customerName}}">
+                        </ngx-avatar>
+                      </div>
+                    </div>
+                    <!-- <div class="icon-avatar">
+                    <div class="inn text-center" *ngIf="customer.status == 1">
+                      <img src="assets/images/levels.svg" width="30px;">
+                    </div>
+
+                    <div class="inn text-center" *ngIf="customer.status == 0">
+                      <img src="assets/images/levels-inactive.svg" width="30px;">
+                    </div>
+                  </div> -->
+
+                    <div fxFlex="87" class="pad-lft">
+                      <div class="card-details">
+                        <span>{{customer.deptName}}</span>
+                        <small><strong>{{'CustomermanagementModule.segmentManagement.create.emailId' | translate }}:
+                          </strong>{{customer.emailId}}</small>
+                        <small><strong>{{'CustomermanagementModule.segmentManagement.create.mobileNumber' | translate }}:
+                          </strong>{{customer.mobileNo}}</small>
+                        <small><strong>{{'CustomermanagementModule.segmentManagement.create.country' | translate }}:
+                          </strong>{{customer.country}}</small>
+                      </div>
+                    </div>
+                    <div class="Umore-btn">
+                      <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+                      <mat-menu #UcardEdit="matMenu">
+                        <button mat-menu-item (click)="getCustomerDetails(customer)"><i class="ti-info-alt"></i>
+                          {{'ActionNames.details' | translate}}</button>
+                        <!-- <div *ngIf="editStatus==1"> -->
+                        <button mat-menu-item [disabled]="editStatus==0"
+                           (click)="editCustomer(customer)"><i class="ti-pencil-alt"></i>
+                          {{'ActionNames.edit' | translate}}
+                        </button>
+                        <!-- </div> -->
+                        <!-- <button mat-menu-item (click)="deleteCustomer(customer)"><i class="ti-trash"></i>
+                        Delete</button> -->
+                      </mat-menu>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="clearfix devicecard-footer" *ngIf="customer?.customerType!=0">
+                <div class="col-sm-6 pad-no">
+                  <div *ngIf="customer.status==0">
+                    <button mat-menu-item  class="pull-right"><i class="ti-check"></i> 
+                      {{'ActionNames.deActivate'
+                | translate }}</button>
+                  </div>
+                  <div *ngIf="customer.status==1">
+                    <button mat-menu-item  class="pull-right"><i class="ti-close"></i>
+                      {{'ActionNames.activate'
+                | translate }}</button>
+                  </div>
+                </div>
+              </div>  -->
+                <!-- (click)="LevelActiveDialog(customer,0)"
+                    (click)="LevelActiveDialog(customer,1)" -->
+
+              </mat-card-content>
+
+            </mat-card>
+          </div>
+          <div *ngIf="customersList ? customersList?.length>pageSize : false" style="width: 100%">
+            <mat-paginator [length]="customersList?.length" [pageSize]="pageSize" showFirstLastButtons
+              [pageIndex]="customPage" (page)="getCustomerData($event)">
+            </mat-paginator>
+          </div>
+          <div style="text-align:center;" *ngIf="customersList ? customersList?.length==0 : false && customerListflag">
+            <span>{{'CustomermanagementModule.segmentManagement.manage.noCustDataFound' | translate }}.</span>
+          </div>
+        </div>
+      </perfect-scrollbar>
+      <!-- <div *ngIf="customersList.length >8" class="paging">
+        <mat-paginator [length]="customersList?.length" [pageSize]="pageSize" [pageIndex]="customPage" (page)="getCustomerData($event)">
+        </mat-paginator>
+      </div> -->
+    
+    </div>
+  
+  </div>
+</div>
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

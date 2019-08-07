@@ -1,0 +1,184 @@
+.usercard{position: relative;}
+.usercard .mat-card-content{padding: 0 !important;}
+.usercard{ background: #F4F5F7; box-shadow:none !important; -webkit-box-shadow:none !important; padding: 14px;}
+.usercard .UcardLeft{padding: 6px; padding-right: 0;}
+.usercard .UcardRight{position: relative;}
+.usercard .card-avatar{width: 50px; height: 50px; position: relative;  border-radius: 50%; background: #ccc; margin-right: 15px; display:table;}
+.usercard .card-avatar .image-inner{display:table-cell;text-align:center; vertical-align:middle;}
+.usercard .status-g{ width: 15px; height: 15px; background: #ffffff; border-radius: 50%; border: 3px solid #ffffff; position: absolute; bottom: 0; right: 0; }
+.usercard .status-g.active{ background: #54D216 !important;}
+.usercard .status-g.inactive{ background: #999999 !important;}
+.usercard .card-details{  font-size: 15px; margin-top: 5px; }
+.usercard .card-details h3{  margin: 0 }
+.usercard .card-details a{ font-size: 13px; margin-right: 4px;}
+.usercard small{ display: block; color: #8E8D8D; font-size: 12px; letter-spacing: 0.5px;}
+.usercard .card-btm{margin-top: 10px;}
+.usercard .card-btm span{background: #FCFCFF; font-weight: 300;  color: #686565; letter-spacing: 0.5px; border-radius: 4px; font-size: 12px;  padding: 4px 8px; margin-right: 6px; text-align: center;}
+.usercard .card-btm  .rol{margin-bottom: 4px; float: left; padding: 1px 8px;}
+.usercard .Umore-btn{ position: absolute; top: -3px; right: 1px; color: #848181;}
+.usercard .Uchk{ position: absolute; bottom:4px; right: 8px;}
+.usercard .Uchk .mat-checkbox-inner-container{width: 15px; height: 15px;}
+.usercard .mat-checkbox-frame{ border: 1px solid #cccccc; background: #ffffff;}
+.usercard .UcardLeft .card-details span,.usercard .UcardLeft .card-details small, .usercard .UcardLeft .card-details {word-break: break-all }
+
+.mat-menu-item i {margin-right: 10px }
+.link {cursor: pointer;}
+
+.example-container { display: flex; flex-direction: column; min-width: 300px }
+.selectcontainer { border: 1px solid #e5e5e5; padding: 25px 0 25px 40px }
+
+//List View
+.listtable { border: 1px solid #dddddd !important; table-layout: fixed !important }
+.listtable .mat-cell { font-family: calibri; font-size: 13px; word-break: break-all; word-wrap:break-word; padding: 10px; overflow:hidden !important;}
+//.listtable .mat-row .mat-cell:first-child, .listtable .mat-header-row .mat-header-cell:first-child { padding-left: 24px }
+.listtable tr:nth-child(even), .listtable .mat-row:nth-child(even) { background-color: #F5F5F5 }
+.listtable .mat-sort-header-container { align-items: center }
+.listtable .mat-header-cell{ font-size: 13px; padding: 10px; font-weight: bold; background:#cfcfcf; overflow:hidden !important; word-break: break-word; word-wrap: break-word}
+.listtable .mat-header-row { background: #cfcfcf }
+.listtable .mat-row{ min-height: inherit !important } 
+.listtable .mat-row:hover{ background: #eeeeee!important }
+.listtable .mat-row .mat-cell{text-align: left;}
+table.listtable.mat-row.mat-cell {text-align: left!important;}
+.listtable .mat-sort-header-button { text-align: left }
+.bigtext { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 10px }
+.export { font-weight:  bold; margin: 5px 10px 0 0; top: 5px; display: inline-block}
+
+//Directory List
+.smartdir .card-avatar{ border-radius: 50%; text-align: center; padding: 2px 4px; float: left; color: #ffffff;}
+.smartdir .cmpn-left{border-right:1px solid #eeeeee; padding-right: 12px; }
+.smartdir .cmpn-left .pbActive{ background: #e6e6e6;}
+.smartdir .cmpn-left .Cstatus{ text-align: right; font-size: 11px;}
+.smartdir .cmpn-left .Cstatus span{margin-left: 10px;}
+.smartdir .cmpn-left .mat-card-content{padding: 8px  12px !important; font-size: 14px; }
+.smartdir .cmpn-left .mat-selection-list{ padding: 0;}
+.smartdir .cmpn-left .secr i{padding: 5px 0; cursor: pointer;}
+.smartdir .cmpn-left .secr { text-align:right;}
+
+.smartdir .cmpn-right{padding-left: 20px;}
+.smartdir .cmpn-right .mat-card-title{margin-bottom: 0; padding-bottom: 1rem; border-bottom: 1px solid #eeeeee; min-height: 35px }
+.smartdir .cmpn-right .mat-card-title small{font-size: 11px;}
+.smartdir .cmpn-right .mat-card-actions{background: #ffffff; font-size: 12px; padding-left: 3px !important; padding-right: 3px !important; border-top: 1px solid #eeeeee}
+.smartdir .cmpn-right .mat-expansion-panel-header{ padding: 0; padding-right: 10px; font-size: 12px; font-weight: bold; margin-top: 5px; height: 20px !important;}
+.smartdir .cmpn-right .cntnt{border: 1px solid #eeeeee; padding: 8px;}
+
+.smartdir .cmpn-left .pbActive {background: #cccccc; border:0; color: #000000 !important;}
+.smartdir .cmpn-left .mat-card{cursor: pointer } 
+.smartdir .cmpn-left .mat-card .mat-selection-list .mat-card-content, .smartdir .cmpn-left .mat-card .mat-selection-list .mat-card-content div { align-items: center; word-break: break-all}
+
+.messagetext {
+    background: #eeeeee; padding: 8px; border-radius: 10; display: block; margin-top: 5px; word-break:break-all;overflow:hidden;
+  }
+  .messagedetails {
+    margin: 8px 0 0 0;
+  }
+  .messagedetails p { margin: 0 }
+  .campaigndttime { display: block; font-weight:  bold; border-bottom: 1px solid #eeeeee; padding-bottom: 3px;word-break:break-all;}
+  .status { float: right; font-size: 13px; word-break:break-all;}
+  .messagedetails table {
+    border: 1px solid #cccccc; width: 100%
+  }
+  .messagedetails table td {
+    padding: 3px; border: 1px solid #e6e6e6; border-collapse: collapse; word-break: break-all
+  }
+  .messagedetails table tr td:nth-child(odd) {
+    background-color: #F5F5F5;
+    width: 40%
+  }
+  .messagedetails table tr td:nth-child(even) {
+    width: 65%
+  }
+  .actions {justify-content: space-between;}
+  .actions .mat-raised-button:last-child { margin-right: 0}
+  .morebtn{position: absolute; right: 0px; top: 0px;}
+  .pad-hor{ padding: 0 15px !important;}
+
+  .search-align{ text-align:right;}
+  // .profile-align{ text-align:left;}
+
+  .rightpad-45 {
+    padding-right: 45px
+  }
+.mar-20 { margin-right: 20px}
+
+
+.full-width-table {
+  width: 100%
+}
+.greentext { color: #117A20 }
+.orangetext { color: #FF7200 }
+.bluetext { color: #739DDF }
+.redtext { color: #FF0300 }
+.addbutton{
+  background-color:#B40000;
+  color:#ffffff;
+  margin-left: 5px; 
+  margin-bottom: 8px;
+}
+.dtable-header-top { background: #fafafa; border-bottom: 1px solid #e9e9e9 }
+.form-actions button{
+  background-color:#333333;
+  color:#ffffff;
+  } 
+.submitbutton { background: #333333; color: #ffffff !important; }
+.submitbutton:hover { color: #ffffff !important}
+body .mat-card .mat-card-header { background: #B40000 }
+.loginbg { 
+    background: url(../../assets/images/fujairah-login-img.jpg) center no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 80%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .login-logo { 
+    background: url(../../assets/images/fujairah.svg) center no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 110px;
+    display:  block;
+  }
+
+  .profile-icon{
+    background: url(../../assets/images/Profile-icon.svg) center no-repeat;
+    background-size: contain;
+  }
+
+  .changpw-icon{
+    background: url(../../assets/images/changpw-icon.svg) center no-repeat;
+    background-size: contain;
+    float:left;
+    margin-right: 10px;
+  }
+  .tab-lft-sec a,.tab-rgt-sec a { color:#758697 !important;}
+  .list-unstyled li a.mainmenuActive{ font-weight: bold; font-size: 12px; color: #B40000 !important; }
+  .addbutton-new { background: #6c6c6c; color: #ffffff }
+
+  .mar-no{ margin: 0!important;}
+  .mar-top {  margin-top: 15px !important;}
+  .mar-btm { margin-bottom: 15px !important;}
+  .mar-rgt {  margin-right: 15px !important;}
+  .mar-lft {  margin-left: 15px !important;}
+  .mar-all { padding: 15px !important;}
+  
+  
+  .pad-no{ padding: 0!important;}
+  .pad-top {  padding-top: 15px !important;}
+  .pad-btm {  padding-bottom: 15px !important;}
+  .pad-rgt {  padding-right: 15px !important;}
+  .pad-lft {  padding-left: 15px !important;}
+  .pad-all { padding: 15px !important;}
+  .pad-all2 { padding: 10px !important;}
+
+  .pageheading { color: #B40000}
+  .text-fprofile{color: #B40000 !important;}
+  .ql-container.ql-snow { height: 100px }
+  .tbl-left-head { width: 50% !important}
+  .user-header-logo {background: url(../../assets/images/f-logo.svg) center no-repeat; float:left; background-size:100% 100%; width: 30px; height: 30px; border-radius: 50%}
+  .mat-button-toggle-checked { background-color:#666666; color:#ffffff }
+  .actions button i { margin-right: 3px !important }
+  .addbutton img { margin-bottom: 4px}
+
+  .camptype {word-break: break-all}
+  .contactcard {word-break: break-all}

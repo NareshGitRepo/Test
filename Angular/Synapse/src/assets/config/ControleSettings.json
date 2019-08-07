@@ -1,0 +1,1441 @@
+{
+    "baseUrl": "http://202.65.158.172:9093",
+    "components": [
+        {
+            "apiUrl": "",
+            "component": "Auth",
+            "methods": [
+                {
+                    "name": "getMenuByRoleId",
+                    "type": "GET",
+                    "url": "/menu/{loginid}/user-modules/all/{roleid}"
+                },
+                {
+                    "name": "authLogOut",
+                    "type": "GET",
+                    "url": "/auth/logout"
+                },
+                {
+                    "name": "updateUserPassword",
+                    "type": "PUT",
+                    "url": "/{loginid}/update/password"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Profile",
+            "methods": [
+                {
+                    "name": "changePassword",
+                    "type": "PUT",
+                    "url": "/{loginid}/changePassword/{loginid}"
+                },
+                {
+                    "name": "resetPassword",
+                    "type": "PUT",
+                    "url": "/{loginid}/resetPassword/{userid}"
+                },
+                {
+                    "name": "updateProfileById",
+                    "type": "PUT",
+                    "url": "/{loginid}/update"
+                },
+                {
+                    "name": "updateUserApiKeyInDb",
+                    "type": "PUT",
+                    "url": "/{loginid}/update/apikey"
+                },
+                {
+                    "name": "getUserCreditsByUserId",
+                    "type": "GET",
+                    "url": "/{loginid}/user-credits/{loginid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "CheckerData",
+            "methods": [
+                {
+                    "name": "getAllCheckerData",
+                    "type": "GET",
+                    "url": "/checkerdata/{loginid}/all"
+                },
+                {
+                    "name": "getAllCheckerDataByRoleId",
+                    "type": "GET",
+                    "url": "/checkerdata/{loginid}/all/{roleid}/{deptid}"
+                },
+                {
+                    "name": "updateCheckerDataStatus",
+                    "type": "PUT",
+                    "url": "/checkerdata/{loginid}/updatestatus"
+                },
+                {
+                    "name": "getModuleInfoByViewCheckerStatus",
+                    "type": "GET",
+                    "url": "/moduleinfo/{loginid}/modules/view-checker"
+                },
+                {
+                    "name": "getCheckerDataInfo",
+                    "type": "GET",
+                    "url": "/checkerdata/{loginid}/info/{moduleid}/{checkerid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Prioritization",
+            "methods": [
+                {
+                    "name": "getAllPriorityInfo",
+                    "type": "GET",
+                    "url": "/priorityinfo/{loginid}/all"
+                },
+                {
+                    "name": "updatePriorityDescription",
+                    "type": "PUT",
+                    "url": "/priorityinfo/{loginid}/desc/update"
+                },
+                {
+                    "name": "getAllServiceInfoByProirityId",
+                    "type": "GET",
+                    "url": "/serviceinfo/{loginid}/all/{priorityid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "GroupManagement",
+            "methods": [
+                {
+                    "name": "getAllGroups",
+                    "type": "GET",
+                    "url": "/group/{loginid}/all"
+                },
+                {
+                    "name": "updateGroup",
+                    "type": "PUT",
+                    "url": "/group/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "createGroup",
+                    "type": "POST",
+                    "url": "/group/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getAllDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/departments"
+                },
+                {
+                    "name": "deleteGroup",
+                    "type": "DELETE",
+                    "url": "/group/{loginid}/delete/{groupid}"
+                },
+                {
+                    "name": "updateGroupStatus",
+                    "type": "PUT",
+                    "url": "/group/{loginid}/updatestatus"
+                },
+                {
+                    "name": "validateGroupName",
+                    "type": "GET",
+                    "url": "/group/{loginid}/validate/GroupName"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Priviliges",
+            "methods": [
+                {
+                    "name": "getModuleInfoByViewCheckerStatus",
+                    "type": "GET",
+                    "url": "/moduleinfo/{loginid}/modules/view-checker"
+                },
+                {
+                    "name": "updateCheckerStatus",
+                    "type": "PUT",
+                    "url": "/moduleinfo/{loginid}/updatestatus"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Interface",
+            "methods": [
+                {
+                    "name": "getAllInterfaceInfo",
+                    "type": "GET",
+                    "url": "/interfaceinfo/{loginid}/all"
+                },
+                {
+                    "name": "createInterface",
+                    "type": "POST",
+                    "url": "/interfaceinfo/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateInterfaceInfo",
+                    "type": "PUT",
+                    "url": "/interfaceinfo/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateInterfaceInfoStatus",
+                    "type": "PUT",
+                    "url": "/interfaceinfo/{loginid}/updatestatus"
+                },
+                {
+                    "name": "deleteInterfaceInfo",
+                    "type": "DELETE",
+                    "url": "/interfaceinfo/{loginid}/delete/{interfaceid}"
+                },
+                {
+                    "name": "validateInterfaceName",
+                    "type": "GET",
+                    "url": "/interfaceinfo/{loginid}/validate/interface-name"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "departmets",
+            "methods": [
+                {
+                    "name": "getAllDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/departments"
+                },
+                {
+                    "name": "updateDepartment",
+                    "type": "PUT",
+                    "url": "/department/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateDepartmentStatus",
+                    "type": "PUT",
+                    "url": "/department/{loginid}/updatestatus?deptid={deptid}&status={status}"
+                },
+                {
+                    "name": "createDepartment",
+                    "type": "POST",
+                    "url": "/department/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getAllCreditTypes",
+                    "type": "GET",
+                    "url": "/credittype/{loginid}/all"
+                },
+                {
+                    "name": "deleteDepartment",
+                    "type": "DELETE",
+                    "url": "/department/{loginid}/delete/{deptid}"
+                },
+                {
+                    "name": "validateDepartmentName",
+                    "type": "GET",
+                    "url": "/department/{loginid}/validate/departmentName"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Service",
+            "methods": [
+                {
+                    "name": "getAllServiceInfo",
+                    "type": "GET",
+                    "url": "/serviceinfo/{loginid}/all"
+                },
+                {
+                    "name": "validateServiceName",
+                    "type": "GET",
+                    "url": "/serviceinfo/{loginid}/validate"
+                },
+                {
+                    "name": "createServiceInfo",
+                    "type": "POST",
+                    "url": "/serviceinfo/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateServiceInfo",
+                    "type": "PUT",
+                    "url": "/serviceinfo/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateServiceInfoStatus",
+                    "type": "PUT",
+                    "url": "/serviceinfo/{loginid}/updatestatus/?serviceid={serviceid}&status={status}"
+                },
+                {
+                    "name": "getMsgCategories",
+                    "type": "GET",
+                    "url": "/msg-category/{loginid}/all"
+                },
+                {
+                    "name": "deleteServiceInfo",
+                    "type": "DELETE",
+                    "url": "/serviceinfo/{loginid}/delete/{serviceid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Users",
+            "methods": [
+                {
+                    "name": "getAllModules",
+                    "type": "GET",
+                    "url": "/moduleinfo/{loginid}/modules"
+                },
+                {
+                    "name": "getAllModulesByRoleId",
+                    "type": "GET",
+                    "url": "/moduleinfo/{loginid}/modules/{roleId}"
+                },
+                {
+                    "name": "getAllCreditTypes",
+                    "type": "GET",
+                    "url": "/credittype/{loginid}/all"
+                },
+                {
+                    "name": "getAllUsers",
+                    "type": "GET",
+                    "url": "/user/{loginid}/all/{roleid}"
+                },
+                {
+                    "name": "getActiveDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/active/departments"
+                },
+                {
+                    "name": "createUser",
+                    "type": "POST",
+                    "url": "/user/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getRolesByUserRoleId",
+                    "type": "GET",
+                    "url": "/rolesinfo/{loginid}/all/{roleid}"
+                },
+                {
+                    "name": "updateUser",
+                    "type": "PUT",
+                    "url": "/user/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateUserStatus",
+                    "type": "PUT",
+                    "url": "/user/{loginid}/status/{userid}/update"
+                },
+                {
+                    "name": "deleteUserStatus",
+                    "type": "DELETE",
+                    "url": "/user/{loginid}/delete/{userid}"
+                },
+                {
+                    "name": "validateUserName",
+                    "type": "GET",
+                    "url": "/user/{loginid}/validate"
+                },
+                {
+                    "name": "resetPassword",
+                    "type": "PUT",
+                    "url": "/{loginid}/resetPassword/{userid}"
+                },
+                {
+                    "name": "getUsersFromDirectoryByName",
+                    "type": "GET",
+                    "url": "/activedirectory/{loginid}/getusers/{username}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "filterkey",
+            "methods": [
+                {
+                    "name": "getAllFilterKeyword",
+                    "type": "GET",
+                    "url": "/keyword/{loginid}/all"
+                },
+                {
+                    "name": "createFilterKeyword",
+                    "type": "POST",
+                    "url": "/keyword/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateFilterKeyword",
+                    "type": "PUT",
+                    "url": "/keyword/{loginid}/update?moduleid={moduleid}"
+                },
+                {
+                    "name": "updateFilterKeywordStatus",
+                    "type": "PUT",
+                    "url": "/keyword/{loginid}/updatestatus?keywordId={keywordId}&status={status}"
+                },
+                {
+                    "name": "validateKeywordName",
+                    "type": "GET",
+                    "url": "/keyword/{loginid}/validate"
+                },
+                {
+                    "name": "deleteFilterKeywordById",
+                    "type": "DELETE",
+                    "url": "/keyword/{loginid}/delete/{keywordid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Senders",
+            "methods": [
+                {
+                    "name": "createSimpleSms",
+                    "type": "POST",
+                    "url": "/simplesms/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getAllSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/allSenders"
+                },
+                {
+                    "name": "createSender",
+                    "type": "POST",
+                    "url": "/sender/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateSenderStatus",
+                    "type": "PUT",
+                    "url": "/sender/{loginid}/status/{senderId}/update"
+                },
+                {
+                    "name": "updateSender",
+                    "type": "PUT",
+                    "url": "/sender/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateSenderName",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/validate/{senderName}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "segments",
+            "methods": [
+                {
+                    "name": "getAllSegments",
+                    "type": "GET",
+                    "url": "/segment/{loginid}/all"
+                },
+                {
+                    "name": "createSegmentMaster",
+                    "type": "POST",
+                    "url": "/segment/{loginid}/create/segment?moduleid={moduleid}"
+                },
+                {
+                    "name": "deleteSegment",
+                    "type": "DELETE",
+                    "url": "/segment/{loginid}/delete/{segmentid}"
+                },
+                {
+                    "name": "updateSegmentMasterInfo",
+                    "type": "PUT",
+                    "url": "/segment/{loginid}/update?moduleid={moduleid}"
+                },
+                {
+                    "name": "updateSegmentStatus",
+                    "type": "PUT",
+                    "url": "/segment/{loginid}/updatestatus?segmentId={segmentId}&status={status}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Customer-Profiling",
+            "methods": [
+                {
+                    "name": "allCustomers",
+                    "type": "GET",
+                    "url": "/customer/{loginid}/allCustomers"
+                },
+                {
+                    "name": "getAllMasterChannels",
+                    "type": "GET",
+                    "url": "/customer/{loginid}/channels"
+                },
+                {
+                    "name": "createSegmentMaster",
+                    "type": "POST",
+                    "url": "/segment/{loginid}/create/segment?moduleid={moduleid}"
+                },
+                {
+                    "name": "deleteSegment",
+                    "type": "DELETE",
+                    "url": "/segment/{loginid}/delete/{segmentid}"
+                },
+                {
+                    "name": "updateSegmentStatus",
+                    "type": "PUT",
+                    "url": "/segment/{loginid}/updatestatus?segmentId={segmentId}&status={status}"
+                },
+                {
+                    "name": "updateSegmentMasterInfo",
+                    "type": "PUT",
+                    "url": "/segment/{loginid}/update?moduleid={moduleid}"
+                },
+                {
+                    "name": "createCustomer",
+                    "type": "POST",
+                    "url": "/customer/{loginid}/create/customer?moduleid={moduleid}"
+                },
+                {
+                    "name": "updateCustomerInfo",
+                    "type": "PUT",
+                    "url": "/customer/{loginid}/update?moduleid={moduleid}"
+                },
+                {
+                    "name": "validateCustomerName",
+                    "type": "GET",
+                    "url": "/customer/{loginid}/validate"
+                },
+                {
+                    "name": "getAllSegments",
+                    "type": "GET",
+                    "url": "/segment/{loginid}/all"
+                },
+                {
+                    "name": "getAllSegmentWithCustomerData",
+                    "type": "GET",
+                    "url": "/segment/{loginid}/customer/all"
+                },
+                {
+                    "name": "getAllMasterChannels",
+                    "type": "GET",
+                    "url": "/customer/{loginid}/channels"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "SmartDirectory",
+            "methods": [
+                {
+                    "name": "createContactGlobal",
+                    "type": "POST",
+                    "url": "/global-group/contact/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateContactGlobal",
+                    "type": "PUT",
+                    "url": "/global-group/contact/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateContactGroupGlobal",
+                    "type": "GET",
+                    "url": "/global-group/contact/{loginid}/validate"
+                },
+                {
+                    "name": "getAllGroupsWithContacts",
+                    "type": "GET",
+                    "url": "/global-group/{loginid}/all"
+                },
+                {
+                    "name": "createContactGroupGlobal",
+                    "type": "POST",
+                    "url": "/global-group/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateContactGroupGlobal",
+                    "type": "PUT",
+                    "url": "/global-group/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "createDepartmentContact",
+                    "type": "POST",
+                    "url": "/dept-group/contact/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateDepartmentContact",
+                    "type": "PUT",
+                    "url": "/dept-group/contact/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateContactGroupGlobal",
+                    "type": "GET",
+                    "url": "/dept-group/contact/{loginid}/validate"
+                },
+                {
+                    "name": "getAllGroupsWithContacts",
+                    "type": "GET",
+                    "url": "/dept-group/{loginid}/all"
+                },
+                {
+                    "name": "getGroupsWithContactsByDeptId",
+                    "type": "GET",
+                    "url": "/dept-group/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "createContactGroupDept",
+                    "type": "POST",
+                    "url": "/dept-group/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateContactGroupDept",
+                    "type": "PUT",
+                    "url": "/dept-group/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "createContactUser",
+                    "type": "POST",
+                    "url": "/user-group/contact/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateContactUser",
+                    "type": "PUT",
+                    "url": "/user-group/contact/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateContact",
+                    "type": "GET",
+                    "url": "/user-group/contact/{loginid}/validate"
+                },
+                {
+                    "name": "getGroupsWithContacts",
+                    "type": "GET",
+                    "url": "/user-group/{loginid}/all"
+                },
+                {
+                    "name": "getGroupsWithContactsByUserId",
+                    "type": "GET",
+                    "url": "/user-group/{loginid}/all/{userid}"
+                },
+                {
+                    "name": "createContactGroup",
+                    "type": "POST",
+                    "url": "/user-group/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateContactGroupUserInfo",
+                    "type": "PUT",
+                    "url": "/user-group/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateContactGroupName",
+                    "type": "GET",
+                    "url": "/user-group/{loginid}/validate"
+                },
+                {
+                    "name": "getActiveDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/departments"
+                },
+                {
+                    "name": "getAllDepartmentsWithUsers",
+                    "type": "GET",
+                    "url": "/department/{loginid}/all"
+                },
+                {
+                    "name": "deleteGlobalGroupWithContact",
+                    "type": "DELETE",
+                    "url": "/global-group/{loginid}/delete/group/{groupid}"
+                },
+                {
+                    "name": "deleteGobalContact",
+                    "type": "DELETE",
+                    "url": "/global-group/{loginid}/delete/contact/{contactid}"
+                },
+                {
+                    "name": "deleteUserGroupWithContact",
+                    "type": "DELETE",
+                    "url": "/user-group/{loginid}/delete/group/{groupid}"
+                },
+                {
+                    "name": "deleteUserContact",
+                    "type": "DELETE",
+                    "url": "/user-group/{loginid}/delete/contact/{contactid}"
+                },
+                {
+                    "name": "deleteDeptGroupWithContact",
+                    "type": "DELETE",
+                    "url": "/dept-group/{loginid}/delete/group/{groupid}"
+                },
+                {
+                    "name": "deleteDeptContact",
+                    "type": "DELETE",
+                    "url": "/dept-group/{loginid}/delete/contact/{contactid}"
+                },
+                {
+                    "name": "createBulkContacts",
+                    "type": "POST",
+                    "url": "/global-group/{loginid}/bulk/{moduleid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "departmentsQuota",
+            "methods": [
+                {
+                    "name": "getDepartmentsWithCredit",
+                    "type": "GET",
+                    "url": "/deptcredit/{loginid}/all "
+                },
+                {
+                    "name": "updateDeptCredit",
+                    "type": "PUT",
+                    "url": "/deptcredit/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateDeptCreditNew",
+                    "type": "PUT",
+                    "url": "/deptcredit/{loginid}/update-new/{moduleid}"
+                },
+                {
+                    "name": "getAllCreditTypes",
+                    "type": "GET",
+                    "url": "/credittype/{loginid}/all"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "UserQuota",
+            "methods": [
+                {
+                    "name": "getAllDepartmentsWithUsers",
+                    "type": "GET",
+                    "url": "/department/{loginid}/all"
+                },
+                {
+                    "name": "getAllUserCredits",
+                    "type": "GET",
+                    "url": "/usercredit/{loginid}/all"
+                },
+                {
+                    "name": "getAllUserCreditsbydeptid",
+                    "type": "GET",
+                    "url": "/usercredit/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "updateUserCredit",
+                    "type": "PUT",
+                    "url": "/usercredit/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "getActiveDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/departments"
+                },
+                {
+                    "name": "getAllUserCreditsByRoleId",
+                    "type": "GET",
+                    "url": "/usercredit/{loginid}/all/credits/{roleid}/{deptid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "smstemplate",
+            "methods": [
+                {
+                    "name": "getSmsTemplates",
+                    "type": "GET",
+                    "url": "/smstemplates/{loginid}/all"
+                },
+                {
+                    "name": "updateSmsTemplate",
+                    "type": "PUT",
+                    "url": "/smstemplates/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateSmsTemplatestatus",
+                    "type": "PUT",
+                    "url": "/smstemplates/{loginid}/updatestatus"
+                },
+                {
+                    "name": "createSmsTemplate",
+                    "type": "POST",
+                    "url": "/smstemplates/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "deleteSmsTemplate",
+                    "type": "DELETE",
+                    "url": "/smstemplates/{loginid}/delete/{templateId}"
+                },
+                {
+                    "name": "validateTemplateName",
+                    "type": "GET",
+                    "url": "/smstemplates/{loginid}/validate"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "CampaignManager",
+            "methods": [
+                {
+                    "name": "getAllSystemParameters",
+                    "type": "GET",
+                    "url": "/systemparameter/{loginid}/all"
+                },
+                {
+                    "name": "getAllSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/allSenders"
+                },
+                {
+                    "name": "validateCampName",
+                    "type": "GET",
+                    "url": "/campaign/{loginid}/validate"
+                },
+                {
+                    "name": "getAllGroupsWithContacts",
+                    "type": "GET",
+                    "url": "/global-group/{loginid}/all"
+                },
+                {
+                    "name": "getGroupsWithContactsByDeptId",
+                    "type": "GET",
+                    "url": "/dept-group/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "getGroupsWithContactsuser",
+                    "type": "GET",
+                    "url": "/user-group/{loginid}/all/{loginid}"
+                },
+                {
+                    "name": "createCampaign",
+                    "type": "POST",
+                    "url": "/campaign/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateCampaign",
+                    "type": "PUT",
+                    "url": "/campaign/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "getAllCampaigns",
+                    "type": "GET",
+                    "url": "/campaign/{loginid}/all"
+                },
+                {
+                    "name": "getAllCampaignsByUserId",
+                    "type": "GET",
+                    "url": "/campaign/{loginid}/camp-user"
+                },
+                {
+                    "name": "getAllCampaignsByDeptId",
+                    "type": "GET",
+                    "url": "/campaign/{loginid}/camp-dept/{deptid}"
+                },
+                {
+                    "name": "getSmsTemplates",
+                    "type": "GET",
+                    "url": "/smstemplates/{loginid}/all"
+                },
+                {
+                    "name": "updateCampaignStatus",
+                    "type": "PUT",
+                    "url": "/campaign/{loginid}/status/{campid}/update"
+                },
+                {
+                    "name": "getCurrentDate",
+                    "type": "GET",
+                    "url": "/auth/current-date-time"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "simplesms",
+            "methods": [
+                {
+                    "name": "getAllGroupsWithContacts",
+                    "type": "GET",
+                    "url": "/global-group/{loginid}/all"
+                },
+                {
+                    "name": "getGroupsWithContactsByDeptId",
+                    "type": "GET",
+                    "url": "/dept-group/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "getGroupsWithContacts",
+                    "type": "GET",
+                    "url": "/user-group/{loginid}/all/{loginid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Reports",
+            "methods": [
+                {
+                    "name": "getAllDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/departments"
+                },
+                {
+                    "name": "getUserReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/user-report"
+                },
+                {
+                    "name": "getCreditAuditLogByUserIdMutlitReport",
+                    "type": "POST",
+                    "url": "/creditauditlog/{loginid}/credit-report-user/"
+                },
+                {
+                    "name": "getCreditAuditLogByDeptIdMultiReport",
+                    "type": "POST",
+                    "url": "/creditauditlog/{loginid}/credit-report-dept/"
+                },
+                {
+                    "name": "getCampReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/camp-report"
+                },
+                {
+                    "name": "getDeptReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/dept-report"
+                },
+                {
+                    "name": "getAllInterfaceInfo",
+                    "type": "GET",
+                    "url": "/interfaceinfo/{loginid}/all"
+                },
+                {
+                    "name": "getInterfaceReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/interface-report"
+                },
+                {
+                    "name": "getMessageTrackingReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/messageTracking"
+                },
+                {
+                    "name": "getMessageTrackingByDept",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/messageTracking/depertment/{deptid}"
+                },
+                {
+                    "name": "getMessageGlobal",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/messageTracking/global"
+                },
+                {
+                    "name": "getMessageTrackingByUser",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/messageTracking/user/{loginid}"
+                },
+                {
+                    "name": "getAuditLogInfoByUserId",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/auditlog"
+                },
+                {
+                    "name": "getCreditAuditLogByDeptId",
+                    "type": "GET",
+                    "url": "/creditauditlog/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "getEmail2SmsReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/email2smsReport"
+                },
+                {
+                    "name": "getSms2EmailReport",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/sms2emailReport"
+                },
+                {
+                    "name": "getCurrentDate",
+                    "type": "GET",
+                    "url": "/auth/current-date-time"
+                },
+                {
+                    "name": "getGlobalUsersByRoleId",
+                    "type": "GET",
+                    "url": "/user/{loginid}/global-users/{roleid}"
+                },
+                {
+                    "name": "getCreditAuditLogForGlobalUsers",
+                    "type": "GET",
+                    "url": "/creditauditlog/{loginid}/all-global"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "DashBoard",
+            "methods": [
+                {
+                    "name": "getDashboardUser",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/dashboard-user/{loginid}"
+                },
+                {
+                    "name": "getDashboardDept",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/dashboard-dept/{deptid}"
+                },
+                {
+                    "name": "getDashboardGlobal",
+                    "type": "POST",
+                    "url": "/reports/{loginid}/dashboard-global"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "OfflineAlerts",
+            "methods": [
+                {
+                    "name": "validateAlertName",
+                    "type": "GET",
+                    "url": "/alertoffline/{loginid}/validate?alertname={alertname}"
+                },
+                {
+                    "name": "getIntervalType",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/intervaltype"
+                },
+                {
+                    "name": "getAllSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/allSenders"
+                },
+                {
+                    "name": "getAllServiceInfo",
+                    "type": "GET",
+                    "url": "/serviceinfo/{loginid}/all"
+                },
+                {
+                    "name": "createOfflineAlert",
+                    "type": "POST",
+                    "url": "/alertoffline/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateOfflineAlert",
+                    "type": "PUT",
+                    "url": "/alertoffline/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateOfflineAlertStatus",
+                    "type": "PUT",
+                    "url": "/alertoffline/{loginid}/updatestatus/{alertid}/{status}"
+                },
+                {
+                    "name": "getAllOfflineAlerts",
+                    "type": "GET",
+                    "url": "/alertoffline/{loginid}/all"
+                },
+                {
+                    "name": "getAllOfflineAlertsByUserId",
+                    "type": "GET",
+                    "url": "/alertoffline/{loginid}/all/users"
+                },
+                {
+                    "name": "getAllOfflineAlertsByDeptId",
+                    "type": "GET",
+                    "url": "/alertoffline/{loginid}/all/{deptid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "AlertManager",
+            "methods": [
+                {
+                    "name": "getAllSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/allSenders"
+                },
+                {
+                    "name": "getAllServiceInfo",
+                    "type": "GET",
+                    "url": "/serviceinfo/{loginid}/all"
+                },
+                {
+                    "name": "validateQuery",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/query/validate"
+                },
+                {
+                    "name": "getIntervalType",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/intervaltype"
+                },
+                {
+                    "name": "validateAlertName",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/validate"
+                },
+                {
+                    "name": "getAllDbProfile",
+                    "type": "GET",
+                    "url": "/dbprofileinfo/{loginid}/all"
+                },
+                {
+                    "name": "getAllDbProfileByDeptId",
+                    "type": "GET",
+                    "url": "/dbprofileinfo/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "getDataFromQuery",
+                    "type": "POST",
+                    "url": "/onlinealert/{loginid}/profile/data"
+                },
+                {
+                    "name": "getSystemParams",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/systemparams"
+                },
+                {
+                    "name": "createOnlineAlert",
+                    "type": "POST",
+                    "url": "/onlinealert/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getTablesInfoFromQuery",
+                    "type": "POST",
+                    "url": "/onlinealert/{loginid}/profile/tables"
+                },
+                {
+                    "name": "getAllOnlineAlerts",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/all"
+                },
+                {
+                    "name": "deleteOnlineAlert",
+                    "type": "DELETE",
+                    "url": "/onlinealert/{loginid}/delete/{alertid}"
+                },
+                {
+                    "name": "getAllOnlineAlertsByDeptId",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/all/{deptid}"
+                },
+                {
+                    "name": "getAllOnlineAlertsByUserId",
+                    "type": "GET",
+                    "url": "/onlinealert/{loginid}/allbyuserid"
+                },
+                {
+                    "name": "getAllDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/departments"
+                },
+                {
+                    "name": "getAllDataTypes",
+                    "type": "GET",
+                    "url": "/dbprofileinfo/{loginid}/all/datatypes"
+                },
+                {
+                    "name": "validateDBConnectionString",
+                    "type": "POST",
+                    "url": "/dbprofileinfo/{loginid}/test/connection"
+                },
+                {
+                    "name": "createDbProfileInfo",
+                    "type": "POST",
+                    "url": "/dbprofileinfo/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "validateDbProfileName",
+                    "type": "GET",
+                    "url": "/dbprofileinfo/{loginid}/validate/profilename"
+                },
+                {
+                    "name": "updateDbProfileInfo",
+                    "type": "PUT",
+                    "url": "/dbprofileinfo/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateDbProfileStatus",
+                    "type": "PUT",
+                    "url": "/dbprofileinfo/{loginid}/updatestatus/{profileid}/{status}"
+                },
+                {
+                    "name": "updateOnlineAlertStatus",
+                    "type": "PUT",
+                    "url": "/onlinealert/{loginid}/status/{alertid}/update"
+                },
+                {
+                    "name": "updateOnlineAlert",
+                    "type": "PUT",
+                    "url": "/onlinealert/{loginid}/update/{moduleid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "EmailTemplate",
+            "methods": [
+                {
+                    "name": "getEmailTemplate",
+                    "type": "GET",
+                    "url": "/emailtemplate/{loginid}/all"
+                },
+                {
+                    "name": "validateEmailTemplateName",
+                    "type": "GET",
+                    "url": "/emailtemplate/{loginid}/validate"
+                },
+                {
+                    "name": "updateEmailTemplate",
+                    "type": "PUT",
+                    "url": "/emailtemplate/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateEmailTemplateStatus",
+                    "type": "PUT",
+                    "url": "/emailtemplate/{loginid}/update/status"
+                },
+                {
+                    "name": "createEmailtemplate",
+                    "type": "POST",
+                    "url": "/emailtemplate/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getEmailTemplateSystemParams",
+                    "type": "GET",
+                    "url": "/emailtemplate/{loginid}/systemparams"
+                },
+                {
+                    "name": "deleteEmailTemplate",
+                    "type": "DELETE",
+                    "url": "/emailtemplate/{loginid}/delete/{templateId}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Globalsettings",
+            "methods": [
+                {
+                    "name": "getAllSystemParameters",
+                    "type": "GET",
+                    "url": "/systemparameter/{loginid}/all"
+                },
+                {
+                    "name": "updateSystemParameterValues",
+                    "type": "PUT",
+                    "url": "/systemparameter/{loginid}/update/value"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "smstoemail",
+            "methods": [
+                {
+                    "name": "getAllSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/allSenders"
+                },
+                {
+                    "name": "getSmsToEmail",
+                    "type": "GET",
+                    "url": "/smstoemail/{loginid}/all"
+                },
+                {
+                    "name": "createSmsToEmail",
+                    "type": "POST",
+                    "url": "/smstoemail/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updateSmsToEmailStatus",
+                    "type": "PUT",
+                    "url": "/smstoemail/{loginid}/update/status?smsToEmailId={smsToEmailId}&status={status}"
+                },
+                {
+                    "name": "updateSmsToEmail",
+                    "type": "PUT",
+                    "url": "/smstoemail/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateSmsToEmailName",
+                    "type": "GET",
+                    "url": "/smstoemail/{loginid}/validate?smsToEmailName={smsToEmailName}"
+                },
+                {
+                    "name": "getEmailTemplate",
+                    "type": "GET",
+                    "url": "/emailtemplate/{loginid}/all"
+                },
+                {
+                    "name": "getEmailServer",
+                    "type": "GET",
+                    "url": "/emailserver/{loginid}/all"
+                },
+                {
+                    "name": "deleteSmsToEmail",
+                    "type": "DELETE",
+                    "url": "/smstoemail/{loginid}/delete/{smsToEmailId}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "EmailToSmsCampaign",
+            "methods": [
+                {
+                    "name": "getAllDepartmentsWithUsers",
+                    "type": "GET",
+                    "url": "/department/{loginid}/all"
+                },
+                {
+                    "name": "getAllActiveSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/activeSenders"
+                },
+                {
+                    "name": "getEmailToSms",
+                    "type": "GET",
+                    "url": "/emailtosms/{loginid}/all"
+                },
+                {
+                    "name": "getRecipientInfo",
+                    "type": "GET",
+                    "url": "/emailtosms/{loginid}/all/recipient/info"
+                },
+                {
+                    "name": "validateEmailToSmsName",
+                    "type": "GET",
+                    "url": "/emailtosms/{loginid}/validate"
+                },
+                {
+                    "name": "updateEmailToSms",
+                    "type": "PUT",
+                    "url": "/emailtosms/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "updateEmailToSmsStatus",
+                    "type": "PUT",
+                    "url": "/emailtosms/{loginid}/update/status"
+                },
+                {
+                    "name": "deleteEmailToSms",
+                    "type": "DELETE",
+                    "url": "/emailtosms/{loginid}/delete/{emailToSmsId}"
+                },
+                {
+                    "name": "createEmailToSms",
+                    "type": "POST",
+                    "url": "/emailtosms/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getEmailServer",
+                    "type": "GET",
+                    "url": "/emailserver/{loginid}/all"
+                },
+                {
+                    "name": "getActiveDepartments",
+                    "type": "GET",
+                    "url": "/department/{loginid}/active/departments"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "MailBox",
+            "methods": [
+                {
+                    "name": "createEmailServer",
+                    "type": "POST",
+                    "url": "/emailserver/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "getEmailServer",
+                    "type": "GET",
+                    "url": "/emailserver/{loginid}/all"
+                },
+                {
+                    "name": "updateEmailServer",
+                    "type": "PUT",
+                    "url": "/emailserver/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "validateEmailServerName",
+                    "type": "GET",
+                    "url": "/emailserver/{loginid}/validate"
+                },
+                {
+                    "name": "updateEmailServerStatus",
+                    "type": "PUT",
+                    "url": "/emailserver/{loginid}/update/status"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "PlatformQuota",
+            "methods": [
+                {
+                    "name": "getAllCreditTypes",
+                    "type": "GET",
+                    "url": "/credittype/{loginid}/all"
+                },
+                {
+                    "name": "updatePlatformCredits",
+                    "type": "PUT",
+                    "url": "/platform-credit/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "getPlatformCreditsDetails",
+                    "type": "GET",
+                    "url": "/platform-credit/{loginid}/all"
+                },
+                {
+                    "name": "getCurrentDate",
+                    "type": "GET",
+                    "url": "/auth/current-date-time"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "SetnotificationQuota",
+            "methods": [
+                {
+                    "name": "validatePlatformAlertName",
+                    "type": "GET",
+                    "url": "/platform-alerts/{loginid}/validate"
+                },
+                {
+                    "name": "updatePlatformAlertStatus",
+                    "type": "PUT",
+                    "url": "/platform-alerts/{loginid}/status-update/{moduleid}"
+                },
+                {
+                    "name": "getAllActiveSenders",
+                    "type": "GET",
+                    "url": "/sender/{loginid}/activeSenders"
+                },
+                {
+                    "name": "createPlatformAlert",
+                    "type": "POST",
+                    "url": "/platform-alerts/{loginid}/create/{moduleid}"
+                },
+                {
+                    "name": "updatePlatformAlert",
+                    "type": "PUT",
+                    "url": "/platform-alerts/{loginid}/update/{moduleid}"
+                },
+                {
+                    "name": "getPlatformAlerts",
+                    "type": "GET",
+                    "url": "/platform-alerts/{loginid}/all/{moduleid}"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+<mat-card>
+  <form [formGroup]="usersForm">
+    <mat-card-header>
+      <div fxLayout="row wrap" style="margin-top:5px;" >
+        <h4>{{'usersModule.AssignDoctors' | translate}}</h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content >
+      <div class="example-container mar-rgt">
+        <mat-form-field class="full-width mar-lft">
+          <input matInput [readonly]="true" placeholder="{{ 'usersModule.createuser.login' | translate}}"
+            formControlName="login" allow-email-charecters maxlength="50"
+             autocomplete="off" required>
+        </mat-form-field>
+     
+      <div fxLayout="row wrap" >
+        <div fxFlex="100" >
+          <mat-card>
+            <mat-card-content>
+              <label> {{'usersModule.AssignDoctors' | translate}}:</label>
+              <dual-list [sort]="true" [source]="DoctorsList" [key]="key" [display]="display"
+                [filter]="DoctorsList.length > 10 ? true : false" [(destination)]="selectDoctorList" height="200px"
+                [format]="format"></dual-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="mar-lft">
+        <button mat-raised-button color="primary" (click)="assignDoctors()" [disabled]="!selectDoctorList?.length">
+          {{ 'ActionNames.submit' | translate}}</button>
+       
+      </div>
+    </div>
+    </mat-card-content>
+</form>
+</mat-card>

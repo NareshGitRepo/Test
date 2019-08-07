@@ -1,0 +1,204 @@
+<mat-card style="background: transparent; border-top: 0;" class="no-shadow">
+  <mat-card-content>
+    <div fxLayout="row wrap" class="profilePsec">
+      <div fxFlex.gt-sm="50" fxFlex="100" class="profilePleft">
+        <div class="clearfix">
+          <div class="example-container">
+            <div class="profileDetails">
+              <!-- <h1>Dubai Public Prosecution</h1> -->
+              <div class="clearfix">
+                <div fxLayout="row wrap" class="profile-align">
+                  <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100">
+                    <!-- <img src="assets/images/Profile-icon.svg" class="mar-rgt" width="60" class="search-align" /> -->
+                    <div style="width:60px; height:60px;" class="profile-icon"></div>
+                  </div>
+
+                  <div fxFlex.gt-sm="85" fxFlex.gt-xs="85" fxFlex="100">
+                    <h1>{{loginInfo.firstname}} {{loginInfo.lastname}}</h1>
+                    <h4 style="font-weight: bold;">{{loginInfo.roles[0].roleName}}</h4>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <!-- <h4 class="text-success"></h4> -->
+              <div fxLayout="row wrap" class=" mar-btm">
+                <div fxFlex="100" class="sec1">
+                  <span class="text-fprofile"><i class="ti-email"></i>&nbsp;
+                    {{'profileModule.manage.email' | translate }}:</span>
+                  {{loginInfo.login}}
+                </div>
+                <div fxFlex="100" class="sec1">
+                  <span class="text-fprofile"><i class="ti-mobile"></i>&nbsp;
+                    {{'profileModule.manage.mobile' | translate }}:</span>
+                  {{loginInfo.mobileNo}}
+                </div>
+                <div fxFlex="100" class="sec1">
+                  <span class="text-fprofile"><i class="ti-pencil-alt"></i>&nbsp;
+                    {{'profileModule.manage.currentLanguage' | translate }}:</span>
+                  {{loginInfo.language=='ar' ? ('profileModule.manage.arb' | translate ):('profileModule.manage.eng' | translate )}}
+                </div>
+                <div fxFlex="100" class="sec1">
+                  <span class="text-fprofile"><i class="ti-user"></i>&nbsp; {{'profileModule.manage.apiKey' | translate }}:
+                  </span>
+                  <small>{{loginInfo.apiKey}}</small> &nbsp;
+                  <button type="reset" class="btn btn-sm btn-dark"
+                    (click)="updateApiKey()">{{'ActionNames.reset' | translate }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix">
+          <div class="example-container profileDetails">
+            <div style="width: 15%">
+              <button class="btn-sm addbutton" *ngIf="!showEditProfile" mat-raised-button btn-sm
+              actionClick (debounceClick)="editProfileForm()"><i class="ti-pencil"></i>
+                {{'profileModule.manage.editProfile' | translate }}</button>
+            </div>
+            <div *ngIf="!showEditProfile" style="margin-top:10px;">
+              <small>{{'profileModule.manage.changes' | translate }}</small>
+            </div>
+            <div class="" *ngIf="showEditProfile">
+              <h1>{{'profileModule.manage.editProfile' | translate }}</h1>
+              <form [formGroup]="_profileForm" style="margin-top:15px;">
+                <mat-form-field style="width: 65%;">
+                  <input matInput placeholder="{{'profileModule.manage.firstName' | translate }}"
+                    formControlName="firstname" required minlength="1" maxlength="20" allow-alphabets-singlespace>
+                  <mat-error *ngIf="_profileForm.controls.firstname.errors?.required">
+                    {{'profileModule.manage.firstNameRequired' | translate }}
+                  </mat-error>
+                  <!-- <mat-error *ngIf="_profileForm.controls.firstname.errors?.minlength">
+                    {{'profileModule.manage.firstNameMinimum' | translate }}
+                  </mat-error> -->
+                </mat-form-field>
+                <mat-form-field style="width: 65%;">
+                  <input matInput placeholder="{{'profileModule.manage.lastName' | translate }}"
+                    formControlName="lastname" minlength="1" maxlength="20" allow-alphabets-singlespace>
+                  <!-- <mat-error *ngIf="_profileForm.controls.lastname.errors?.required">
+                    {{'profileModule.manage.lastNameRequired' | translate }}
+                  </mat-error> -->
+                  <!-- <mat-error *ngIf="_profileForm.controls.lastname.errors?.minlength">
+                    {{'profileModule.manage.lastNameMinimum' | translate }}
+                  </mat-error> -->
+                </mat-form-field>
+                <div>
+                  <mat-form-field style="width: 65%;">
+                    <input matInput placeholder="{{'profileModule.manage.mobile' | translate }}" allow-mobilenumber-nospace
+                      formControlName="mobileNo" minlength="12" maxlength="15" required>
+                    <mat-error *ngIf="_profileForm.controls.mobileNo.errors?.required">
+                      {{'profileModule.manage.mobileNoRequired' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="_profileForm.controls.mobileNo.errors?.minlength">
+                      {{'profileModule.manage.mobileMinimum' | translate }}
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
+                <div class="mar-top">
+                  <h2>{{'profileModule.manage.clanguage' | translate }}</h2>
+                  <mat-form-field style="width: 65%;">
+                    <mat-select formControlName="language"
+                      placeholder="{{'profileModule.manage.languageSelection' | translate }}" required>
+                      <mat-option value="en">{{'profileModule.manage.eng' | translate }}</mat-option>
+                      <mat-option value="ar">{{'profileModule.manage.arb' | translate }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </form>
+              <button mat-raised-button class="submitbutton" actionClick (debounceClick)="updateProfile()" [disabled]="!_profileForm.valid || loading">
+                {{'ActionNames.update' | translate }}</button>&nbsp;
+              <button mat-raised-button class="addbutton" actionClick (debounceClick)="closeForm()">
+                {{'ActionNames.close' | translate }}</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxFlex.gt-sm="50" fxFlex="100">
+        <div class="profileDetails">
+
+            <div fxLayout="row wrap" class="profile-align">
+                <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100">
+                    <div style="width:60px; height:60px;" class="changpw-icon"></div>
+                  </div>
+
+                  <div fxFlex.gt-sm="85" fxFlex.gt-xs="85" fxFlex="100">
+                      <h2>
+                          <!-- <img src="assets/images/changpw-icon.svg" width="60"
+                            class="mar-rgt" /> -->
+                            <div style="margin:10px">{{'profileModule.manage.changePass' | translate }}</div></h2>
+                  </div>
+              </div>
+
+         
+          <form [formGroup]="passwordForm" style="margin-top:15px;">
+            <mat-form-field style="width: 100%;">
+              <input matInput autocomplete="off" placeholder="{{'profileModule.manage.currentPass' | translate }}"
+                [type]="!passwordHide ? 'password' : 'text'" formControlName="oldpswd" name="oldpswd" required
+                minlength="5">
+              <span matSuffix actionClick (debounceClick)="passwordHide = !passwordHide" [ngClass]="passwordHide ? 'ti-close' : 'ti-eye'">
+              </span>
+              <mat-error *ngIf="passwordForm.controls.oldpswd.errors?.required">
+                {{'profileModule.manage.oldPassRequired' | translate }}
+              </mat-error>
+              <mat-error *ngIf="passwordForm.controls.oldpswd.errors?.minlength">
+                {{'profileModule.passwordMinimum' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" placeholder="{{'profileModule.manage.newPass' | translate }}"
+                [type]=" !cnfPasswordHide ? 'password' : 'text'" formControlName="newpswd" required minlength="5">
+              <span matSuffix actionClick (debounceClick)="cnfPasswordHide = !cnfPasswordHide"
+                [ngClass]="cnfPasswordHide ? 'ti-close' : 'ti-eye'"></span>
+              <mat-error *ngIf="passwordForm.controls.newpswd.errors?.required">
+                {{'profileModule.manage.newPassRequired' | translate }}
+              </mat-error>
+              <mat-error *ngIf="passwordForm.controls.newpswd.errors?.minlength">
+                {{'profileModule.passwordMinimum' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <mat-error
+              *ngIf="passwordForm.value.oldpswd?.length > 4 && passwordForm.value.newpswd?.length > 4   && passwordForm.value.oldpswd == passwordForm.value.newpswd">
+              <font color="red">{{'profileModule.manage.passwordRestriction' | translate }}</font>
+            </mat-error>
+
+            <mat-form-field style="width: 100%;">
+              <input matInput autocomplete="off" minlength="5"
+                placeholder="{{'profileModule.manage.retypePass' | translate }}"
+                [type]="!repasswordHide ? 'password' : 'text'" formControlName="cnfmpswd" required
+                [errorStateMatcher]="matcher">
+              <span matSuffix actionClick (debounceClick)="repasswordHide = !repasswordHide"
+                [ngClass]="repasswordHide ? 'ti-close' : 'ti-eye'"></span>
+
+              <mat-error *ngIf="passwordForm.get('cnfmpswd').hasError('minlength')">
+                {{'profileModule.passwordMinimum' | translate }}
+              </mat-error>
+              <mat-error *ngIf="passwordForm.hasError('notSame') ">
+                {{'profileModule.manage.passNotMatch' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <br><br>
+            <button type="button" class="btn-sm submitbutton" mat-raised-button btn-sm
+              [disabled]="passwordForm.invalid ? true : passwordForm.hasError('notSame') || (passwordForm.value.oldpswd == passwordForm.value.newpswd) || loading"
+              actionClick (debounceClick)="changePassword()"><i class="ti-key"></i>
+              &nbsp;{{'profileModule.manage.changePass' | translate }}</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

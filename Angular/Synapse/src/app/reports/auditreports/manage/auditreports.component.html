@@ -1,0 +1,173 @@
+<h2 class="pageheading">{{'ReportsModule.AuditReports.auditReports'|translate}}</h2>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100" class="clearfix">
+    <form [formGroup]="auditReportsForm">
+
+      <div fxLayout="row wrap" class="mar-btm selectcontainer">
+            <div fxFlex.gt-sm="33"  *ngIf="_roleCode=='SA' || _roleCode=='PA'">
+            <mat-form-field class="full-width rightpad-45">
+                <mat-select placeholder="{{'ReportsModule.userType'|translate}}" (selectionChange)="userTypeSelection()"  formControlName="usertype" required>
+                    <mat-option value="1">{{'ReportsModule.GlobalUsers'|translate}}</mat-option>
+                    <mat-option  value="0">{{'ReportsModule.DeptUsers'|translate}}</mat-option>
+                  
+    
+                </mat-select>
+                <mat-error *ngIf="auditReportsForm.controls.usertype.errors?.required">{{'ReportsModule.AuditReports.userError'|translate}}
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+        <div fxFlex.gt-sm="33" *ngIf="(_roleCode=='SA' || _roleCode=='PA') && auditReportsForm.value.usertype==0">
+          <mat-form-field class="full-width rightpad-45" *ngIf="departmentFlag">
+            <mat-select placeholder="{{'ReportsModule.AuditReports.selectDepart'|translate}}" required multiple (selectionChange)="departSelected()" formControlName="department">
+                <mat-select-trigger> 
+                    {{deptName}}
+                    <span *ngIf="(auditReportsForm?.value.department)?.length>
+                      1" class="example-additional-selection">
+                      (+{{(auditReportsForm?.value.department)?.length - 1}} others)
+                    </span>
+                  </mat-select-trigger>
+                   <mat-option *ngFor="let dept of departmentWithUsersList" [value]="dept">{{dept.deptName}}</mat-option>
+              <!-- <mat-option value="IT">IT</mat-option> -->
+            </mat-select>
+           
+            <mat-error *ngIf="auditReportsForm.controls.department.errors?.required">{{'ReportsModule.AuditReports.departError'|translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="33" *ngIf="_roleCode!='NA'">
+          <mat-form-field class="full-width rightpad-45">
+            <mat-select placeholder="{{'ReportsModule.AuditReports.selectUser'|translate}}" (selectionChange)="UserSelection()" multiple formControlName="user" required>
+              <mat-select-trigger> 
+                {{userName ? userName : ''}}
+                <span *ngIf="(auditReportsForm?.value.user)?.length>
+                  1" class="example-additional-selection">
+                  (+{{(auditReportsForm?.value.user)?.length - 1}} others)
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let user of (auditReportsForm?.value.usertype==0?usersList:globalUsersList)" [value]="user.userId">{{user?.login}} 
+              </mat-option>
+
+            </mat-select>
+            <mat-error *ngIf="auditReportsForm.controls.user.errors?.required">{{'ReportsModule.AuditReports.userError'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="33" class="full-width rightpad-45">
+          <mat-form-field class="full-width ">
+            <input matInput [matDatepicker]="picker" placeholder="{{'ActionNames.from'|translate}}" formControlName="fromDate"
+              parse-format="MM/dd/yyyy" readonly (focus)="picker.open()" [min]="fromDate" required
+              [max]="auditReportsForm.value.toDate ? auditReportsForm.value.toDate : toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="auditReportsForm.controls.fromDate.errors">
+              <div *ngIf="auditReportsForm.controls.fromDate.errors.required">
+               {{'ActionNames.startDate'|translate}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="33" class="full-width rightpad-45">
+          <mat-form-field class="full-width ">
+            <input matInput [matDatepicker]="picker2" placeholder="{{'ActionNames.to'|translate}}" formControlName="toDate" readonly
+              (focus)="picker2.open()" required
+              [min]="auditReportsForm.value.fromDate ? auditReportsForm.value.fromDate : fromDate" [max]="toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="auditReportsForm.controls.toDate.errors">
+              <div *ngIf="auditReportsForm.controls.toDate.errors.required">
+                {{'ActionNames.endDate'|translate}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="50">
+          <button mat-raised-button class="submitbutton" (click)="onSubmit()"
+            [disabled]="auditReportsForm.invalid">{{'ActionNames.submit'|translate}}</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" *ngIf="auditReportsList.length>0">
+    <!-- *ngIf="auditReportsList.length>0"> -->
+    <div fxLayout="row wrap" class="mar-btm">
+      <div fxFlex="60"></div>
+      <div fxFlex="40" class="search-align">
+        <span class="export">{{'ActionNames.export'|translate}}</span>
+        <button mat-icon-button (click)="ExportTOExcel()"><img src="assets/images/excel.svg" width="30" 
+            height="30"></button>
+        <button mat-icon-button (click)="ExportTOCsv()"><img src="assets/images/csv.svg" width="30" 
+            height="30"></button>
+            <button mat-icon-button (click)="ExportTOPdf()"><img src="assets/images/pdf.svg" width="30"
+              height="30"></button>
+        <!-- <mat-form-field class="mar-lft">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+              </mat-form-field> -->
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="example-container mat-elevation-z8 no-shadow bord-all" style="width:100%">
+        <table mat-table [dataSource]="dataSource" class="full-width-table listtable" matSort (matSortChange)="sortData()">
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.AuditReports.userName'|translate}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="modulename">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.AuditReports.moduleName'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.modulename}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actionType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.AuditReports.actionType'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.actionType}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="createdOn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.AuditReports.createOn'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.createdOn}} </td>
+          </ng-container>
+           
+          <ng-container matColumnDef="sourceIp">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'ReportsModule.AuditReports.sourceIp'|translate}}</th>
+              <td mat-cell *matCellDef="let element">{{element.sourceIp}} </td>
+            </ng-container>
+          <!-- <ng-container matColumnDef="activityInfo">
+            <th mat-header-cell *matHeaderCellDef>Activity Info</th>
+            <td mat-cell *matCellDef="let element">{{element.activityInfo}}</td>
+          </ng-container> -->
+
+          <!-- <ng-container matColumnDef="sourceIP">
+            <th mat-header-cell *matHeaderCellDef>Source IP</th>
+            <td mat-cell *matCellDef="let element">{{element.sourceIP}} </td>
+          </ng-container> -->
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+        </table>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+        <div *ngIf="auditReportsList.length>pageSize">
+
+          <mat-paginator [pageSize]="pageSize"  [length]="auditReportsList.length" [pageIndex]="listPage" showFirstLastButtons (page)="getListData($event)">
+          </mat-paginator>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" *ngIf="auditReportsFlag && auditReportsList.length==0">
+    <span>{{'ActionNames.notFound'|translate}}</span></div>
+</div>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

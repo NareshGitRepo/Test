@@ -1,0 +1,60 @@
+<mat-card>
+  <form [formGroup]="keywordForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <div fxLayout="row wrap">
+        <h4>
+          {{_editKeyword ? ('FilterKeyModule.createfilterkey.editkey' | translate):('FilterKeyModule.createfilterkey.keyword' | translate)}}
+        </h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+          <div class="example-container">
+
+            <div class="w100">
+              <mat-form-field class="w95">
+                <input matInput placeholder="{{'FilterKeyModule.createfilterkey.keyname' | translate}}"
+                  formControlName="keywordName"
+                  (change)="!keywordForm.controls.keywordName.errors?.required && keywordForm.controls.keywordName.valid ?
+              keywordForm.get('validateKeywordName').setValue(keywordForm.value.keywordName): keywordForm.get('validateKeywordName').setValue(null)"
+                  allow-alpha-numeric-singlespace cdkFocusInitial minlength="3" maxLength="30" required>
+                <mat-error *ngIf="keywordForm.controls.keywordName.errors?.required">
+                  {{'FilterKeyModule.createfilterkey.nameerror' | translate}}
+                </mat-error>
+                <mat-error *ngIf="keywordForm.controls.keywordName.errors?.minlength">
+                  {{'FilterKeyModule.createfilterkey.minerror' | translate}}
+                </mat-error>
+              </mat-form-field>
+              <mat-error *ngIf="
+            !keywordForm.controls.validateKeywordName.errors?.required &&
+            !keywordForm.controls.keywordName.errors?.required && !keywordForm.controls.validateKeywordName.errors?.invalid
+            " style="display: inline;"><i class=" ti-check text-success"></i></mat-error>
+              <mat-error *ngIf="keywordForm.controls.validateKeywordName.errors?.invalid"><i class="ti-close
+                  text-danger">
+                  <small style="font-family: Arial, Helvetica, sans-serif;">
+                    {{'FilterKeyModule.createfilterkey.nameexists' | translate}}</small>
+                </i></mat-error>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="toast-top-right">
+      <div style="margin-left: 12px;">
+        <button mat-raised-button class="submitbutton" type="submit" [disabled]="!keywordForm.valid || loading"
+        actionClick (debounceClick)="createkeyword()">{{_editKeyword ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+      </div>
+    </mat-card-actions>
+
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

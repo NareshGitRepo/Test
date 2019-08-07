@@ -1,0 +1,111 @@
+<div id="page-title" style="padding-right:0;" class="scroll-top">
+        <h2 class="pad-lft">{{'ManualTokenModule.manualtokenmanage.manualToken' | translate}}</h2>
+        </div>
+        
+    
+    
+    <div fxLayout="row wrap">
+    
+    <div fxFlex.gt-sm="65" fxFlex="100">
+    <form [formGroup]="manualTokenform">
+    <div fxLayout="row wrap" class="pad-all">
+      <div fxFlex.gt-sm="33.3" fXFlex="100" class="pad-rgt">
+    
+          
+          <mat-form-field class="w100">
+              <input cdkFocusInitial matInput placeholder="{{'ManualTokenModule.manualtokenmanage.mrNumber' | translate}}" allow-number-nospace
+               formControlName="tokenmrn" minlength="3"  maxlength="10">
+              <mat-hint>{{'ManualTokenModule.manualtokenmanage.optional' | translate}}</mat-hint>
+              <mat-error *ngIf="manualTokenform.get('tokenmrn').hasError('minlength')"> {{'ManualTokenModule.manualtokenmanage.mrnError' | translate}}</mat-error>
+            </mat-form-field>
+      </div>
+    
+      <div fxFlex.gt-sm="33.3" fXFlex="100" class="pad-rgt">
+          <mat-form-field  class="w100">
+              <input matInput placeholder="{{'ManualTokenModule.manualtokenmanage.patientFirstName' | translate}}" allow-alpha-numeric-singlespace 
+              formControlName="tokenfname"   maxlength="20">
+              <mat-hint>{{'ManualTokenModule.manualtokenmanage.optional' | translate}}</mat-hint>
+              <mat-error *ngIf="manualTokenform.get('tokenfname').hasError('minlength')"> {{'ManualTokenModule.manualtokenmanage.firstNameError' | translate}}</mat-error>
+            </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="33.3" fXFlex="100">
+          <mat-form-field  class="w100">
+              <input matInput placeholder="{{'ManualTokenModule.manualtokenmanage.patientSecondName' | translate}}" allow-alpha-numeric-singlespace 
+              formControlName="tokenlname" maxlength="20">
+              <mat-hint>{{'ManualTokenModule.manualtokenmanage.optional' | translate}}</mat-hint>
+              <mat-error *ngIf="manualTokenform.get('tokenlname').hasError('minlength')">{{'ManualTokenModule.manualtokenmanage.lastNameError' | translate}}</mat-error>
+            </mat-form-field>
+      </div>
+    </div>
+    
+      <div fxLayout="row wrap" class="pad-all">
+          <div fxFlex.gt-sm="33.3" fXFlex="100" class="pad-rgt">
+              <mat-form-field class="w100" >
+                  <mat-select  placeholder="{{'ManualTokenModule.manualtokenmanage.selectDepartement' | translate}}" formControlName="tokendept"
+                  (selectionChange)="changeDepartement()" required>
+                      <mat-option *ngFor="let dpt of deptDoctorsList" [value]="dpt">{{dpt.deptName}}</mat-option>
+    
+                  </mat-select>
+                  <mat-error *ngIf="manualTokenform.controls.tokendept.errors?.required">{{'ActionNames.errorMessage' | translate}}</mat-error>
+                </mat-form-field>
+          </div>
+        
+          <div fxFlex.gt-sm="33.3" fXFlex="100" class="pad-rgt" >
+              <mat-form-field class="w100">
+                  <mat-select  placeholder="{{'ManualTokenModule.manualtokenmanage.selectService' | translate}}" 
+                  (selectionChange)="changeService()" formControlName="tokenservice" required>
+                  <mat-option *ngFor="let service of servicesList" [value]="service">{{service?.serviceEngName}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="manualTokenform.controls.tokenservice.errors?.required">{{'ActionNames.errorMessage' | translate}}</mat-error>
+                </mat-form-field>
+          </div>
+        
+          <div fxFlex.gt-sm="33.3" fXFlex="100">
+              <mat-form-field class="w100">
+                  <mat-select  placeholder="{{'ManualTokenModule.manualtokenmanage.selectDoctor' | translate}}" 
+                  (selectionChange)="changeDoctor()"formControlName="tokendoctrs" required>
+                      <mat-option *ngFor="let doctor of doctorsData" [value]="doctor">{{doctor?.firstname}} {{doctor?.lastname}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="manualTokenform.controls.tokendoctrs.errors?.required">{{'ActionNames.errorMessage' | translate}}</mat-error>
+                </mat-form-field>
+          </div>
+      </div>
+    
+      <div class="pad-hor">
+        <button mat-raised-button type="reset" (click)="clearToken()">{{'ManualTokenModule.manualtokenmanage.clear' | translate}}</button> &nbsp;
+        <button mat-raised-button color="primary" (click)="generateManualToken()" [disabled]="!manualTokenform.valid">{{'ManualTokenModule.manualtokenmanage.generateToken' | translate}}</button>
+      </div>
+    </form>
+    </div>
+      <div fxFlex.gt-sm="35" fxFlex="100" *ngIf="tokenFlag">
+        <mat-card >
+        <mat-card-content  style="padding: 30px; text-align: center;">
+        <!-- <h4>Token Deatails</h4>
+        <h3>Your Token Number</h3>
+        <h1 style="font-size: 50px; font-weight: bold; margin-bottom: 40px;">{{tokenNo}}</h1>
+        <p>Please take a seat in the Registration waiting room and wait to be called.</p> -->
+        <div [innerHTML]="manualTemplate?.innertemplate" class="mnualtnkprew">
+        </div>
+   
+        </mat-card-content>
+        </mat-card>
+        <br>
+            <mat-form-field class="w100">
+                <mat-select  placeholder="{{'ManualTokenModule.manualtokenmanage.selectPrinter' | translate}}" 
+                [(ngModel)]="PrinterId" required>
+                    <mat-option *ngFor="let printd of PrinterData" [value]="printd?.printId">{{printd?.printerName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        <!-- <button mat-raised-button (click)="printpreview=false">{{'ManualTokenModule.manualtokenmanage.cancel' | translate}}</button> &nbsp; -->
+        <button mat-raised-button color="primary" (click)="print()">{{'ManualTokenModule.manualtokenmanage.print' | translate}}</button>
+      </div>
+   
+    </div>
+    
+      <br><br>
+      <div class="fullloader" *ngIf="loading">
+          <div class="fullloaderInner">
+            <img src="assets/images/loading.gif">
+          </div>
+          </div>
+          

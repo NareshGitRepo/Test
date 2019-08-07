@@ -1,0 +1,41 @@
+<mat-card style="box-shadow: none;">
+  <form>
+      <mat-card-header>
+
+<h4>{{'ServiceManagementModule.servicedetails.details'| translate}}</h4>
+        <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+            class="ti-close"></i></button>
+      </mat-card-header>
+    <mat-card-content>
+
+        <div fxLayout="row wrap" class="clearfix pad-top" cdkFocusInitial>
+            <div fxFlex>
+              <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'ServiceManagementModule.servicemanagement.name'| translate}}</strong> </div>
+              <div class="bord-all pad-all-sm"> {{serviceDetails?.serviceName}}</div>
+          </div>
+        </div>
+
+        <div fxLayout="row wrap" class="clearfix pad-top">
+            <div fxFlex>
+                <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong> {{'ServiceManagementModule.servicemanagement.code'| translate}}</strong> </div>
+                <div class="bord-all pad-all-sm"> {{serviceDetails?.serviceCode}}</div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="clearfix pad-top">
+          <div fxFlex>
+                  <div class="bord-all pad-all-sm" style="background: #fafafa"> <strong>{{'ServiceManagementModule.servicemanagement.Category'| translate}}</strong> </div>
+                  <div class="bord-all pad-all-sm">{{serviceDetails?.msgCategory.categoryCode}}</div>
+              </div>
+        </div>
+
+        <div fxLayout="row wrap" class="clearfix pad-top">
+              <div fxFlex>
+                  <div class="bord-all pad-all-sm" style="background: #fafafa"><strong> {{'ServiceManagementModule.servicemanagement.Priority'| translate}}</strong></div>
+                  <div class="bord-all pad-all-sm"> {{serviceDetails?.msgPriorityInfo.priorityDesc}}</div>
+              </div>
+    </div>
+
+
+    </mat-card-content>
+  </form>
+</mat-card>

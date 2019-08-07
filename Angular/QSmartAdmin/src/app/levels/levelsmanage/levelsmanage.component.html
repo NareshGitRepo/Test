@@ -1,0 +1,137 @@
+<div fxLayout="row wrap" style="clear:both">
+  <div fxFlex="70">
+    <button mat-raised-button color="primary" (click)="createLevel()" class="create-button">
+      <i class="ti-plus"></i> &nbsp; {{ 'levelModule.levelManage.createLevel' | translate }}</button>
+  </div>
+  <div fxFlex="30">
+      <mat-form-field class="pull-right">
+          <input matInput [(ngModel)]="searchdepartement" placeholder="{{ 'levelModule.levelManage.searchdept' | translate }}">
+        </mat-form-field>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div id="sndrActv" class="clearfix left-sec left-col" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="100">
+    <div class="search">
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="searchdata" placeholder="{{ 'levelModule.levelManage.search' | translate }}">
+      </mat-form-field>
+    </div>
+
+    <perfect-scrollbar style="height:46vh;">
+      <div style="padding-right: 8px;">
+        <mat-card style="cursor: pointer;" class=" no-shadow bord-all" *ngFor="let levelDetails of pagedlevelsData |  deptfilter
+    : levellist : searchdata : 'floorName';first as isFirst"
+          [class.pbActive]="floorId == 0 ? isFirst : (levelDetails?.floorId ==  floorId ? true :false)" (click)="activeClass($event)"
+          style="padding:0">
+          <mat-card-content (click)="floorId == levelDetails?.floorId ? false :assignDpts(levelDetails)">
+            <div fxFlex="90">
+              <ngx-avatar class="card-avatar pull-left" size="25" name="{{levelDetails.floorName}}"></ngx-avatar>
+              <div class="itemtext">{{levelDetails?.floorName}}</div>
+            </div>
+            <div class="Umore-btn" fxFlex="10">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit" class="pull-right"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                <button mat-menu-item (click)="addDepartement(levelDetails.floorId)"><i class="ti-plus"></i>{{
+                  'levelModule.deptTitle' | translate }}</button>
+                <button mat-menu-item (click)="editLevel(levelDetails)"><i class="ti-pencil-alt"></i>{{
+                  'levelModule.levelEdit' | translate }}</button>
+
+              </mat-menu>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </perfect-scrollbar>
+    <div *ngIf="levellist.length >pageSize" class="paging">
+      <mat-paginator [length]="levellist?.length" [pageSize]="pageSize" [pageIndex]="initPage" (page)="getData($event)">
+      </mat-paginator>
+    </div>
+  </div>
+
+  <div fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100" class="cmpn-right">
+    <!-- <div class="cntsearch clearfix" >
+      <mat-form-field class="pull-right">
+          <input matInput [(ngModel)]="searchdepartement" placeholder="{{ 'levelModule.levelManage.searchdept' | translate }}">
+        </mat-form-field>
+    </div> -->
+    <perfect-scrollbar style="height:67vh;">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" class="pad-no" *ngFor="let dept of deptList
+        |  deptfilter: deptList : searchdepartement : 'deptName';">
+          <mat-card fxFlex class="usercard">
+
+            <mat-card-content>
+              <div class="clearfix">
+                <div fxLayout="row wrap" class="pad-all">
+
+                  <div class="icon-avatar">
+                    <div class="inn text-center" *ngIf="dept.status == 1">
+                      <img src="assets/images/levels.svg" width="30px;">
+                    </div>
+
+                    <div class="inn text-center" *ngIf="dept.status == 0">
+                      <img src="assets/images/levels-inactive.svg" width="30px;">
+                    </div>
+                  </div>
+
+                  <div fxFlex="75" class="pad-lft">
+                    <div class="card-details">
+                      {{dept?.deptName}} &nbsp;
+                    </div>
+                    <div class="card-details">
+                        {{dept?.deptArbName}} &nbsp;
+                      </div>
+                      <div class="card-details" *ngIf="dept?.deptType != 0">
+                       <strong>{{ 'levelModule.levelManage.sameTokenFlag' | translate}} : </strong> {{dept?.dept_Multiple_Token == 1 ? 'Yes':'No'}} &nbsp;
+                      </div>
+                  </div>
+                  <div class="Umore-btn" fxFlex="10">
+                    <button mat-icon-button [matMenuTriggerFor]="UcardEdit" class="pull-right"><i class="ti-more-alt"></i></button>
+                    <mat-menu #UcardEdit="matMenu">
+                      <button mat-menu-item (click)="editDetailsDepartMent(dept)"><i class="ti-info-alt"></i>&nbsp;&nbsp;{{
+                        'levelModule.levelManage.details' | translate }}</button>
+                        <span *ngIf="dept?.deptType != 0">
+                      <button mat-menu-item (click)="editDepartMent(dept)"><i class="ti-pencil-alt"></i>{{
+                        'levelModule.levelManage.Editdepartment' | translate }}</button>
+                        </span>
+
+                    </mat-menu>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="clearfix devicecard-footer" *ngIf="dept?.deptType!=0">
+
+                <div class="col-sm-6 pad-no">
+                 
+                  <div *ngIf="dept.status==0">
+                    <button mat-menu-item  class="pull-right"><i class="ti-check"></i> 
+                      {{'ActionNames.deActivate'
+                | translate }}</button>
+                  </div>
+                  <div *ngIf="dept.status==1">
+                    <button mat-menu-item  class="pull-right"><i class="ti-close"></i>
+                      {{'ActionNames.activate'
+                | translate }}</button>
+                  </div>
+                </div>
+              </div> -->
+              <!-- (click)="LevelActiveDialog(dept,0)" 
+                    (click)="LevelActiveDialog(dept,1)"-->
+
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

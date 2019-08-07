@@ -1,0 +1,116 @@
+<mat-card>
+  <form [formGroup]="smstoEmailForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <h4>{{_editSMStoemaildata? ('smstoemail.create.editTitleName'| translate):('smstoemail.create.title'| translate)}}
+      </h4>
+
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+          <div class="example-container">
+            <div class="w100">
+            <mat-form-field class="w95">
+              <input matInput autofocus placeholder="{{'smstoemail.create.name'| translate}}"
+                [readonly]="_editSMStoemaildata" formControlName="smsToEmailName" autocomplete="off"
+                (change)="!smstoEmailForm.controls.smsToEmailName.errors?.required && smstoEmailForm.controls.smsToEmailName.valid ?
+                smstoEmailForm.get('validatesmsName').setValue(smstoEmailForm.value.smsToEmailName): smstoEmailForm.get('validatesmsName').setValue(null)" allow-all-space cdkFocusInitial minlength="5"
+                maxlength="20" required>
+              <mat-error *ngIf="smstoEmailForm.controls.smsToEmailName.errors?.required">
+                {{'smstoemail.create.reqmsg'| translate}}
+              </mat-error>
+              <mat-error *ngIf="smstoEmailForm.controls.smsToEmailName.errors?.minlength">{{'smstoemail.create.errmsg' | translate}}
+              </mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="!_editSMStoemaildata &&
+            !smstoEmailForm.controls.validatesmsName.errors?.required &&
+            !smstoEmailForm.controls.smsToEmailName.errors?.required && !smstoEmailForm.controls.validatesmsName.errors?.invalid
+            " style="display: inline"><i class=" ti-check text-success"></i></mat-error>
+            <mat-error *ngIf="smstoEmailForm.controls.validatesmsName.errors?.invalid">
+              <i class="ti-close text-danger">
+                {{'smstoemail.create.ermsg'| translate}}
+              </i></mat-error>
+            </div>
+            <mat-form-field class="w100">
+              <mat-select placeholder="{{'smstoemail.create.senders'| translate}}" formControlName="senders" required>
+                <mat-option *ngFor="let sender of senderdata;" [value]="sender.senderId">
+                  {{sender.senderName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="smstoEmailForm.controls.senders.errors?.required">
+                {{'smstoemail.create.reqmsg1'| translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput autofocus placeholder="{{'smstoemail.create.subject'| translate}}"
+                formControlName="subject" allow-all-singlespace cdkFocusInitial autocomplete="off"
+                maxlength="50" required>
+              <mat-error *ngIf="smstoEmailForm.controls.subject.errors?.required">
+                {{'smstoemail.create.ersub'| translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select placeholder="{{'smstoemail.create.mailserver'| translate}}" formControlName="mailServer" required>
+                <mat-option *ngFor="let ser of emailServer;" [value]="ser.emailServerId">
+                  {{ser.emailServerName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="smstoEmailForm.controls.mailTemplate.errors?.required">
+                {{'smstoemail.create.reqmsg2'| translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <mat-select placeholder="{{'smstoemail.create.mailTemplate'| translate}}" formControlName="mailTemplate" required>
+                <mat-option *ngFor="let temp of emailtemplateData;" [value]="temp.emailTemplateId" required>
+                  {{temp.templateName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="smstoEmailForm.controls.mailTemplate.errors?.required">
+                {{'smstoemail.create.reqmsg22'| translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput autofocus placeholder="{{'smstoemail.create.to'| translate}}" formControlName="mailTo"
+                allow-multiple-email-charecters maxlength="500" autocomplete="off" required>
+              <mat-error *ngIf="smstoEmailForm.controls.mailTo.errors?.required">
+                {{'smstoemail.create.reqmsg3'| translate}}
+              </mat-error>
+              <mat-error *ngIf="smstoEmailForm.controls.mailTo.errors?.pattern">
+                {{'smstoemail.create.errmsg1'| translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w100">
+              <input matInput autofocus placeholder="{{'smstoemail.create.cc'| translate}}" formControlName="mailCC"
+                allow-multiple-email-charecters maxlength="500" autocomplete="off" (keyup)="mailCCValidation()">
+              <mat-error *ngIf="smstoEmailForm.controls.mailCC.errors?.required">
+                {{'smstoemail.create.reqmsg4'| translate}}
+              </mat-error>
+
+              <mat-error *ngIf="smstoEmailForm.controls.mailCC.errors?.pattern">
+                {{'smstoemail.create.errmsg1'| translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="form-actions">
+      <div style="margin-left: 12px;">
+        <button mat-raised-button type="submit" class="submitbutton" actionClick (debounceClick)="createSmsToEmail()"
+          [disabled]="!smstoEmailForm.valid || loading">{{ _editSMStoemaildata ? ('ActionNames.update' | translate):('ActionNames.save' | translate)}}</button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

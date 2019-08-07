@@ -1,0 +1,1068 @@
+{
+  "baseUrl": "http://202.65.158.172:9097",
+  "components": [{
+      "apiUrl": "",
+      "component": "Auth",
+      "methods": [{
+          "name": "getMenuByRoleId",
+          "type": "GET",
+          "url": "/menu/{loginid}/all/{roleid}"
+        },
+        {
+          "name": "authLogOut",
+          "type": "GET",
+          "url": "/auth/logout"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Profile",
+      "methods": [{
+          "name": "updateProfileById",
+          "type": "PUT",
+          "url": "/profile/{userid}/update"
+        },
+        {
+          "name": "changePassword",
+          "type": "PUT",
+          "url": "/profile/{loginid}/changePassword/{loginid}"
+        },
+        {
+          "name": "resetPassword",
+          "type": "PUT",
+          "url": "/profile/{loginid}/resetPassword/{userid}"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Notifications",
+      "methods": [{
+          "name": "getNotifications",
+          "type": "GET",
+          "url": "/tokens/{loginid}/notifications/get/{loginid}"
+        },
+        {
+          "name": "updateNotificationList",
+          "type": "POST",
+          "url": "/tokens/{loginid}/notifications/update"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Devices",
+      "methods": [{
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getLevelsByOrgId",
+          "type": "GET",
+          "url": "/floor/{loginid}/getlevels/{orgid}"
+        },
+        {
+          "name": "getKioskUrl",
+          "type": "GET",
+          "url": "/kioskadmin/{loginid}/getUrl/{kioskid}"
+        },
+        {
+          "name": "getDisplayUrl",
+          "type": "GET",
+          "url": "/display/{loginid}/getUrl/{displayid}"
+        },
+        {
+          "name": "getKioskbyOrgid",
+          "type": "GET",
+          "url": "/kioskadmin/{loginid}/getkiosksbyorgid/{orgid}"
+        },
+        {
+          "name": "getAllDisplayBoardsByOrgid",
+          "type": "GET",
+          "url": "/display/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getPrintersByDest",
+          "type": "GET",
+          "url": "/printer/{loginid}/getPrintersByDest"
+        },
+        {
+          "name": "addKiosk",
+          "type": "POST",
+          "url": "/kioskadmin/{loginid}/addKiosk"
+        },
+        {
+          "name": "updateKiosk",
+          "type": "PUT",
+          "url": "/kioskadmin/{loginid}/updatekiosk"
+        },
+        {
+          "name": "updateStatusByKioskId",
+          "type": "PUT",
+          "url": "/kioskadmin/{loginid}/statusUpdate"
+        },
+        {
+          "name": "validateKioskName",
+          "type": "GET",
+          "url": "/kioskadmin/{loginid}/validateKioskName/{levelId}/{kioskName}"
+        },
+        {
+          "name": "validateKioskIpAddress",
+          "type": "GET",
+          "url": "/kioskadmin/{loginid}/validateKioskIpAddress/{orgid}/{kioskIp}"
+        },
+        {
+          "name": "addDisplay",
+          "type": "POST",
+          "url": "/display/{loginid}/addDisplay"
+        },
+        {
+          "name": "validateDisplayName",
+          "type": "GET",
+          "url": "/display/{loginid}/validateDisplayName/{levelId}/{displayName}"
+        },
+        {
+          "name": "validatePrinterName",
+          "type": "GET",
+          "url": "/printer/{loginid}/validatePrinter/{levelId}/{printerName}"
+        },
+        {
+          "name": "getPrintersByDestModified",
+          "type": "GET",
+          "url": "/printer/{loginid}/getPrintersByDestModified"
+        },
+        {
+          "name": "createPrinter",
+          "type": "POST",
+          "url": "/printer/{loginid}/addPrinter"
+        },
+        {
+          "name": "UpdatePrinter",
+          "type": "PUT",
+          "url": "/printer/{loginid}/updatePrinter"
+        },
+        {
+          "name": "updateStatusByPrinterId",
+          "type": "PUT",
+          "url": "/printer/{loginid}/statusUpdate"
+        },
+        {
+          "name": "updateStatusByDisplayId",
+          "type": "PUT",
+          "url": "/display/{loginid}/status/{dispId}/update"
+        },
+        {
+          "name": "getHospitalsByGroupId",
+          "type": "GET",
+          "url": "/hospital/{loginid}/allByGroupId/{groupid}"
+        },
+        {
+          "name": "updateStatusByKioskId",
+          "type": "PUT",
+          "url": "/kioskadmin/{loginid}/statusUpdate"
+        },
+        {
+          "name": "getDepartmentsByFacilitateId",
+          "type": "GET",
+          "url": "/department/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "updateDisplay",
+          "type": "PUT",
+          "url": "/display/{loginid}/update"
+        },
+        {
+          "name": "getAllMenus",
+          "type": "GET",
+          "url": "/kioskadmin/{loginid}/getallmenus"
+        },
+        {
+          "name": "getPrintersByOrgId",
+          "type": "GET",
+          "url": "/printer/{loginid}/getPrintersByOrgId/{orgid}"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Group",
+      "methods": [{
+          "name": "getGroupsByParentId",
+          "type": "GET",
+          "url": "/group/{loginid}/allByParentId/{parentid}"
+        },
+        {
+          "name": "getCorporates",
+          "type": "GET",
+          "url": "/client/{loginid}/allByParentId/{parentid}"
+        },
+        {
+          "name": "getFacilitiesByClientId",
+          "type": "GET",
+          "url": "/facility/{loginid}/allByClientId/{clientid}"
+        },
+        {
+          "name": "getFacilitiesByGroupId",
+          "type": "GET",
+          "url": "/facility/{loginid}/allByGroupId/{groupid}"
+        },
+        {
+          "name": "createGroup",
+          "type": "POST",
+          "url": "/group/{loginid}/create"
+        },
+        {
+          "name": "updateGroup",
+          "type": "PUT",
+          "url": "/group/{loginid}/update"
+        },
+        {
+          "name": "validateGroupName",
+          "type": "GET",
+          "url": "/group/{loginid}/validateGroupName/{orgid}/{groupName}"
+        },
+        {
+          "name": "updateGroupStatus",
+          "type": "PUT",
+          "url": "/group/{loginid}/status/{groupid}/update"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Facility",
+      "methods": [{
+          "name": "getFacilitiesByClientId",
+          "type": "GET",
+          "url": "/facility/{loginid}/allByClientId/{clientid}"
+        },
+        {
+          "name": "getFacilitiesByGroupId",
+          "type": "GET",
+          "url": "/facility/{loginid}/allByGroupId/{groupid}"
+        },
+        {
+          "name": "updateFacilityInfo",
+          "type": "PUT",
+          "url": "/facility/{loginid}/update"
+        },
+        {
+          "name": "updateFacilityStatus",
+          "type": "PUT",
+          "url": "/facility/{loginid}/status/{clientid}/update"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Client",
+      "methods": [{
+          "name": "getAllClients",
+          "type": "GET",
+          "url": "/client/{loginid}/all"
+        },
+        {
+          "name": "createClient",
+          "type": "POST",
+          "url": "/client/{loginid}/create/"
+        },
+        {
+          "name": "valdiateAndReadData",
+          "type": "POST",
+          "url": "/client/{loginid}/license/validate"
+        },
+        {
+          "name": "uplaodLogoFile",
+          "type": "POST",
+          "url": "/client/{loginid}/logo/upload"
+        },
+        {
+          "name": "updateClientStat",
+          "type": "PUT",
+          "url": "/client/{loginid}/status/{orgid}/update?satus={status}"
+        },
+        {
+          "name": "updateClientInfo",
+          "type": "PUT",
+          "url": "/client/{loginid}/update"
+        },
+        {
+          "name": "getLicenseInfo",
+          "type": "GET",
+          "url": "/client/{loginid}/license/{clientid}/info"
+        },
+        {
+          "name": "updateLicenseInfo",
+          "type": "PUT",
+          "url": "/client/license/{loginid}/update"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Users",
+      "methods": [{
+          "name": "getUsersFromDirectoryByName",
+          "type": "GET",
+          "url": "/activedirectory/{loginid}/getusers/{username}"
+        },
+        {
+          "name": "getCorporates",
+          "type": "GET",
+          "url": "/client/{loginid}/all"
+        },
+        {
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getGroupsByParentId",
+          "type": "GET",
+          "url": "/group/{loginid}/allByParentId/{parentid}"
+        },
+        {
+          "name": "getFacilitiesByClientId",
+          "type": "GET",
+          "url": "/facility/{loginid}/allByClientId/{clientid}"
+        },
+        {
+          "name": "getDepartmentsByFacilitateId",
+          "type": "GET",
+          "url": "/department/{loginid}/all/{clientid}"
+        },
+        {
+          "name": "getAllUsersByRoleId",
+          "type": "GET",
+          "url": "/users/{userid}/all/{parentid}/role/{roleid}"
+        },
+        {
+          "name": "getRolesByUserRoleId",
+          "type": "GET",
+          "url": "/roles/{loginid}/all/{roleid}"
+        },
+        {
+          "name": "createUser",
+          "type": "POST",
+          "url": "/users/{loginid}/create"
+        },
+        {
+          "name": "updateUser",
+          "type": "PUT",
+          "url": "/users/{loginid}/update"
+        },
+        {
+          "name": "validateUserName",
+          "type": "GET",
+          "url": "/users/{loginid}/validate"
+        },
+        {
+          "name": "getAllUsers",
+          "type": "GET",
+          "url": "/users/{loginid}/all/{parentid}/role/{roleid}"
+        },
+        {
+          "name": "deleteUser",
+          "type": "DELETE",
+          "url": "/users/{loginid}/delete/{delete-userid}"
+        },
+        {
+          "name": "isLogInIdExits",
+          "type": "GET",
+          "url": "/users/{loginid}/validate"
+        },
+        {
+          "name": "getAllDoctorsByDepts",
+          "type": "GET",
+          "url": "/users/{loginid}/getalldoctors/{deptid}"
+        },
+        {
+          "name": "mapNurseDoctors",
+          "type": "PUT",
+          "url": "/users/{loginid}/mapnursedoctors"
+        },
+        {
+          "name": "resetPassword",
+          "type": "PUT",
+          "url": "/profile/{loginid}/resetPassword/{userid}"
+        },
+        {
+          "name": "getRoomsByFloorId",
+          "type": "GET",
+          "url": "/room/{loginid}/floor-rooms/all/{floorid}"
+        },
+        {
+          "name": "updateUserStatus",
+          "type": "PUT",
+          "url": "/users/{loginid}/updatestatus/{userId}/{status}"
+        },
+        {
+          "name": "getFloorsWithDeptsAndDoctorsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/floor-doctors/{orgid}"
+        },
+        {
+          "name": "getDoctorsByMultipleDepartments",
+          "type": "POST",
+          "url": "/users/{loginid}/doctors/all"
+        },
+        {
+          "name": "getDeptAndServicesByUserId",
+          "type": "GET",
+          "url": "/manual-token/{loginid}/departments-services/{userid}"
+        },
+        {
+          "name": "manualDeptAndServiceMap",
+          "type": "POST",
+          "url": "/manual-token/{loginid}/maptodeptandservices"
+        },
+        {
+          "name": "validateDoctorSegment",
+          "type": "GET",
+          "url": "/users/{loginid}/validateSegment"
+        },
+        {
+          "name": "isRoleEditable",
+          "type": "GET",
+          "url": "/users/{loginId}/check/roleedit"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Errors",
+      "methods": [{
+          "name": "getLevelsByOrgId",
+          "type": "GET",
+          "url": "/floor/{loginid}/getlevels/{orgid}"
+        },
+        {
+          "name": "getAllErrorsByFacilitateIDId",
+          "type": "GET",
+          "url": "/kiosk-errors/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "upateErrorInfo",
+          "type": "PUT",
+          "url": "/kiosk-errors/{loginid}/update"
+        },
+        {
+          "name": "getErrorsByLevelId",
+          "type": "GET",
+          "url": "/kiosk-errors/{loginid}/level/all/{levelid}"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Previleges",
+      "methods": [{
+        "name": "getRolesByUserRoleId",
+        "type": "GET",
+        "url": "/roles/{loginid}/all/{roleid}"
+      }]
+    },
+    {
+      "apiUrl": "",
+      "component": "Reports",
+      "methods": [{
+          "name": "getNotEligible",
+          "type": "GET",
+          "url": "/kiosk/{loginid}/getcheckinreport?startdate={startdate}&enddate={enddate}&orgId={orgid}"
+        },
+        {
+          "name": "getSuccessCheckins",
+          "type": "GET",
+          "url": "/cdr-reports/{loginid}/checkin-success/all"
+        },
+        {
+          "name": "getFailedCheckins",
+          "type": "GET",
+          "url": "/cdr-reports/{loginid}/checkin-fail/all"
+        },
+        {
+          "name": "getFailedRegistrations",
+          "type": "GET",
+          "url": "/cdr-reports/{loginid}/registrations-fail/all"
+        },
+        {
+          "name": "getSuccessRegistrations",
+          "type": "GET",
+          "url": "/cdr-reports/{loginid}/registrations-success/all"
+        },
+        {
+          "name": "getFacilitiesByClientId",
+          "type": "GET",
+          "url": "/facility/{loginid}/allByClientId/{clientid}"
+        },
+        {
+          "name": "getFeedBackByDate",
+          "type": "GET",
+          "url": "/cdr-reports/{loginid}/getfeedback/{orgid}"
+        },
+        {
+          "name": "getHl7CdrReportByDate",
+          "type": "GET",
+          "url": "/cdr-reports/{loginid}/hl7cdr-reports"
+        },
+        {
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getEmpReport",
+          "type": "POST",
+          "url": "/cdr-reports/{loginid}/employee-performance-report"
+        },
+        {
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getServiceReport",
+          "type": "POST",
+          "url": "/cdr-reports/{loginid}/service-report"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "DashBoard",
+      "methods": [{
+          "name": "getDashBoardByFacilityId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getdashboardByFacility/{clientid}"
+        },
+        {
+          "name": "getQueues",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/queues/{clientid}"
+        },
+        {
+          "name": "getCurservingTokens",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/serving/{clientid}"
+        },
+        {
+          "name": "getDashBoardAptsByFacilityId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getDashBoardAptsByFacilityId"
+        },
+        {
+          "name": "getDashBoardWaitingByFacilityId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getDashBoardWaitingByFacilityId"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "DDashboard",
+      "methods": [{
+          "name": "getdashboardByDoctId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getdashboardByDoctId"
+        },
+        {
+          "name": "getDashBoardByNurseId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/nurse/dashboard/{loginid}"
+        },
+        {
+          "name": "getUserWiseDashboard",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/userwise-dashboard/"
+        },
+        {
+          "name": "getDashBoardWaitingByDoctId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getDashBoardWaitingByDoctId"
+        },
+        {
+          "name": "getDashboardAptsByDoctId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getDashboardAptsByDoctId"
+        },
+        {
+          "name": "getDashBoardAptsByNurseId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getDashBoardAptsByNurseId"
+        },
+        {
+          "name": "getDashBoardWaitingByNurseId",
+          "type": "GET",
+          "url": "/dashboard/{loginid}/getDashBoardWaitingByNurseId"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Display",
+      "methods": [
+        {
+        "name": "getDisplayInfo",
+        "type": "GET",
+        "url": "/displayboard/{displayId}/info"
+      },
+      {
+        "name": "getCurrentDate",
+        "type": "GET",
+        "url": "/auth/current-date-time"
+      }]
+    },
+    {
+      "apiUrl": "",
+      "component": "TokenService",
+      "methods": [{
+          "name": "getDoctroAndServiceInfo",
+          "type": "GET",
+          "url": "/tokens/{loginid}/doctors/all/{loginid}"
+        },
+        {
+          "name": "getServingTokenByNurseId",
+          "type": "GET",
+          "url": "/tokens/{loginid}/serving-tokens/all/{loginid}"
+        },
+        {
+          "name": "getServingTokenByDoctorId",
+          "type": "GET",
+          "url": "/tokens/{loginid}/docotor/serving-tokens/all/{loginid}"
+        },
+        {
+          "name": "getTokenAndRoomsInfoByDoctor",
+          "type": "GET",
+          "url": "/tokens/{loginid}/tokens/all/{doctorid}"
+        },
+        {
+          "name": "callTokenForServing",
+          "type": "POST",
+          "url": "/tokens/{loginid}/serving"
+        },
+        {
+          "name": "endTokenInfo",
+          "type": "GET",
+          "url": "/tokens/{loginid}/tokeninfo/end/{tokenId}"
+        },
+        {
+          "name": "recycleToken",
+          "type": "GET",
+          "url": "/tokens/{loginid}/recycle/{tokenId}"
+        },
+        {
+          "name": "reCallNurseToken",
+          "type": "GET",
+          "url": "/tokens/{loginid}/recall/{tokenId}"
+        },
+        {
+          "name": "reCallDoctorToken",
+          "type": "GET",
+          "url": "/tokens/doctor/{loginid}/recall/{tokenId}"
+        },
+        {
+          "name": "noShowToken",
+          "type": "GET",
+          "url": "/tokens/{loginid}/noshow/{tokenId}"
+        },
+        {
+          "name": "servingEndToken",
+          "type": "GET",
+          "url": "/tokens/{loginid}/serving-end/{tokenId}"
+        },
+        {
+          "name": "callNextServingTOken",
+          "type": "POST",
+          "url": "/tokens/{loginid}/nexttoken"
+        },
+        {
+          "name": "callDoctorNextServingTOken",
+          "type": "POST",
+          "url": "/tokens/docotor/{loginid}/nexttoken"
+        },
+        {
+          "name": "getServiceInfByDoctorId",
+          "type": "GET",
+          "url": "/tokens/{loginid}/doctor-services/all/{loginid}"
+        },
+        {
+          "name": "getServicesInfo",
+          "type": "GET",
+          "url": "/common-token/{loginid}/services/all/{loginid}"
+        },
+        {
+          "name": "getWaitingTokens",
+          "type": "GET",
+          "url": "/common-token/{loginid}/tokens/all/{serviceid}"
+        },
+        {
+          "name": "getServingTokensByUserId",
+          "type": "GET",
+          "url": "/common-token/{loginid}/serving-tokens/all/{loginid}"
+        },
+        {
+          "name": "CcallTokenForServing",
+          "type": "POST",
+          "url": "/common-token/{loginid}/serving"
+        },
+        {
+          "name": "CservingEndToken",
+          "type": "GET",
+          "url": "/common-token/{loginid}/serving-end/{tokenId}"
+        },
+        {
+          "name": "CnoShowToken",
+          "type": "GET",
+          "url": "/common-token/{loginid}/noshow/{tokenId}"
+        },
+        {
+          "name": "CendTokenInfo",
+          "type": "GET",
+          "url": "/common-token/{loginid}/tokeninfo/end/{tokenId}"
+        },
+        {
+          "name": "CcallNextServingTOken",
+          "type": "POST",
+          "url": "/common-token/{loginid}/nexttoken"
+        },
+        {
+          "name": "CrecycleToken",
+          "type": "GET",
+          "url": "/common-token/{loginid}/recycle/{tokenId}"
+        },
+        {
+          "name": "Crecall",
+          "type": "GET",
+          "url": "/common-token/{loginid}/recall/{tokenId}"
+        },
+        {
+          "name": "getTransferServicesByFloorId",
+          "type": "GET",
+          "url": "/tokens/{loginid}/transfer-depts/{floorId}"
+        },
+        {
+          "name": "transferedToken",
+          "type": "GET",
+          "url": "/tokens/{loginid}/transfered/{tokenId}"
+        },
+        {
+          "name": "recycleTokenOtherResource",
+          "type": "GET",
+          "url": "/tokens/{loginid}/recycletoken/{tokenId}"
+        },
+        {
+          "name": "servingEndTokenOtherResource",
+          "type": "GET",
+          "url": "/tokens/{loginid}/serving-end-token/{tokenId}"
+        },
+        {
+          "name": "getServingTokensOtherResource",
+          "type": "GET",
+          "url": "/tokens/{loginid}/getServingTokens/{loginid}"
+        },
+        {
+          "name": "getServicesAndDoctors",
+          "type": "GET",
+          "url": "/tokens/{loginid}/doctors/get/{ticketId}"
+        },
+        {
+          "name": "transferedService",
+          "type": "GET",
+          "url": "/tokens/{loginid}/transferedService/{tokenId}"
+        },
+        {
+          "name": "getTokenTraverse",
+          "type": "GET",
+          "url": "/tokens/{loginid}/tokenTraverse/get/{ticketId}"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "RoomManagement",
+      "methods": [{
+          "name": "getRoomTypes",
+          "type": "GET",
+          "url": "/room/{loginid}/getroomtypes"
+        },
+        {
+          "name": "createRoom",
+          "type": "POST",
+          "url": "/room/{loginid}/create"
+        },
+        {
+          "name": "createRoomAllow",
+          "type": "POST",
+          "url": "/room/{loginid}/create/allow"
+        },
+        {
+          "name": "validateRoomNameinAb",
+          "type": "GET",
+          "url": "/room/{loginid}/validateroomNameAb/{roomname}"
+        },
+        {
+          "name": "validateRoomNameinEn",
+          "type": "GET",
+          "url": "/room/{loginid}/validateroomNameEn/{roomname}"
+        },
+        {
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getLevelsByOrgId",
+          "type": "GET",
+          "url": "/floor/{loginid}/getlevels/{orgid}"
+        },
+        {
+          "name": "getRoomsByFloorId",
+          "type": "GET",
+          "url": "/room/{loginid}/floor-rooms/all/{floorid}"
+        },
+        {
+          "name": "updateRooms",
+          "type": "PUT",
+          "url": "/room/{loginid}/updaterooms"
+        },
+        {
+          "name": "updateRoomsAllow",
+          "type": "PUT",
+          "url": "/room/{loginid}/updateroomsAllow"
+        },
+        {
+          "name": "getRoomTypesByLevelId",
+          "type": "GET",
+          "url": "/room/{loginid}/getrooms-types/{levelId}"
+        },
+        {
+          "name": "deleteRooms",
+          "type": "PUT",
+          "url": "/room/{loginid}/delete"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Levels",
+      "methods": [{
+          "name": "createLevel",
+          "type": "POST",
+          "url": "/floor/{loginid}/create"
+        },
+        {
+          "name": "getLevelsByOrgId",
+          "type": "GET",
+          "url": "/floor/{loginid}/getlevels/{orgid}"
+        },
+        {
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "validateDept",
+          "type": "GET",
+          "url": "/department/{loginid}/validateDept/{levelId}/{deptName}"
+        },
+        {
+          "name": "createDepartment",
+          "type": "POST",
+          "url": "/department/{loginid}/create"
+        },
+        {
+          "name": "updateDepartment",
+          "type": "PUT",
+          "url": "/department/{loginid}/update"
+        },
+        {
+          "name": "updateStatusByDeptId",
+          "type": "PUT",
+          "url": "/department/{loginid}/status/{deptid}/update/{status}"
+        },
+        {
+          "name": "updateFloorDataInfo",
+          "type": "PUT",
+          "url": "/floor/{loginid}/update"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "Service",
+      "methods": [{
+          "name": "validateServiceName",
+          "type": "GET",
+          "url": "/service/{loginid}/validate/service"
+        },
+        {
+          "name": "validateServicePrefix",
+          "type": "GET",
+          "url": "/service/{loginid}/validate/service-prefix/{levelId}"
+        },
+        {
+          "name": "addService",
+          "type": "POST",
+          "url": "/service/{loginid}/create"
+        },
+        {
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "getServicesByFacilitateId",
+          "type": "GET",
+          "url": "/service/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "updateServiceStatus",
+          "type": "PUT",
+          "url": "/service/{loginid}/status/{serviceId}/update"
+        },
+        {
+          "name": "updateServiceInfo",
+          "type": "PUT",
+          "url": "/service/{loginid}/update"
+        },
+        {
+          "name": "getRoomsByFloorId",
+          "type": "GET",
+          "url": "/room/{loginid}/floor-rooms/all/{floorid}"
+        },
+        {
+          "name": "mapServiceWithRooms",
+          "type": "POST",
+          "url": "/service/{loginid}/map-rooms"
+        },
+        {
+          "name": "getRoomsByServiceId",
+          "type": "GET",
+          "url": "/room/{loginid}/service-rooms/all/{serviceid}"
+        },
+        {
+          "name": "getServiceTypesByServiceid",
+          "type": "GET",
+          "url": "/{loginid}/getservicetypes/{serviceId}"
+        },
+        {
+          "name": "getServiceTypeByLevelId",
+          "type": "GET",
+          "url": "/{loginid}/unmapservicetypes/{levelId}"
+        },
+        {
+          "name": "mapServiceWithServiceType",
+          "type": "POST",
+          "url": "/{loginid}/map-servicetypes"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "PrintTokens",
+      "methods": [{
+          "name": "getAllTokensInfo",
+          "type": "GET",
+          "url": "/printingservice/{loginid}/all/{mrnno}"
+        },
+        {
+          "name": "getPrintingTokenData",
+          "type": "POST",
+          "url": "/printingservice/{loginid}/printingdata"
+        },
+        {
+          "name": "getPrintersByFloorId",
+          "type": "GET",
+          "url": "/printer/{loginid}/getPrintersByfloorId/{floorId}"
+        },
+        {
+          "name": "printToken",
+          "type": "GET",
+          "url": "/printingservice/{loginid}/print-token/{printerid}/{tokenid}"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "ServiceType",
+      "methods": [{
+          "name": "getFloorsWithDeptsByFacilitateId",
+          "type": "GET",
+          "url": "/floor/{loginid}/all/{orgid}"
+        },
+        {
+          "name": "addService",
+          "type": "POST",
+          "url": "/{loginid}/create"
+        },
+        {
+          "name": "updateServiceTypeInfo",
+          "type": "PUT",
+          "url": "/{loginid}/update"
+        },
+        {
+          "name": "getServiceTypesByFloor",
+          "type": "GET",
+          "url": "/{loginid}/all/{floorId}"
+        },
+        {
+          "name": "getAllFloorServiceTypeByOrgId",
+          "type": "GET",
+          "url": "/{loginid}/allservicetypes/{orgid}"
+        },
+        {
+          "name": "validateServiceTypeSegmentIdAndLocation",
+          "type": "GET",
+          "url": "/{loginId}/validate/segmentid-location"
+        },
+		    {
+          "name": "validateServiceTypeNameAndLocation",
+          "type": "GET",
+          "url": "/{loginId}/validate/servicename-location"
+        },
+        {
+          "name": "addServiceNew",
+          "type": "POST",
+          "url": "/{loginid}/createnew"
+        },
+		    {
+          "name": "updateServiceTypeInfoNew",
+          "type": "PUT",
+          "url": "/{loginid}/updatenew"
+        }
+      ]
+    },
+    {
+      "apiUrl": "",
+      "component": "ManualTokens",
+      "methods": [{
+          "name": "generateManualToken",
+          "type": "POST",
+          "url": "/manual-token/{loginid}/manualtoken2"
+        },
+        {
+          "name": "getDeptAndServicesByUserId",
+          "type": "GET",
+          "url": "/manual-token/{loginid}/departments-services/{loginid}"
+        },
+        {
+          "name": "getAllDoctorsByServiceId",
+          "type": "GET",
+          "url": "/manual-token/{loginid}/getdoctors/{serviceid}"
+        },
+        {
+          "name": "getPrintersByFloorId",
+          "type": "GET",
+          "url": "/printer/{loginid}/getPrintersByfloorId/{floorId}"
+        },
+        {
+          "name": "printToken",
+          "type": "GET",
+          "url": "/printingservice/{loginid}/print-token/{printerid}/{tokenid}"
+        }
+      ]
+    }
+  ]
+}

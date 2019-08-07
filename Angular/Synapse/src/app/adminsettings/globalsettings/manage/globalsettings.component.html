@@ -1,0 +1,61 @@
+<div style="padding-right: 8px;">
+  <div style="cursor: pointer;" class=" no-shadow bord-no" style="padding:0">
+    <mat-card-content>
+      <form [formGroup]="appSettingForm">
+
+        <div *ngFor="let keydata of mainKeys">
+          <fieldset class="scheduler-border" style="width: 40%; padding-right:10px;">
+
+            <legend class="scheduler-border">{{'GlobalSettingModule.manageglobal.'+keydata | translate}}</legend>
+
+            <div *ngFor="let key of systemParamsList[keydata] | getKeyData ; let index;"  [formGroupName]="keydata">
+              <div [formGroupName]="key">
+                <div
+                  *ngIf="(appSettingForm.controls[keydata]?.get(key).get('parameterType').value).toLowerCase()=='number' || (appSettingForm.controls[keydata]?.get(key).get('parameterType').value).toLowerCase()=='string'">
+                  <mat-form-field style="width: 100%; padding-right:10px;">
+                    <input placeholder="{{'GlobalSettingModule.manageglobal.'+appSettingForm.controls[keydata]?.get(key).get('parameterName').value | translate}}"
+                      type="{{(appSettingForm.controls[keydata]?.get(key).get('parameterType').value).toLowerCase() == 'number'?'number': 'text'}}"
+                      matInput autofocus autocomplete="off" formControlName="value" allow-number-nospace required>
+                    <mat-error *ngIf="appSettingForm.controls[keydata]?.get(key).get('value').errors?.required">
+                      {{'GlobalSettingModule.manageglobal.fielderror' | translate}}
+                    </mat-error>
+
+                  </mat-form-field>
+                </div>
+                <div
+                  *ngIf="(appSettingForm.controls[keydata]?.get(key).get('parameterType').value).toLowerCase()=='boolean'">
+                  <mat-checkbox formControlName="value" color="primary">
+                    {{'GlobalSettingModule.manageglobal.'+appSettingForm.controls[keydata]?.get(key).get('parameterName').value | translate}}</mat-checkbox>
+                </div>
+                <div
+                  *ngIf="(appSettingForm.controls[keydata]?.get(key).get('parameterType').value).toLowerCase()=='time' || (appSettingForm.controls[keydata]?.get(key).get('parameterType').value)=='time' ">
+                  <mat-form-field class="w100">
+                    <ng-template #popTemplate>
+                      <timepicker formControlName="value" required
+                        [min]="appSettingForm.controls[keydata]?.get(key).get('parameterName').value =='CTT_START_TIME' || (index!=endTime && index!=startTime) ? minTime :appSettingForm.controls[keydata]?.get(startTime+'').get('value').value"
+                        [max]="appSettingForm.controls[keydata]?.get(key).get('parameterName').value !='CTT_START_TIME' || (index!=endTime && index!=startTime)  ? maxTime: appSettingForm.controls[keydata]?.get(endTime+'').get('value').value"
+                        [showMeridian]="false"></timepicker>
+                    </ng-template>
+                    <input readonly matInput
+                      placeholder="{{'GlobalSettingModule.manageglobal.'+appSettingForm.controls[keydata]?.get(key).get('parameterName').value | translate}}"
+                      [value]="appSettingForm.controls[keydata]?.get(key).get('value').value|date:'HH:mm'"
+                      [popover]="popTemplate" [outsideClick]="true" placement="bottom" autocomplete="off" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <button mat-raised-button class="submitbutton" [disabled]="appSettingForm.controls[keydata]?.invalid || loading"
+            actionClick (debounceClick)="Submit()">{{'ActionNames.save' | translate}}</button>
+          </fieldset>
+        </div>
+      </form>
+    </mat-card-content>
+  </div>
+</div>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

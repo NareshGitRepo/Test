@@ -1,0 +1,98 @@
+<mat-card>
+  <form [formGroup]="emailTemplateForm">
+    <mat-card-header style="border-bottom: 1px solid #eee;">
+      <h4>
+        {{_editEmailTemplatedata ? ('emailTemplateModule.editTitle' | translate) :('emailTemplateModule.title' | translate)}}
+      </h4>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="clearfix">
+        <div class="col-sm-12">
+          <div class="example-container">
+            <div class="w100">
+            <mat-form-field class="w95">
+              <input matInput autofocus placeholder="{{'emailTemplateModule.templateName' | translate}}"
+                formControlName="templateName" allow-all-singlespace cdkFocusInitial [readonly]="_editEmailTemplatedata"
+                (change)="!emailTemplateForm.controls.templateName.errors?.required && emailTemplateForm.controls.templateName.valid ?
+                emailTemplateForm.get('validatetemplateName').setValue(emailTemplateForm.value.templateName): emailTemplateForm.get('validatetemplateName').setValue(null)"
+                maxlength="30" minlength="5" required>
+              <mat-error *ngIf="emailTemplateForm.controls.templateName.errors?.required">
+                {{'emailTemplateModule.cretae.tempNameRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="emailTemplateForm.controls.templateName.errors?.minlength">
+                {{'emailTemplateModule.cretae.tempMinimumRequired' | translate}}
+              </mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="!_editEmailTemplatedata &&
+            !emailTemplateForm.controls.validatetemplateName.errors?.required &&
+            !emailTemplateForm.controls.templateName.errors?.required && !emailTemplateForm.controls.validatetemplateName.errors?.invalid
+            " style="display: inline"><i class=" ti-check text-success"></i></mat-error>
+            <mat-error *ngIf="emailTemplateForm.controls.validatetemplateName.errors?.invalid">
+              <i class="ti-close text-danger">
+                {{'emailTemplateModule.cretae.emailAlreadyExist' | translate}}
+              </i></mat-error>
+            </div>
+            <div>
+              <span> {{'emailTemplateModule.emailFormat' | translate}} &nbsp;&nbsp;</span>
+            
+              <mat-radio-group formControlName="emailFormat" class="mailformat" (change)="htmlSelection()">
+                <mat-radio-button color="primary" value="1">{{'emailTemplateModule.html' | translate}}
+                </mat-radio-button>
+                <mat-radio-button color="primary" value="2">{{'emailTemplateModule.plain' | translate}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-sm-12">
+              <fieldset class="scheduler-border-user aduserChk">
+                <legend class="scheduler-border">{{'emailTemplateModule.customLabel' | translate}}</legend>
+                <div *ngFor="let data of systemParamList">
+                  <div dnd-draggable-handle class="mar-btm" dnd-draggable [dragEnabled]="true" [dragData]="data.name"
+                    [dropZones]="['data-dropZone']">
+                    {{data.name}}
+                    <span>
+                      <i class="ti-move" actionClick (debounceClick)="removeSection(i)"></i>
+                    </span>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+           
+            <div *ngIf="emailTemplateForm.value.emailFormat == '1'">
+              <quill-editor formControlName="htmlContent" placeholder="{{'emailTemplateModule.htmlQuill' | translate}}"
+                [modules]="quillConfig" class="tokeneditor" (onEditorCreated)="onEditorCreated($event)" dnd-droppable
+                (onDropSuccess)="htmlDragContent($event)" [dropZones]="['data-dropZone']"
+                (onContentChanged)="onContentChange($event)" [style]="{height: '200px'}"></quill-editor>
+            </div>
+
+            <mat-form-field class="w100" *ngIf="emailTemplateForm.value.emailFormat == '2'">
+              <textarea matInput autofocus placeholder="{{'emailTemplateModule.htmlQuill' | translate}}"
+                formControlName="plainText" dnd-droppable (onDropSuccess)="PlainDragContent($event)"
+                matTextareaAutosize matAutosizeMinRows="5" [dropZones]="['data-dropZone']" #plainText
+                maxlength="{{msgmaxlength}}"
+                [ngClass]=" _arabic.test(emailTemplateForm.value.plainText) ? {arabic : true} : {english : true}" required>
+              </textarea>
+              <mat-error *ngIf="emailTemplateForm.controls.plainText.errors?.required">
+                {{'emailTemplateModule.plaintextRequired' | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <div class="form-actions">
+      <div style="margin-left: 24px;">
+        <button mat-raised-button type="submit" class="submitbutton" actionClick (debounceClick)="createEmailTemplate()"
+          [disabled]="!emailTemplateForm.valid || loading">{{_editEmailTemplatedata ? ('ActionNames.update' | translate) : ('ActionNames.save' | translate)}}</button>
+      </div>
+    </div>
+  </form>
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>
