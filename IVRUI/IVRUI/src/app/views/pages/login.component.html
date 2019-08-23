@@ -1,0 +1,57 @@
+<body background="assets/img/Duba.jpg">
+
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card-group">
+          <div class="card p-25">
+            <div class="card-body">
+
+              <div class="form">
+                  <div class="mar-ver pad-btm">
+                      <p class="text-center"><img src="assets/img/logo.jpg"  width="150" height="70"  />  </p>
+
+                      <h5 class="h5 mar-no text-center"><span style="color:#2b425b; ">Account Login</span> </h5> <br>
+                      
+                  </div>
+                <form class="login-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+
+                  <div class="input-group mb-3" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                  <div class="col-md-12">
+
+                      <span class="icon16 icomoon-icon-user right gray marginR10"></span>
+
+                  </div>
+                    <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="model.username" #username="ngModel" required (keyup)="onSearchChange($event.target.value)">
+                  </div>
+                  
+                  <div *ngIf="f.submitted && !username.valid" class="text-danger"><b>Username is required</b></div>
+                  <br>
+
+                  <div class="input-group mb-4" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                    <div class="col-md-12">
+                        <span class="icon16 icomoon-icon-user right gray marginR10"></span>
+                      </div>
+                    <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" required (keyup)="onSearchChange($event.target.value)">
+                  </div>
+                  <div *ngIf="f.submitted && !password.valid" class="text-danger"><b>Password is required</b></div>
+                  <br>
+                  <div class="form-group">
+                      <div class="col-lg-14 clearfix form-actions">
+                          <button type="submit" class="btn btn-info right btn-lg btn-block" id="loginBtn"><span class="icon16 icomoon-icon-enter white"></span> Login</button>
+                  </div>
+                  </div>
+                  <!--<div class="alert alert-info margin-top-5" *ngIf="!message">{{message}}</div>-->
+                  <div *ngIf=messageflag class="alert alert-danger margin-top-5"><strong>{{message}}</strong></div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

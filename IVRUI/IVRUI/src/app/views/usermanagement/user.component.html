@@ -1,0 +1,204 @@
+<div>
+    <div class="container">
+        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px', primaryColour: '#3498DB', secondaryColour: '#FF0000', tertiaryColour: '#ffffff' }"></ngx-loading>
+    </div>
+
+    <div class="text-right">
+        <button class="btn btn-primary px-4" type="submit" (click)="doAddAction()" data-toggle="modal">
+            Add User
+        </button>
+    </div>
+
+    <ngx-datatable #table class="material"  [rows]="rows"  [columnMode]="'force'"  [headerHeight]="50"  [footerHeight]="50"  [rowHeight]="40"
+        [externalPaging]="true"  [count]="page.totalElements"  [offset]="page.pageNumber"  [limit]="page.size"  (page)='setPage($event)'>
+
+        <ngx-datatable-column name="userName" prop="userName" [resizeable]="false"  [draggable]="false">
+            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">User Name</span>
+            </ng-template>
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="role" prop="role" [resizeable]="false"  [draggable]="false">
+            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">User Role</span>
+            </ng-template>
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="status" prop="status" [resizeable]="false"  [draggable]="false">
+            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">Status</span>
+            </ng-template>
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="email" prop="email" [resizeable]="false"  [draggable]="false">
+            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">Email</span>
+            </ng-template>
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="phoneNumber" prop="phoneNumber" [resizeable]="false"  [draggable]="false">
+            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">Phone</span>
+            </ng-template>
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Action" prop="" [width]="100" [resizeable]="false"  [draggable]="false">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div>
+                    <button class="btn-sm btn-primary" type="button" data-toggle="modal" (click)="doEditAction(value)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn-sm btn-primary" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="addPopoverMessage"
+                        [confirmText]="confirmText" [cancelText]="cancelText" [placement]="placement" (confirm)="confirmClicked = true; doDeleteAction(value)"
+                        (cancel)="cancelClicked = true" confirmButtonType="green" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false; removeClick(row)"
+                        [appendToBody]="true">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+
+<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    [config]="{backdrop: 'static', keyboard: false}">
+    <div class="modal-dialog-ls modal-primary" style="width:660px" role="document">
+        <!-- <div class="modal-dialog modal-primary" role="document"> -->
+        <div class="modal-content">
+            <div class="modal-header" *ngIf="userstatus == 1">
+                <h4 class="modal-title">Add User</h4>
+                <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-header" *ngIf="userstatus == 2">
+                <h4 class="modal-title">Edit User</h4>
+                <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" #myForm="ngForm">
+                    <div class="form-group" *ngIf="userstatus == 2">
+                        <!-- <div class="col-sm-12"> -->
+                        <!-- <label for="id">User Id</label> -->
+                        <input type="hidden" class="form-control" name="id" id="id" [(ngModel)]="id" placeholder="User Id"   required>
+                        <!-- </div> -->
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">UserName</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" [readonly]="isEdit" name="userName" id="userName" pattern="[a-zA-Z0-9]+" [(ngModel)]="model.userName"
+                                placeholder="User Name" (blur)="onSearchUser()" #userName="ngModel" required>
+                            <div [hidden]="userName.valid || userName.pristine" class="alert alert-danger">
+                                <div [hidden]="!userName.hasError('required')">Username is required</div>
+                                <div [hidden]="!userName.hasError('pattern')">Only alphabets allowed</div>
+                            </div>
+                            <div *ngIf="userExist" class="alert alert-danger">
+                                <div>User Name already Exist</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" minlength="6" name="password" #password="ngModel" id="password" [(ngModel)]="model.password"
+                                placeholder="Password" required>
+                            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                                <div [hidden]="!password.hasError('required')">Password is required</div>
+                                <div [hidden]="!password.hasError('minlength')">Password minlength is 6 digits</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ConfirmPassword</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" name="confirmPassword" #confirmPassword="ngModel" id="confirmPassword" [(ngModel)]="model.confirmPassword"
+                                placeholder="Confirm Password" [equalTo]="password" required>
+                            <!-- <div [hidden]="confirmPassword.valid || confirmPassword.pristine" >
+                                <div [hidden]="!confirmPassword.hasError('required')" class="alert alert-danger">Confirm Password is required</div>
+                            </div> -->
+                            <p *ngIf="confirmPassword.errors?.equalTo" class="alert alert-danger">
+                                <font>Passwords do not match</font>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">RoleName</label>
+                        <div class="col-sm-9">
+                            <ng-select  [items]="roleInfo" (change)="selectRole($event)" bindLabel="roleName" bindValue="roleId" name="roleId" placeholder="Select"
+                                [(ngModel)]="model.roleId">
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Status</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" (change)="selectStatus($event.target.value)" id="status" name="status" placeholder="Status"
+                                [(ngModel)]="model.status">
+                                <option [selected]>Select</option>
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"
+                                #email="ngModel" [(ngModel)]="model.email" placeholder="Email" required>
+                            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                                <div [hidden]="!email.hasError('required')">Email is required</div>
+                                <div [hidden]="!email.hasError('pattern')">Email is not valid</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Phone</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" minlength="10" maxlength="20" pattern="[0-9]+" [(ngModel)]="model.phoneNumber" name="phoneNumber"
+                                id="phoneNumber" #phoneNumber="ngModel" placeholder="Phone" required/>
+                            <div [hidden]="phoneNumber.valid || phoneNumber.pristine" class="alert alert-danger">
+                                <div [hidden]="!phoneNumber.hasError('required')">PhoneNumber is required</div>
+                                <div [hidden]="!phoneNumber.hasError('pattern')">Only Numbers allowed</div>
+                                <div [hidden]="!phoneNumber.hasError('minlength')">PhoneNumber length should be min 10 digits</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-15">
+                            <div class="modal-footer" *ngIf="userstatus === 1 ">
+                                <button type="button" [disabled]="!myForm.form.valid || userExist || !validRole || !validStatus" class="btn btn-primary" (click)="doSaveAction(myForm)">Save</button>
+                                <button type="reset" class="btn btn-secondary" (click)="closeWindow()">Close</button>
+                            </div>
+                            <div class="modal-footer" *ngIf="userstatus === 2 ">
+                                <button type="button" [disabled]="!myForm.form.valid || userExist || !validRole || !validStatus" class="btn btn-primary" (click)="doUpdateAction(myForm)">Update</button>
+                                <button type="reset" class="btn btn-secondary" (click)="closeWindow()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

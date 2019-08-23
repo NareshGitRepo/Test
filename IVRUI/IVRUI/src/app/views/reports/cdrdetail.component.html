@@ -1,0 +1,187 @@
+<div>
+  <!-- <div class="card">
+    <div class="card-body">
+      <div class="form-group">
+        <form class="block-form" (ngSubmit)="f.form.valid && doSearchAction()" #f="ngForm" novalidate>
+          <div class="form-group row">
+            <label class="col-md-1 col-form-label">StartDate</label>
+            <div class="col-md-3">
+              <input type="DateTime" class="form-control" [owlDateTimeTrigger]="startdate" [owlDateTime]="startdate" id="datepicker" placeholder="StartDateTime"
+                [min]=startDate [max]=endDate [(ngModel)]="model.StartDateTime" name="StartDateTime" #DateTime="ngModel" required
+                readonly="readonly">
+              <owl-date-time #startdate></owl-date-time>
+            </div>
+            <label class="col-md-1 col-form-label">EndDate</label>
+            <div class="col-md-3">
+              <input type="DateTime" class="form-control" [owlDateTimeTrigger]="endDate" [owlDateTime]="endDate" id="datepicker" placeholder="EndDateTime"
+                [min]=startDate [max]=endDate [(ngModel)]="model.EndDateTime" name="EndDateTime" #DateTime="ngModel" required
+                readonly="readonly">
+              <owl-date-time #endDate></owl-date-time>
+            </div>
+            <div class="col-sm-1">
+              <button [disabled]="!f.form.valid" type="submit"  class="btn btn-primary px-4">Search</button>
+            </div>
+            <div class="col-sm-1">
+              <button  type="reset"  class="btn btn-danger px-4">Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> -->
+  <div class="container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px', primaryColour: '#3498DB', secondaryColour: '#FF0000', tertiaryColour: '#ffffff' }"></ngx-loading>
+  </div>
+
+  <ngx-datatable #table class="material"  [rows]="rows"  [columnMode]="'force'"  [headerHeight]="50"  [footerHeight]="50"  [rowHeight]="40"
+    [externalPaging]="true"  [count]="page.totalElements"  [offset]="page.pageNumber"  [limit]="page.size"  (page)='setPage($event)'>
+
+    <!-- <ngx-datatable-column name="campaignId" prop="campaignId" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Campaign Id
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <a>
+          <span style="color:blue" [tooltip]="value">{{value}}</span>
+        </a>
+      </ng-template>
+    </ngx-datatable-column> -->
+
+    <ngx-datatable-column name="fromNumber" prop="fromNumber" [width]="80" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Caller ID
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+        <!-- <a>
+          <span style="color:blue" [tooltip]="value">{{value}}</span>
+        </a> -->
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="toNumber" prop="toNumber" [width]="80" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        MSISDN
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+        <!-- <a>
+          <span style="color:blue" [tooltip]="value">{{value}}</span>
+        </a> -->
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="startDate" prop="startDate" [width]="80" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Start Time
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value | slice:0:19}}
+        <!-- <a>
+          <span style="color:blue" [tooltip]="value">{{value | slice:0:19}}</span>
+        </a> -->
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="answerTime" prop="answerTime" [width]="80" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Answered Time
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value | slice:0:19}}
+        <!-- <a>
+          <span style="color:blue" [tooltip]="value">{{value | slice:0:19}}</span>
+        </a> -->
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="endDate" prop="endDate" [width]="80" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        End Time
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value | slice:0:19}}
+        <!-- <a>
+          <span style="color:blue" [tooltip]="value">{{value | slice:0:19}}</span>
+        </a> -->
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="status" prop="status" [width]="40" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Status
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div *ngIf="row.status.trim() === 'failed'">
+          <span style="color:red">{{value}}</span>
+        </div>
+        <div *ngIf="row.status.trim() === 'completed'">
+          <span style="color:green">{{value}}</span>
+        </div>
+        <div *ngIf="row.status.trim() != 'completed' || row.status.trim() != 'failed'">
+          <span style="color:blue">{{value}}</span>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- <ngx-datatable-column name="billedDuration" prop="billedDuration" [width]="60" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Billed Duration
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+
+    <ngx-datatable-column name="callDuration" prop="callDuration" [width]="30" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call Duration
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <span class="text-success font-italic">{{value}} Sec</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="totalCost" prop="totalCost" [width]="50" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Total Cost(USD)
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <span class="text-success font-italic">$ {{value}}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- <ngx-datatable-column name="callUuid" prop="callUuid" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call UUID
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <a>
+          <span style="color:blue" [tooltip]="value">{{value}}</span>
+        </a>
+      </ng-template>
+    </ngx-datatable-column> -->
+
+    <!-- <ngx-datatable-column name="totalRate" prop="totalRate" [width]="50" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Total Rate
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+
+    <!-- <ngx-datatable-column name="insertTime" prop="insertTime" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Insert Time
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <a>
+          <span style="color:blue" [tooltip]="value">{{value | slice:0:19}}</span>
+        </a>
+      </ng-template>
+    </ngx-datatable-column> -->
+
+  </ngx-datatable>
+
+</div>

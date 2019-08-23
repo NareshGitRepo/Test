@@ -1,0 +1,206 @@
+<div>
+    <div class="card">
+        <div class="card-body">
+            <div class="form">
+                <form class="block-form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                    <div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Campaign Name</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="campaignName" pattern="[a-zA-Z0-9]+" id="campaignName" [(ngModel)]="model.campaignName"
+                                    placeholder="Campaign Name" (blur)="onSearchCampaign()" #campaignName="ngModel" required
+                                />
+                                <div *ngIf="!showResponse">
+                                    <div [hidden]="campaignName.valid || campaignName.pristine" class="alert alert-danger">
+                                        <div [hidden]="!campaignName.hasError('required')">CampaignName is required</div>
+                                        <div [hidden]="!campaignName.hasError('pattern')">Only alphanumerics allowed</div>
+                                    </div>
+                                </div>
+                                <div *ngIf="campaignExist" class="alert alert-danger">
+                                    <div>{{message}}</div>
+                                </div>
+                                <!-- <input type="text" class="form-control" name="campaignName" pattern="[a-zA-Z0-9]+" id="campaignName" [(ngModel)]="model.campaignName"
+                                        placeholder="Campaign Name"   #campaignName="ngModel" required />
+                                    <div *ngIf="!showResponse">
+                                        <div [hidden]="campaignName.valid || campaignName.pristine" class="alert alert-danger">
+                                            <div [hidden]="!campaignName.hasError('required')">CampaignName is required</div>
+                                            <div [hidden]="!campaignName.hasError('pattern')">Only alphanumerics allowed</div>
+                                        </div>
+                                    </div> -->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Promotion Type</label>
+                            <div class="col-md-4">
+                                <select name="promoType" class="form-control" #selectPromoType id="exampleFormControlSelect1" [(ngModel)]="model.selectPromoType"
+                                    required (change)="onOpChange($event.target.value)">
+                                    <option [selected]>Select</option>
+                                    <option value="Promo">Promo</option>
+                                    <option value="Info">Info</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="file" class="col-md-2 col-form-label">Welcome Prompt</label>
+                            <div class="col-sm-4">
+                                <!-- <input type="file" name="welcomePrompt" (change)="selectWelcomeFile($event)" style="color:transparent;"  onchange="this.style.color = 'black';"
+                                /> -->
+                                <!-- <input type="file"  name="welcomePrompt"  (change)="selectWelcomeFile($event)"  onchange="document.getElementById('welPrompt').src = window.URL.createObjectURL(this.files[0])"
+                                     accept="audio/mp3/wav" /> -->
+                                <input type="file"  name="welcomePrompt"  (change)="selectWelcomeFile($event)"    accept="audio/mp3/wav" />
+
+                                <audio id="welPrompt" controlsList="nodownload"></audio>
+                                <div *ngIf="filesizeEmpty" class="text-danger">
+                                    <b>Invalid File. File should not be empty</b>
+                                </div>
+                                <div *ngIf="!isValidWavFileExt" class="text-danger">
+                                    <b>File extension should be '.wav,.mp3' file</b>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-4" *ngIf="onReset">
+                                    <input [disabled]=isUploaded type="file" (change)="selectWelcomeFile($event)" style="color:transparent;" />
+                                </div> -->
+                        </div>
+
+                        <div class="form-group row" *ngIf="showPromo">
+                            <label class="col-md-2 col-form-label">Valid Digits</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="validDigits" pattern="[0-9]+" id="validDigits" [(ngModel)]="model.validDigits"
+                                    placeholder="ValidDigits"   #validDigits="ngModel" required />
+                                <div *ngIf="!showResponse">
+                                    <div [hidden]="validDigits.valid || validDigits.pristine" class="alert alert-danger">
+                                        <div [hidden]="!validDigits.hasError('required')">ValidDigits is required</div>
+                                        <div [hidden]="!validDigits.hasError('pattern')">Only Numbers allowed</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" *ngIf="showPromo">
+                            <label for="file" class="col-md-2 col-form-label">Final Prompt</label>
+                            <div class="col-sm-4">
+                                <!-- <input type="file" name="finalPrompt" (change)="selectFinalFile($event)" style="color:transparent;"  onchange="this.style.color = 'black';"
+                                /> -->
+                                <!-- <input type="file"  name="finalPrompt"  (change)="selectFinalFile($event)"  onchange="document.getElementById('fPrompt').src = window.URL.createObjectURL(this.files[0])"
+                                      accept="audio/mp3/wav" /> -->
+                                <input type="file"  name="finalPrompt"  (change)="selectFinalFile($event)"  accept="audio/mp3/wav" />
+                                <audio id="fPrompt" controlsList="nodownload"></audio>
+
+                                <div *ngIf="filesizeEmpty" class="text-danger">
+                                    <b>Invalid File. File should not be empty</b>
+                                </div>
+                                <div *ngIf="!isValidFinalWavFileExt" class="text-danger">
+                                    <b>File extension should be '.wav,.mp3' file</b>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-4" *ngIf="onReset">
+                                    <input [disabled]=isUploaded type="file" (change)="selectFinalFile($event)" style="color:transparent;" />
+                                </div> -->
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Start Time</label>
+                            <div class="col-md-4">
+                                <input type="DateTime" class="form-control" [owlDateTimeTrigger]="startdate" [owlDateTime]="startdate" id="datepicker" placeholder="StartDateTime"
+                                    [(ngModel)]="model.StartDateTime" [min]=model.StartDateTime name="StartDateTime" #DateTime="ngModel"
+                                    required readonly="readonly">
+                                <owl-date-time #startdate></owl-date-time>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row">
+                                <label class="col-md-2 col-form-label">End Time</label>
+                                <div class="col-md-4">
+                                    <input type="DateTime" class="form-control" [owlDateTimeTrigger]="enddate" [owlDateTime]="enddate" id="datepicker" placeholder="EndDateTime"
+                                        [(ngModel)]="model.EndDateTime" [min]=model.StartDateTime name="EndDateTime" #DateTime="ngModel"
+                                        required readonly="readonly">
+                                    <owl-date-time #enddate></owl-date-time>
+                                    <div *ngIf="!dateValidation" class="text-danger">
+                                        <b>End Date&Time should be greater than equal to Start Date&Time</b>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">DND</label>
+                            <div class="col-md-1 col-form-label">
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" type="checkbox" id="dnd" name="dnd" [(ngModel)]="model.dnd" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="file" class="col-md-2 col-form-label">MSISDNS</label>
+                            <div class="col-sm-6">
+                                <input type="file" name="msisdn" (change)="selectFile($event)" />
+                                <button class="btn btn-success" [disabled]=!isUploaded (click)="Upload()">Upload</button>
+                                <div *ngIf="filesizeEmpty" class="text-danger">
+                                    <b>Invalid File. File should not be empty</b>
+                                </div>
+                                <div *ngIf="!isValidFileExt" class="text-danger">
+                                    <b>File extension should be '.txt' file</b>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-4" *ngIf="onReset">
+                                    <input [disabled]=isUploaded type="file" (change)="selectFile($event)" style="color:transparent;" />
+                                </div> -->
+                        </div>
+
+                        <div *ngIf="showResponse">
+                            <input type="hidden" class="form-control" name="uploadPath" id="uploadPath" [(ngModel)]="model.uploadPath" />
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">File Name </label>
+                                <div class="col-md-4">
+                                    {{fileName}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">No of Records : </label>
+                                <div class="col-md-4">
+                                    {{processednumbers}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="file"  class="col-md-2 col-form-label"></label>
+                            <div class="col-sm-4" style="width: 450px;" *ngIf="showPromo">
+                                <button class="btn btn-success" [disabled]="!f.form.valid || !selectBox || !validWelcomeFile || !validFinalFile || !validFile || !isSaveEnable"
+                                    (click)="Save()">Save</button>
+                                <button type="reset" class="btn btn-danger" (click)="reset()">Reset</button>
+                                <!-- {{!f.form.valid}} {{!selectBox}} {{!validWelcomeFile}} {{!validFinalFile}} {{!validFile}} {{!isSaveEnable}} -->
+                            </div>
+                            <div class="col-sm-4" style="width: 450px;" *ngIf="!showPromo">
+                                <button class="btn btn-success" [disabled]="!f.form.valid || !selectBox || !validWelcomeFile || !validFile || !isSaveEnable"
+                                    (click)="Save()">Save</button>
+                                <button type="reset" class="btn btn-danger" (click)="reset()">Reset</button>
+                                <!-- {{!f.form.valid}} {{!selectBox}} {{!validWelcomeFile}} {{!validFile}} {{!isSaveEnable}} -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div *ngIf="showProgress" class="col-sm-6">
+                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                                {{progress.percentage}}%
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="!isValidFileExt && !showResponse" class="text-danger">
+                                <b>Invalid File Extension. File extension should be '.wav' file</b>
+                            </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #popTemplate>
+    <div>
+        <font color="black">File extension should be allowed '.txt' only</font>
+    </div>
+    <div [innerHtml]="html"></div>
+</ng-template>

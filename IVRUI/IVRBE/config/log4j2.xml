@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+    <Properties>
+        <Property name="log-path">/logs/ivr/</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="${log-path}/ivr" filePattern="${log-path}/ivr-%d{dd-MM-yyyy-HH}.log">
+            <PatternLayout>
+                <pattern>%d{ISO8601} [%-10.10t][%-5p] %C{1}(%4L) - %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+         
+        </RollingFile>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout>
+                <!--<pattern>%d{ISO8601} [%-10.10t][%-5p] %C{1}(%4L) - %m%n</pattern>-->
+                <pattern> %d{ISO8601} [%-10.10t][%-5p] %C{1}(%4L) - %m%n</pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    
+    <Loggers>
+        <logger name="org.apache.activemq" level="OFF" additivity="true" />
+        <logger name="org.springframework.jms" level="OFF" additivity="true" />
+       
+        
+        <Root level="ALL">
+            <AppenderRef ref="CONSOLE" level="INFO"/>
+            <AppenderRef ref="RollingFile" level="debug"/>
+        </Root>
+    </Loggers>
+</Configuration>

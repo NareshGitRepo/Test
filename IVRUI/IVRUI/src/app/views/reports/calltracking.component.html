@@ -1,0 +1,89 @@
+<div>
+
+  <div class="text-right">
+    <input type='text' style='padding:3px;margin:5px auto;width:30%;' placeholder='Search MSISDN' (keyup)='updateFilter($event)'
+    />
+  </div>
+
+  <div class="container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px', primaryColour: '#3498DB', secondaryColour: '#FF0000', tertiaryColour: '#ffffff' }"></ngx-loading>
+  </div>
+
+  <ngx-datatable #table class="material" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40"
+    [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [draggable]="false">
+
+    <ngx-datatable-column name="msisdn" prop="msisdn" [resizeable]="false"  [draggable]="false" [width]="40">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span>MSISDN</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="startTime" prop="startTime" [width]="60" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span>Start Time</span>
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="endTime" prop="endTime" [width]="50" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span>End Time</span>
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="callStatus" prop="callStatus" [width]="150" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call Status
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="callDuration" prop="callDuration" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call Duration
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="billedAmount" prop="billedAmount" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Billed Amount
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="digits" prop="digits" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Digits
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="calluuid" prop="calluuid" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call UUID
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+
+</div>

@@ -1,0 +1,122 @@
+<div>
+  <!-- <div class="col-sm-10">
+      <div class="form-group">
+        <label for="name">Expiry Time (GMT +4)</label>
+        <input type="DateTime" class="form-control" [owlDateTimeTrigger]="dt9" [owlDateTime]="dt9" id="datepicker" placeholder="Select Date Time"
+          [min]=startDate [max]=endDate [(ngModel)]="model.DateTime" name="DateTime" #DateTime="ngModel" required readonly="readonly">
+        <owl-date-time #dt9></owl-date-time>
+      </div>
+    </div> -->
+  <!-- <div class="card">
+    <div class="card-body">
+      <div class="form-group">
+        <form class="block-form" (ngSubmit)="f.form.valid && doSearchAction()" #f="ngForm" novalidate>
+          <div class="form-group row">
+            <label class="col-md-1 col-form-label">StartDate</label>
+            <div class="col-md-3">
+              <input type="DateTime" class="form-control" [owlDateTimeTrigger]="startdate" [owlDateTime]="startdate" id="datepicker" placeholder="StartDateTime"
+                [min]=startDate [max]=endDate [(ngModel)]="model.StartDateTime" name="StartDateTime" #DateTime="ngModel" required
+                readonly="readonly">
+              <owl-date-time #startdate></owl-date-time>
+            </div>
+            <label class="col-md-1 col-form-label">EndDate</label>
+            <div class="col-md-3">
+              <input type="DateTime" class="form-control" [owlDateTimeTrigger]="endDate" [owlDateTime]="endDate" id="datepicker" placeholder="EndDateTime"
+                [min]=startDate [max]=endDate [(ngModel)]="model.EndDateTime" name="EndDateTime" #DateTime="ngModel" required
+                readonly="readonly">
+              <owl-date-time #endDate></owl-date-time>
+            </div>
+            <div class="col-sm-1">
+              <button [disabled]="!f.form.valid" type="submit"  class="btn btn-primary px-4">Search</button>
+            </div>
+            <div class="col-sm-1">
+              <button  type="reset"  class="btn btn-danger px-4">Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px', primaryColour: '#3498DB', secondaryColour: '#FF0000', tertiaryColour: '#ffffff' }"></ngx-loading>
+  </div>
+
+  <ngx-datatable #table class="material" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40"
+    [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [draggable]="false">
+
+    <ngx-datatable-column name="msisdn" prop="msisdn" [resizeable]="false"  [draggable]="false" [width]="40">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span>MSISDN</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="startTime" prop="startTime" [width]="60" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span>Start Time</span>
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="endTime" prop="endTime" [width]="50" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span>End Time</span>
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="callStatus" prop="callStatus" [width]="150" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call Status
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}       
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="callDuration" prop="callDuration" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call Duration
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="billedAmount" prop="billedAmount" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Billed Amount
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="digits" prop="digits" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Digits
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="calluuid" prop="calluuid" [width]="100" [resizeable]="false"  [draggable]="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Call UUID
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+
+</div>
