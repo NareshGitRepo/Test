@@ -1,0 +1,29 @@
+<div class="mat-elevation-z1" style="position: relative;">
+<mat-card style="margin: 0 !important">
+  <mat-card-content>
+      <h1 class="wrap-word pad-hor">{{ 'DashBoardModule.mdashboard.alert' | translate}}</h1>
+      <perfect-scrollbar style="height: 65vh; padding: 0 8px;">
+          <div>
+              <div *ngFor="let item of alertdata">
+                  <div class="alert alert-danger">
+                      <a href="#" class="close" (click)="delele(item)" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>
+                            <span class="ti-angle-double-right">{{item.buildEngName}}</span> 
+                        <span class="ti-angle-double-right">{{item.floorEngName}}</span> 
+                        <span class="ti-angle-double-right">{{item.deptEngName}}</span>
+                        <span class="ti-angle-double-right">{{item.serviceEngName}}</span> </strong>
+                        {{ 'DashBoardModule.mdashboard.waitngtime' | translate}} {{item.waitingTime}} {{ 'DashBoardModule.mdashboard.min' | translate}} 
+                  </div>
+              </div>         
+          </div>
+          <div *ngIf="!recordflag" class="no-recrds">{{'ActionNames.noRecords' | translate }}</div>
+      </perfect-scrollbar>
+  </mat-card-content>
+</mat-card>
+
+<div class="fullloader2" *ngIf="loading">
+    <div class="fullloaderInner">
+        <img src="assets/images/loading.gif">
+    </div>
+</div>
+</div>

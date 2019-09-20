@@ -1,0 +1,54 @@
+<mat-card class="popCard no-shadow">
+    <mat-card-header>
+        <h4 class="details-heading clearfix w80 wrap-word">{{Data?.serviceName}}</h4>
+        <button mat-icon-button (click)="close()">
+            <i class="ti-close"></i>
+        </button>
+    </mat-card-header>
+    <mat-card-content class="wrap-word">
+        <div class="table-responsive" style="height:45vh; overflow: auto;">
+        <table mat-table #table [dataSource]="dataSource" style="box-shadow: none; margin:0;"
+            class="mar-no pad-no tokentable table">
+
+            <ng-container matColumnDef="tokenNo">
+                <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">{{'TokenServingModule.tokenservinginfo.tokenName' | translate }}</th>
+                <td mat-cell *matCellDef="let element" class="pad-hor tbl-col"> {{element.tokenNo}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="checkinTime">
+                <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">{{'TokenServingModule.tokenservinginfo.tokenGeneartion' | translate }}</th>
+                <td mat-cell *matCellDef="let element" class="pad-hor tbl-col"> {{element.checkinTime}} / <br>
+                    {{element.waitingTime | tformatTime}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="roomId">
+                <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">{{'TokenServingModule.tokenservinginfo.room' | translate }}</th>
+                <td mat-cell *matCellDef="let element" class="pad-hor tbl-col">
+                    <mat-select placeholder="{{'TokenServingModule.tokenservinginfo.selectRoom' | translate }}" [(ngModel)]="element.roomId" style="width: 80%;">
+                        <mat-option *ngFor="let room of rooms" [value]=room.roomId>
+                            {{room?.roomNameEn}}:{{room?.roomNumber}}
+                        </mat-option>
+                    </mat-select>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col"> {{'TokenServingModule.tokenservinginfo.action' | translate }} </th>
+                <td mat-cell *matCellDef="let row" class="pad-hor tbl-col">
+                    <button class="btn btn-success" [disabled]="row.roomId == 0"
+                        (click)="serveToken(row)">{{'TokenServingModule.tokenservinginfo.serve' | translate }}</button>
+                    &nbsp;
+                    <button class="btn btn-danger" (click)="endToken(row)">{{'TokenServingModule.tokenservinginfo.end' | translate }}</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="padding-left: 8px;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;let i=index" [class.activerow]="i==0"></tr>
+        </table>
+    </div>
+    </mat-card-content>
+    <div class="fullloader3" *ngIf="loading">
+        <div class="fullloaderInner">
+            <img src="assets/images/loading.gif">
+        </div>
+    </div>
+</mat-card>

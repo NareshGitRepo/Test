@@ -1,0 +1,117 @@
+<mat-card style="box-shadow: none; position: relative;" class="popCard">
+    <mat-card-header style="border-bottom: 1px solid #eee;" class="wrap-word">
+
+            <h4 class="details-heading w80">{{'DoctorServingModule.patientJourney.title' | translate}} : {{tokenData?.patientName}}</h4>
+
+        <button mat-icon-button (click)="close()" style="position: absolute; right: 1%;"><i class="ti-close" ></i></button>
+    </mat-card-header>
+    <div fxlayout="row wrap" style="background-color: #eeeeee;margin:0px; padding:10px;">
+    
+      <div fxFlex="40">
+        <div fxFlex style="margin-right:20px;" class="wrap-word">
+          <div fxLayout="row wrap">
+            <div style="float: left; max-width: 50%;"><strong>{{'DoctorServingModule.patientJourney.mrnNo' | translate}}
+                :</strong></div>
+            <div style="float: left; max-width: 50%;">{{tokenData?.mrnNo}}</div>
+          </div>
+        </div>
+    
+        <div fxFlex style="margin-right:20px;" class="wrap-word">
+          <div fxLayout="row wrap">
+            <div style="float: left; max-width: 50%;"><strong>{{'DoctorServingModule.patientJourney.tokenNo' | translate}}
+                :</strong></div>
+            <div style="float: left; max-width: 50%;">{{tokenData?.tokenNo}}</div>
+          </div>
+        </div>
+      </div>
+    
+      <div fxFlex="60">
+        <div fxFlex style="margin-right:20px;" class="wrap-word">
+          <div fxLayout="row wrap">
+            <div style="float: left; max-width: 50%;">
+              <strong>{{'DoctorServingModule.patientJourney.appointment' | translate}} :</strong></div>
+            <div style="float: left; max-width: 50%;">{{tokenData?.apptDate}}</div>
+          </div>
+        </div>
+    
+        <div fxFlex style="margin-right:20px;" class="wrap-word">
+          <div fxLayout="row wrap">
+            <div style="float: left; max-width: 50%;"> <strong>{{'DoctorServingModule.patientJourney.checkIn' | translate}}
+                :</strong></div>
+            <div style="float: left; max-width: 50%;">{{tokenData?.checkinTime}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-card-content>
+      <br/>
+      <div *ngIf="tokenJourneyList.length>0 && dataFlag" class="table-responsive" style="height:45vh; overflow: auto;" >
+      <table mat-table #table [dataSource]="dataSource" style="box-shadow: none; margin:0;" class="mar-no pad-no journey-tble table wrap-word">
+
+        <ng-container matColumnDef="roomName">
+          <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">
+            <div><img src="assets/images/room.svg" width="32px" /></div>
+            <div class="journey-title">{{'DoctorServingModule.patientJourney.room' | translate}}</div>
+            <div style="margin-bottom: 5px;"><img src="assets/images/arrow-icon.svg" width="20px"/></div>
+          </th>
+          <td mat-cell *matCellDef="let element" class="pad-all text-center">{{element.roomName}} : {{element.roomNo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serviceResourseName">
+            <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">
+                <div><img src="assets/images/service-resource.svg" width="40px" /></div>
+                <div class="journey-title">{{'DoctorServingModule.patientJourney.serviceResource' | translate}}</div>
+                <div style="margin-bottom: 5px;"><img src="assets/images/arrow-icon.svg" width="20px"/></div>
+            </th>
+          <td mat-cell *matCellDef="let element" class="pad-all"> {{element.serviceResourseName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="waitingTime">
+            <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">
+                <div><img src="assets/images/wait-time.svg" width="40px" /></div>
+                <div  class="journey-title">{{'DoctorServingModule.patientJourney.waitTime' | translate}}</div>
+                <div  style="margin-bottom: 5px;"><img src="assets/images/arrow-icon.svg" width="20px"/></div>
+            </th>
+          <td mat-cell *matCellDef="let element" class="pad-all"> {{element.waitingTime | dformatTime}}(hh:mm)</td>
+        </ng-container>
+
+        <ng-container matColumnDef="careStartTime">
+            <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">
+                <div><img src="assets/images/care-start-time.svg" width="40px" /></div>
+                <div  class="journey-title">{{'DoctorServingModule.patientJourney.careStartTime' | translate}}</div>
+                <div style="margin-bottom: 5px;"><img src="assets/images/arrow-icon.svg" width="20px"/></div>
+            </th>
+          <td mat-cell *matCellDef="let element" class="pad-all">{{element.careStartTime}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="careEndTime">
+            <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">
+                <div><img src="assets/images/care-end-time.svg" width="40px" /></div>
+                <div class="journey-title">{{'DoctorServingModule.patientJourney.careEndTime' | translate}}</div>
+                <div style="margin-bottom: 5px;"><img src="assets/images/arrow-icon.svg" width="20px"/></div>
+            </th>
+          <td mat-cell *matCellDef="let element" class="pad-all"><span *ngIf="element.careEndTime">{{element.careEndTime}}</span><span *ngIf="!element.careEndTime">_</span></td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="pad-hor tbl-col">
+                <div><img src="assets/images/status.svg" width="35px" /></div>
+                <div class="journey-title">{{'DoctorServingModule.patientJourney.status' | translate}}</div>
+                <div style="margin-bottom: 5px;"><img src="assets/images/arrow-icon.svg" width="20px"/></div>
+            </th>
+          <td mat-cell *matCellDef="let element" class="pad-all"><span *ngIf="element.status">{{element.status}}</span><span *ngIf="!element.status">_</span></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="padding-left: 8px;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table></div>
+      <div *ngIf="tokenJourneyList.length==0 && dataFlag"><span>{{'DoctorServingModule.patientJourney.noDataFound' | translate}}</span></div>
+    </mat-card-content>
+
+    <div class="fullloader2" *ngIf="loading">
+      <div class="fullloaderInner">
+        <img src="assets/images/loading.gif">
+      </div>
+    </div>
+  </mat-card>
+

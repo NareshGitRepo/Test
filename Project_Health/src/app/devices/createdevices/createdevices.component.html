@@ -1,0 +1,73 @@
+<mat-card>
+  <mat-card-header>
+      <div class="w80 wrap-word">
+    <mat-card-title>
+      <h4 *ngIf="deviceType==1">
+        <span (click)="devicesForm()">{{ 'DevicesModule.devices' | translate}}</span>
+      </h4>
+      <h4 *ngIf="deviceType==2">
+        <span (click)="edit?true:devicesForm()" style="cursor: pointer;">{{ 'DevicesModule.devices' | translate}}</span>
+        / {{ 'DevicesModule.kioskName' | translate}}
+      </h4>
+      <h4 *ngIf="deviceType==3">
+        <span (click)="edit?true:devicesForm()" style="cursor: pointer;">{{ 'DevicesModule.devices' | translate}}</span>
+        / {{ 'DevicesModule.display' | translate}}
+      </h4>
+      <h4 *ngIf="deviceType==4">
+        <span (click)="edit?true:devicesForm()" style="cursor: pointer;">{{ 'DevicesModule.devices' | translate}}</span>
+        / {{ 'DevicesModule.printer' | translate}}
+      </h4>
+    </mat-card-title>
+  </div>
+
+    <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%;"><i class="ti-close"></i></button>
+  </mat-card-header>
+
+  <mat-card-content class="pad-all2 wrap-word">
+
+    <div class="divices" cdkFocusInitial style="padding-top: 15%;" *ngIf="deviceType==1">
+      <div fxLayout="row wrap" class="text-center">
+        <div fxFlex.gt-sm="33.3">
+          <i class="ti-desktop"></i>
+          <div class="pad-all text-md">
+            <h5>{{ 'DevicesModule.kioskName' | translate}}</h5>
+          </div>
+          <button mat-raised-button color="primary" (click)="formSelection('Kiosks')">{{ 'DevicesModule.select' |
+            translate}}</button>
+        </div>
+
+        <div fxFlex.gt-sm="33.3">
+          <i class="ti-blackboard"></i>
+          <div class="pad-all text-md">
+            <h5>{{ 'DevicesModule.display' | translate}}</h5>
+          </div>
+          <button mat-raised-button color="primary" (click)="formSelection('DisplayBoards')">{{ 'DevicesModule.select'
+            | translate}}</button>
+        </div>
+
+        <div fxFlex.gt-sm="33.3">
+          <i class="ti-printer"></i>
+          <div class="pad-all text-md">
+            <h5>{{ 'DevicesModule.printer' | translate}}</h5>
+          </div>
+          <button mat-raised-button color="primary" (click)="formSelection('Printers')">{{ 'DevicesModule.select' |
+            translate}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <div class="kiosk-sec" *ngIf="deviceType==2">
+        <app-kiosk></app-kiosk>
+      </div>
+
+      <div class="display-sec" *ngIf="deviceType==3">
+        <app-display-board></app-display-board>
+      </div>
+
+      <div class="printer-sec" *ngIf="deviceType==4">
+        <app-printers></app-printers>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

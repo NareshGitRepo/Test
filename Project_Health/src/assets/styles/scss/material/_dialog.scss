@@ -1,0 +1,6 @@
+.mat-dialog-container {
+  background: mat-color($background, card);
+  border-radius: $border-radius-base;
+  //padding: 0 !important;
+  overflow: inherit;
+}

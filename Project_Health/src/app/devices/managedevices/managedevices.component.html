@@ -1,0 +1,247 @@
+<div fxLayout="row wrap" id="page-title" style="padding-right:0;" class="scroll-top">
+
+  <div fxFlex="70">
+    <button mat-raised-button color="primary" (click)="createDevice()" style="margin-left: 5px; margin-bottom: 8px;">
+      <i class="ti-plus"></i> &nbsp; {{'DevicesModule.managedevices.addDevices'
+      | translate }}</button>
+  </div>
+
+  <div fxFlex="30" class="text-right pad-rgt">
+    <!-- <a [matMenuTriggerFor]="SearchGrid"><img src="assets/images/filter-icon.png" width="12" /></a> &nbsp; -->
+    <mat-form-field>
+      <!-- <mat-menu #SearchGrid="matMenu">
+        <button mat-menu-item (click)="applyFilterStatus('1')"><i class="ti-check"></i> {{ 'ActionNames.active'
+          |translate}}</button>
+        <button mat-menu-item (click)="applyFilterStatus('0')"><i class="ti-check-box"></i> {{ 'ActionNames.deActive'
+          |translate}}</button>
+      </mat-menu> -->
+      <input matInput [(ngModel)]="searchdata" placeholder=" {{'DevicesModule.managedevices.search' | translate}}">
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div class="tab-sec">
+  <mat-tab-group [selectedIndex]="selectedTab" #matgroup (selectedTabChange)="onTabChange($event)">
+    <mat-tab label="{{'DevicesModule.managedevices.Kiosks'
+    | translate }}">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="33.3" fxFlex="100"
+          *ngFor="let kiosk of filterKiosks | Kioskfilter: kioskList: searchdata">
+          <mat-card fxFlex class="devicecard">
+            <mat-card-content>
+              <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+                <div class="clearfix card-top ">
+                  <div class="card-avatar">
+                    <div class="avatar-inner">
+                      <div *ngIf="kiosk.status == 1">
+                        <span><i class="ti-desktop"></i></span>
+                      </div>
+
+                      <div *ngIf="kiosk.status == 0" class="inactive">
+                        <span><i class="ti-desktop"></i></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-details wrap-word pre-content">
+                    {{kiosk.kioskName}}
+                    <!-- <small>{{kiosk.orgKisok.organization}} </small> -->
+                    <small class="pre-content">{{kiosk.floorName}} </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix devicecard-footer">
+                <div class="col-sm-12 pad-no">
+                  <button mat-menu-item (click)="onEditKiosk(kiosk)"
+                    [ngClass]="{disablebutton: kiosk.status == false , enablebutton: kiosk.status == true}"
+                    [disabled]="!kiosk.status == true" class="text-rgt"><i class="ti-pencil-alt"></i> {{'ActionNames.edit'
+                    | translate }}</button>
+                </div>
+
+                <!-- (click)="kioskStatusChange(kiosk,1)" 
+                (click)="kioskStatusChange(kiosk,0)"-->
+                <!-- <div class="col-sm-6 pad-no">
+                  <div *ngIf="kiosk.status==0">
+                    <button mat-menu-item  class="pull-right"><i class="ti-check"></i>
+                      {{'ActionNames.deActivate'
+                      | translate }}</button>
+                  </div>
+
+                  <div *ngIf="kiosk.status==1">
+                    <button mat-menu-item  class="pull-right"><i class="ti-close"></i>
+                      {{'ActionNames.activate'
+                      | translate }}</button>
+                  </div>
+                </div> -->
+
+              </div>
+              <div class="Umore-btn">
+                <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+                <mat-menu #UcardEdit="matMenu">
+                  <button mat-menu-item (click)="urlGenerate(kiosk,'kiosk')"><i class="ti-link"></i>
+                    {{'DevicesModule.GenerateUrl' | translate }}</button>
+                </mat-menu>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <div *ngIf="kioskList?.length> pageSize">
+        <mat-paginator [length]="kioskList?.length" [pageSize]="pageSize" [pageIndex]="initPage"
+          (page)="getData($event)">
+        </mat-paginator>
+      </div>
+
+    </mat-tab>
+
+    <mat-tab label="{{'DevicesModule.managedevices.Display Boards'
+    | translate }}">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="33.3" fxFlex="100"
+          *ngFor="let display of filterDisplayBoards | Displayfilter: displayboardsList: searchdata">
+          <mat-card fxFlex class="devicecard">
+            <mat-card-content>
+              <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+                <div class="clearfix card-top ">
+                  <div class="card-avatar">
+                    <div class="avatar-inner">
+                      <div *ngIf="display.status == 1">
+                        <span><i class="ti-blackboard" style="color:#5BB504"></i></span>
+                      </div>
+
+                      <div *ngIf="display.status == 0" class="inactive">
+                        <span><i class="ti-blackboard"></i></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-details wrap-word pre-content">
+                    {{display?.displayName}}
+                    <small>{{display.displayOrg?.organization}} </small>
+                    <small>{{display.floorName}} </small>
+                    <small>{{display?.displayType == 'W' ? 'Waiting':'Reception'}} </small>
+
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix devicecard-footer">
+                <div class="col-sm-12 pad-no">
+                  <button mat-menu-item (click)="onEditDisplay(display)"
+                    [ngClass]="{disablebutton: display.status == false , enablebutton: display.status == true}"
+                    [disabled]="!display.status == true" class="text-rgt"><i class="ti-pencil-alt"></i>{{'ActionNames.edit' | translate }}</button>
+                </div>
+
+                <!-- (click)="displayStatusChange(display,1)"  *ngIf="display?.displayType == 'W'"
+                (click)="displayStatusChange(display,0)"-->
+                <!-- <div class="col-sm-6 pad-no">
+                  <div *ngIf="display.status==0">
+                    <button mat-menu-item  class="pull-right"><i class="ti-check"></i>
+                      {{'ActionNames.deActivate'
+                    | translate }}</button>
+                  </div>
+
+                  <div *ngIf="display.status==1">
+                    <button mat-menu-item  class="pull-right"><i class="ti-close"></i>
+                      {{'ActionNames.activate'
+                    | translate }}</button>
+                  </div>
+                </div> -->
+
+              </div>
+              <div class="Umore-btn">
+                <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+                <mat-menu #UcardEdit="matMenu">
+                  <button mat-menu-item (click)="urlGenerate(display,'display')"><i
+                      class="ti-link"></i>{{ 'DevicesModule.GenerateUrl' | translate }}</button>
+                </mat-menu>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <div *ngIf="displayboardsList?.length> pageSize">
+        <mat-paginator [length]="displayboardsList?.length" [pageSize]="pageSize" [pageIndex]="initPage"
+          (page)="getData($event)">
+        </mat-paginator>
+      </div>
+
+    </mat-tab>
+
+    <mat-tab label="{{'DevicesModule.managedevices.Printers'
+    | translate }}">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="33.3" fxFlex.gt-xs="33.3" fxFlex="100"
+          *ngFor="let printer of filterPrinters | Printerfilter: printersList: searchdata">
+          <mat-card fxFlex class="devicecard">
+            <mat-card-content>
+              <div class="pad-all2 clearfix" style="padding-bottom: 8px !important;">
+                <div class="clearfix card-top ">
+                  <div class="card-avatar">
+                    <div class="avatar-inner">
+                      <div *ngIf="printer.status == 1">
+                        <span><i class="ti-printer" style="color: #AD51E1;"></i></span>
+                      </div>
+
+                      <div *ngIf="printer.status == 0" class="inactive">
+                        <span><i class="ti-printer"></i></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-details wrap-word pre-content">
+                    {{printer.printerName}}
+                    <!-- <small>{{printer.org.organization}} </small> -->
+                    <small>{{printer.floorName}} </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix devicecard-footer">
+                <div class="col-sm-12 pad-no">
+                  <button mat-menu-item (click)="onEditPrinter(printer)"
+                    [ngClass]="{disablebutton: printer.status == 0 , enablebutton: printer.status == 1}"
+                    [disabled]="!printer.status == 1" class="text-rgt"><i class="ti-pencil-alt"></i> {{'ActionNames.edit'
+                    | translate }}</button>
+                </div>
+                <!-- (click)="printerStatusChange(printer,1)"
+                  (click)="printerStatusChange(printer,0)"
+                 -->
+                <!-- <div class="col-sm-6 pad-no">
+                  <div *ngIf="printer.status==0">
+                    <button mat-menu-item  class="pull-right"><i class="ti-check"></i>
+                      {{'ActionNames.deActivate'
+                    | translate }}</button>
+                  </div>
+
+                  <div *ngIf="printer.status==1">
+                    <button mat-menu-item  class="pull-right"><i class="ti-close"></i>
+                      {{'ActionNames.activate'
+                    | translate }}</button>
+                  </div>
+                </div> -->
+
+              </div>
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <div *ngIf="printersList?.length> pageSize">
+        <mat-paginator [length]="printersList?.length" [pageSize]="pageSize" [pageIndex]="initPage"
+          (page)="getData($event)">
+        </mat-paginator>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

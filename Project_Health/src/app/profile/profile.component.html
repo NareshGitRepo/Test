@@ -1,0 +1,182 @@
+<mat-card style="background: transparent; border-top: 0;" class="no-shadow">
+  <mat-card-content>
+    <div fxLayout="row wrap" class="profilePsec wrap-word">
+      <div fxFlex="100" class="profilePleft">
+        <div>
+          <div class="example-container">
+            <div class="profileDetails text-center">
+              <!-- <h1>Dr. Murali Krishna Vakalapudi</h1>  -->
+              <h1>{{_tokenInfo.firstname}} {{_tokenInfo.lastname}}</h1>
+              <h4 class="text-success">{{_roleName}}</h4>
+              <div fxLayout="row wrap" class=" mar-btm">
+                <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="sec1">
+                  <button mat-icon-button color="primary"><i class="ti-email"></i></button> {{_tokenInfo.login}}
+                </div>
+                <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="sec1">
+                  <button mat-icon-button color="primary"><i class="ti-mobile"></i></button>
+                  {{_tokenInfo.contactNo}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card style=" margin-top:20px !important;">
+  <mat-card-content>
+    <div fxLayout="row wrap" style="padding: 30px 0;">
+      <div fxFlex.gt-sm="65" fxFlex.gt-xs="50" fxFlex="100">
+
+        <div class="example-container profileDetails wrap-word">
+          <button class="btn-sm " *ngIf="!showEditProfile" mat-raised-button color="primary" btn-sm
+            style="margin: 0 auto;" (click)="editForm()"><i class="ti-pencil"></i>
+            {{ 'profile.editLabel' | translate}}</button>
+          <div *ngIf="!showEditProfile" style="margin-top:30px;">
+            <h1>{{ 'profile.content' | translate}}</h1>
+          </div>
+          <div class="" *ngIf="showEditProfile">
+            <h1>{{ 'profile.editLabel' | translate}}</h1>
+            <form [formGroup]="myform" style="margin-top:15px;">
+              <input type="hidden" formControlName="userId">
+              <mat-form-field style="width: 80%;">
+                <input matInput placeholder="{{ 'profile.firstName' | translate}}" formControlName="firstname" required
+                  minlength="1" maxlength="20" allow-alpha-numeric-singlespace>
+                  <mat-error *ngIf="myform.controls['firstname'].errors && myform.controls['firstname'].touched">
+                    <div *ngIf="myform.controls['firstname'].errors.required">
+                      {{ 'profile.firstNameRequired' | translate}}
+                    </div>
+                    <div *ngIf="myform.controls['firstname'].errors.minlength">
+                      {{ 'ActionNames.errorMessage' | translate
+                    }}
+                    </div>
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field style="width: 80%;">
+                <input matInput placeholder="{{ 'profile.lastName' | translate}}" formControlName="lastname" required
+                  minlength="1" maxlength="20" allow-alpha-numeric-singlespace>
+                  <mat-error *ngIf="myform.controls['lastname'].errors && myform.controls['lastname'].touched">
+                    <div *ngIf="myform.controls['lastname'].errors.required">
+                      {{ 'profile.lastNameRequired' | translate}}
+                    </div>
+                    <div *ngIf="myform.controls['lastname'].errors.minlength">
+                      {{ 'ActionNames.errorMessage' | translate
+                  }}
+                    </div>
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field style="width: 80%;">
+                <input matInput placeholder="{{ 'FacilityModule.updatefacility.contactnumber' | translate}}" allow-mobilenumber-nospace formControlName="contactNo"
+                  maxlength="15"  required autocomplete="off" allow-mobilenumber-nospace>
+                <mat-error *ngIf="myform.controls.contactNo.errors?.required">{{ 'ActionNames.errorMessage' | translate
+                  }}</mat-error>
+              </mat-form-field>
+              <!-- <div style="width: 80%;">
+                <div class="mar-btm int-mbl">
+                  <label>{{ 'FacilityModule.updatefacility.contactnumber' | translate}}</label>
+                  <int-phone-prefix formControlName="contactNo"  minlength="6" maxlength="15" disabled required>
+                  </int-phone-prefix>
+                </div>
+                <mat-error *ngIf="myform.controls['contactNo'].errors && myform.controls['contactNo'].touched">
+                  <div *ngIf="myform.controls['contactNo'].errors.required">
+                    {{ 'profile.mobileRequired' | translate}}
+                  </div>
+                  <div *ngIf="myform.controls['contactNo'].errors.minlength">
+                    {{ 'profile.mobileNoMinLength' | translate}}
+                  </div>
+                </mat-error>
+              </div> -->
+
+              <div class="mar-top">
+                <h2>{{ 'profile.languageChange' | translate}}</h2>
+                <mat-form-field style="width: 80%;">
+                  <mat-select formControlName="language" placeholder="{{'profile.language' | translate}}">
+                    <mat-option value="en">{{ 'profile.english' | translate}}</mat-option>
+                    <mat-option value="ar">{{ 'profile.arabic' | translate}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </form>
+            <button mat-raised-button color="primary" (click)="updateProfile()" [disabled]="!myform.valid">
+              {{ 'ActionNames.submit' |translate}}</button>&nbsp;
+            <button mat-raised-button (click)="closeForm()">
+              {{ 'profile.close' | translate}}</button>
+          </div>
+
+        </div>
+      </div>
+      <div fxFlex.gt-sm="35" fxFlex.gt-xs="50" fxFlex="100" *ngIf="changePassFlag">
+        <h2 class="wrap-word">{{ 'profile.passwordLabel' | translate}}</h2>
+        <form [formGroup]="passwordForm" style="margin-top:15px;">
+          <!-- <input type="hidden" formControlName="userId"> -->
+          <mat-form-field style="width: 80%;">
+            <input autofocus matInput autocomplete="off" placeholder="{{ 'profile.oldPassword' | translate}}" allow-all-nospace
+              [type]="!hide ? 'password' : 'text'" formControlName="oldpswd" name="oldpswd" required  minlength="5" maxlength="30">
+            <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+            <span matSuffix (click)="hide = !hide" [ngClass]="hide ? 'ti-close' : 'ti-eye'"></span>
+
+            <mat-error *ngIf="passwordForm.controls['oldpswd'].errors && passwordForm.controls['oldpswd'].touched">
+              <div *ngIf="passwordForm.controls['oldpswd'].errors.required">
+                {{ 'profile.oldPasswordRequired' | translate}}
+              </div>
+              <div *ngIf="passwordForm.controls['oldpswd'].errors.minlength">
+                {{ 'profile.pwdMinLength' | translate}}
+              </div>
+            </mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field style="width: 80%;">
+            <input matInput autocomplete="off" placeholder="{{ 'profile.newPassword' | translate}}" allow-all-nospace
+              [type]="!hide2 ? 'password' : 'text'" formControlName="newpswd" required minlength="5" maxlength="30">
+            <!-- <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+            <span matSuffix (click)="hide2 = !hide2" [ngClass]="hide2 ? 'ti-close' : 'ti-eye'"></span>
+            <mat-error *ngIf="passwordForm.controls['newpswd'].errors && passwordForm.controls['newpswd'].touched"
+              class="mar-btm">
+              <div *ngIf="passwordForm.controls['newpswd'].errors.required">
+                {{ 'profile.newPasswordRequired' | translate}}
+              </div>
+              <div *ngIf="passwordForm.controls['newpswd'].errors.minlength">
+                {{ 'profile.pwdMinLength' | translate}}
+              </div>
+            </mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field style="width: 80%;">
+            <input matInput autocomplete="off"minlength="5" maxlength="30" placeholder="{{ 'profile.retypePassword' | translate}}"
+              [type]="!hide3 ? 'password' : 'text'" formControlName="cnfmpswd" required [errorStateMatcher]="matcher" allow-all-nospace>
+            <!-- <mat-icon matSuffix (click)="hide3 = !hide3">{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+            <span matSuffix (click)="hide3 = !hide3" [ngClass]="hide3 ? 'ti-close' : 'ti-eye'"></span>
+            <mat-error *ngIf="passwordForm.hasError('notSame')">
+              {{'profile.passwordsNotMatch' | translate }}
+            </mat-error>
+
+            <mat-error *ngIf="passwordForm.controls['cnfmpswd'].errors && passwordForm.controls['cnfmpswd'].touched"
+              class="mar-btm">
+              <div *ngIf="passwordForm.controls['cnfmpswd'].errors.required">
+                {{ 'profile.retypeRequired' | translate}}
+              </div>
+              <div *ngIf="passwordForm.controls['cnfmpswd'].errors.minlength">
+                {{ 'profile.pwdMinLength' | translate}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+          <br><br>
+          <!-- <button class="btn-sm" color="primary" mat-raised-button btn-sm [disabled]="!passwordForm.valid"
+          (click)="changePassword()"><i class="ti-key"></i> {{ 'profile.passwordLabel' | translate}}</button> -->
+          <button class="btn-sm" color="primary" mat-raised-button btn-sm
+            [disabled]="!passwordForm.valid || passwordForm.hasError('notSame')" (click)="changePassword()"><i
+              class="ti-key"></i> &nbsp; {{ 'profile.passwordLabel' | translate}}</button>
+
+        </form>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

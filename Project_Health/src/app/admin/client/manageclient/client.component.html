@@ -1,0 +1,116 @@
+<div fxLayout="row wrap" id="page-title" style="padding-right:0;" class="scroll-top">
+  <div fxFlex="70">
+    <button mat-raised-button color="primary" (click)="addClient()" style="margin-left: 5px; margin-bottom: 8px;">
+      <i class="ti-plus"></i> {{'ClientsModule.addClient' | translate }} &nbsp; </button>
+  </div>
+
+  <div fxFlex="30" class="text-right pad-rgt">
+    <a [matMenuTriggerFor]="SearchGrid"><img src="assets/images/filter-icon.png" width="12" /></a> &nbsp;
+    <mat-form-field>
+      <mat-menu #SearchGrid="matMenu">
+        <button mat-menu-item (click)="_filterType='1'"><i class="ti-check"></i> {{ 'ActionNames.active'
+            |translate}}</button>
+        <button mat-menu-item (click)="_filterType='0'"><i class="ti-close"></i> {{ 'ActionNames.deActive'
+            |translate}}</button>
+        <button mat-menu-item (click)="_filterType=''"><i class="ti-reload"></i>
+          {{ 'ActionNames.reset' |translate}}</button>
+      </mat-menu>
+      <input matInput [(ngModel)]="searchdata" placeholder=" {{'ClientsModule.search' | translate}}{{_filterType ==''?'':'-'}}{{_filterType =='1' ?  ('ActionNames.active' | translate) : (_filterType =='0' ?  ('ActionNames.deActive' |
+      translate) :'')}}">
+    </mat-form-field>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-md="33.3" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100"
+    *ngFor="let item of filterUsers | Clientfilter: clientList: searchdata: 'organization' : _filterType ">
+    <mat-card fxFlex class="usercard">
+      <mat-card-content class="wrap-word">
+        <div fxLayout="row wrap">
+          <div fxFlex="98" class="text-center">
+            <div class="pad-all2 clearfix">
+              <div class="clearfix">
+                <div class="card-avatar">
+
+                  <div *ngIf="item.status" class="card-avatar">
+                    <ngx-avatar size="60" name="{{item.organization}}"></ngx-avatar>
+                    <span class="status-g active"></span>
+                  </div>
+                  <div *ngIf="!item.status" class="card-avatar">
+                    <ngx-avatar size="60" name="{{item.organization}}"></ngx-avatar>
+                    <span class="status-g inactive"></span>
+                  </div>
+
+                  <!-- <div class="avatar-inner" *ngIf="item.status == true">
+                    <img src="assets/images/client.svg">
+                  </div> -->
+
+                  <!-- <div class="avatar-inner" *ngIf="item.status == false">
+                    <img src="assets/images/client-inact.svg">
+                  </div> -->
+                </div>
+
+              </div>
+              <div class="clearfix pre-content">
+                <div class="card-details">
+                  {{item.organization}}
+                  <small> {{item.emailId}}</small>
+                  <small> {{item.mobileNo}}</small>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="Umore-btn">
+            <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+            <mat-menu #UcardEdit="matMenu">
+              <button mat-menu-item (click)="clientDetails(item)"><i class="ti-info-alt"></i>
+                {{ 'ClientsModule.details' | translate}}</button>
+              <button mat-menu-item (click)="updateLicense(item)" [ngClass]="{disablebutton: item.status == false , enablebutton: item.status == true}"><i class="ti-pencil-alt"></i>
+                {{ 'ClientsModule.updateLicense' | translate}}</button>
+            </mat-menu>
+          </div>
+
+        </div>
+
+        <div class="clearfix devicecard-footer">
+          <div class="col-sm-6 pad-no">
+            <button mat-menu-item [ngClass]="{disablebutton: item.status == false , enablebutton: item.status == true}"
+              [disabled]="!item.status == true" (click)="onEdit(item)"><i class="ti-pencil-alt"></i>
+              {{ 'ActionNames.edit' |translate}}</button>
+          </div>
+
+          <div class="col-sm-6 pad-no ">
+            <div *ngIf="item.status==false">
+              <button mat-menu-item (click)="statusChange(item,1)" class="pull-right"><i class="ti-check"></i>
+                {{ 'ActionNames.active' |translate}}</button>
+            </div>
+
+            <div *ngIf="item.status==true">
+              <button mat-menu-item (click)="statusChange(item,0)" class="pull-right"><i class="ti-close"></i>
+                {{ 'ActionNames.deActive' |translate}}</button>
+            </div>
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+
+
+</div>
+
+<div *ngIf="clientList?.length> pageSize">
+  <mat-paginator [length]="clientList?.length" [pageSize]="pageSize" [pageIndex]="initPage" (page)="getData($event)">
+  </mat-paginator>
+</div>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

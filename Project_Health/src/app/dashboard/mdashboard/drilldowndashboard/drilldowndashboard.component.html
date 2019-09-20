@@ -1,0 +1,75 @@
+<div class="mat-elevation-z1 mar-btm" style="position: relative;">
+    <mat-card  style="margin: 0 !important">
+        <mat-card-content >
+                <h1 class="pad-hor mar-no">{{'DashBoardModule.mdashboard.averageWaitingTymTitle' | translate }}</h1>
+                <div *ngIf="navigationData.length>0" style="color:#a94442'; margin-top:10px;">
+              <div *ngFor="let data of navigationData; let i=index"> 
+                  <strong style="float:left">
+                    <a (click)="navigateBackToDrillDown(false,i,data)" style="padding: 5px;">{{data.name}}</a>
+                                        <span class="ti-angle-double-right" style="font-size:10px;"></span>
+                </strong>
+            </div>
+                
+                </div>
+                <br>
+
+        <div style="height: 34vh; overflow: auto">
+              <table mat-table [dataSource]="dataSourceData" class="table table-striped  bord-all tab-head pre-content shadow-no ">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef >
+                            <span *ngIf="navigationData.length==0"> {{ 'DashBoardModule.mdashboard.buildingName' | translate}} </span>
+                            <span *ngIf="navigationData.length==1"> {{ 'DashBoardModule.mdashboard.levelName' | translate}} </span>
+                            <span *ngIf="navigationData.length==2"> {{ 'DashBoardModule.mdashboard.deptName' | translate}} </span>
+                            <span *ngIf="navigationData.length==3"> {{ 'DashBoardModule.mdashboard.servName' | translate}} </span>
+                            <span *ngIf="navigationData.length==4"> {{ 'DashBoardModule.mdashboard.resourceName' | translate}} </span></th>
+                        <td mat-cell *matCellDef="let element" (click)="element.type!=5 ? building1(element.Id,element.previousId,element.name,element.type,false) :false"><a *ngIf="element.type!=5">{{element.name}}</a><span *ngIf="element.type==5">{{element.name}} </span></td>
+                        </ng-container>
+                        <ng-container matColumnDef="totalAppointments">
+                            <th mat-header-cell *matHeaderCellDef> {{ 'DashBoardModule.mdashboard.totalAppointments' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.totalAppointments}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="patientsCheckedIn">
+                            <th mat-header-cell *matHeaderCellDef> {{ 'DashBoardModule.mdashboard.checkIn' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.patientsCheckedIn}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="patientsWaiting">
+                            <th mat-header-cell *matHeaderCellDef> {{ 'DashBoardModule.mdashboard.waiting' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.patientsWaiting}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="patientsServed">
+                        <th mat-header-cell *matHeaderCellDef>{{ 'DashBoardModule.mdashboard.patientsServed' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.patientsServed}} </td>
+                    </ng-container>
+  
+                    <ng-container matColumnDef="waitingTime">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'DashBoardModule.mdashboard.waitingTime' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.waitingTime}} Min </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsData"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsData;"></tr>
+                    </table>
+                    <span *ngIf="dataSourceData.data.length==0">{{ 'DashBoardModule.mdashboard.noData' | translate}}</span>
+                    <div *ngIf="filterTableData.length>pageSize" class="text-right ">
+                        <mat-paginator #MatPaginator [length]="filterTableData.length" [pageSize]="pageSize" [pageIndex]="initPage" showFirstLastButtons
+                        (page)="getListData($event,true)">
+                        </mat-paginator> 
+                    </div>
+            </div>
+            <button class="btn-sm btn pad-all" *ngIf="navigationData.length>0" (click)=navigateBackToDrillDown(true) style="margin:20px 0; background: #888888; color: #ffffff;"><i class="ti-angle-left"></i>
+                <span *ngIf="navigationData.length==1"> {{ 'DashBoardModule.mdashboard.back1' | translate}}</span>
+                <span *ngIf="navigationData.length==2"> {{ 'DashBoardModule.mdashboard.back2' | translate}}</span>
+                <span *ngIf="navigationData.length==3"> {{ 'DashBoardModule.mdashboard.back3' | translate}}</span>
+                <span *ngIf="navigationData.length==4"> {{ 'DashBoardModule.mdashboard.back4' | translate}}</span>
+            </button>
+         
+        </mat-card-content>
+          </mat-card>
+
+          <div class="fullloader2" *ngIf="loading">
+            <div class="fullloaderInner">
+                <img src="assets/images/loading.gif">
+            </div>
+        </div>
+  </div>
+
+     

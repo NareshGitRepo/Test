@@ -1,0 +1,46 @@
+
+.Dheader2{width: 100%; padding: 0.7% 1%; background: #ffffff; z-index: 99;}
+.Dheader2 h1{margin: 0; font-size: 34px; color: #636c6e;}
+.Dheader2 .top-right{ text-align: right;}
+.Dheader2 .time{font-size: 25px;}
+.Dheader2 .time small{font-size: 12px; display: block;}
+
+.bodysec{background: #1b1b1b;width: 100%; height: 79.7%; position: absolute;}
+  .bodysec .mat-card{ border-top: 0; margin: 0 !important;}
+
+  .bodysec .titlestrp{overflow: auto;
+     height: 90px; 
+    //height: 13.5vh;
+     border-radius:8px; margin-bottom: 5px; }
+  .bodysec .title{  font-size: 2.2vw; border-radius: 0;   display: table; width: 100%; height: 100%;}
+  .bodysec .title .title-innr{display: table-cell; color: #ffffff; line-height: 21px; vertical-align: middle; padding: 3px 4px;
+    }
+  .bodysec .mat-card-content{border: 0 !important; font-size: 20px; padding: 0;}
+  .bodysec .mat-card-content .cnt{ margin-bottom:5px; color: #ffffff; font-weight: 400; 
+    padding: 10px 0;  
+     height: 80px; 
+    //height: 13.5vh; 
+    display: table; width: 100%;  border-radius: 8px;}
+  .bodysec .cnt .cnt-inn{ display: table-cell; vertical-align: middle; text-align: center; width: 100%;}
+  .nrmltkn{ color: #ffffff !important; background: #292929 !important;}
+  .activetkn{ color: #ffffff !important; background: #188405; }
+  .bodysec .mat-card-content .cnt h1{margin: 0; font-size: 28px; font-weight: bold; margin-bottom: 1px;}
+  .bodysec .mat-card-content .cnt small{font-size: 30px;   color: #ffffff; padding: 3px 8px;}
+
+.recpFooter{position: fixed; bottom: 0; font-weight: 600; width: 100%; background: #cccccc; padding: 18px; color: #333333; text-align: center;}
+.recpFooter span{background: #72af08; padding: 6px 10px; margin: 2px; color: #ffffff; border-radius: 3px; border: 1px solid #6a9d13}
+.sec-bord-rgt{ border-right: 2px solid #dddddd;}
+
+// .greendark{background: #023246; color: #ffffff;}
+// .green{background: #91b052; color: #ffffff;}
+// .blueh{background: #0e8c9a; color: #ffffff;}
+// .yellow{background: #ee9d16; color: #ffffff;}
+// .purple{background: #976eb4; color: #ffffff;}
+
+// .greendark-light{background: #95c4d6; color: #333333;}
+// .green-light{background: #91b052; color: #333333;}
+// .blueh-light{background: #0e8c9a; color: #333333;}
+// .yellow-light{background: #ee9d16; color: #333333;}
+// .purple-light{background: #976eb4; color: #333333;}
+
+

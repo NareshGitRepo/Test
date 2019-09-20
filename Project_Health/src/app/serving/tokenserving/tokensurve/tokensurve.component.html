@@ -1,0 +1,100 @@
+<div  fxLayout="row wrap">
+    <div fxFlex.gt-md="65" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" style="position: relative;">
+
+        <div  fxLayout="row wrap">
+            <div fxFlex.gt-md="50" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" *ngFor="let servingToken of cServingToken">
+                <mat-card fxFlex class="tknservebox">
+                    <mat-card-content class="wrap-word">
+                        <div class="clearfix">
+                            <h3 class="title">{{servingToken?.serviceEngName}}</h3>
+                        </div>
+
+                        <div class="clearfix bord-top" style="padding: 8px 0;">
+                            <h3 class="mar-no"><span class="ntnk">{{servingToken?.tokeNo}}</span></h3>
+                            <div  fxLayout="row wrap">
+                                <div fxFlex="50"><strong>{{'TokenServingModule.tokensurve.room' | translate }} :</strong>
+                                    {{servingToken?.roonNo}} </div>
+                                <div fxFlex="50" class="text-right">
+                                    <app-tokenstimeview (timedata)="gettime($event,servingToken)" [data]="servingToken?.servingTime"></app-tokenstimeview>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix bord-top" style="padding-top: 8px;">
+                            <div  fxLayout="row wrap">
+                                <div fxFlex="50"><strong>{{'TokenServingModule.tokensurve.tokenIssue' | translate }}</strong><br>
+                                    {{servingToken?.createdOn}} </div>
+                                <!-- <div fxFlex="50" class="text-right"><strong>Serving Time</strong><br>
+                                    09:01 AM</div> -->
+                            </div>
+                        </div>
+
+                        <div class="clearfix bord-top  ntkn-footer">
+                            <button mat-icon-button matTooltip="Recall" class="recall" (click)="recall(servingToken?.ticketId)"
+                                [disabled]="servingToken?.uservingTime ? 30 >= servingToken?.uservingTime : 30 >= servingToken?.servingTime"><img
+                                    src="assets/images/recall.svg"></button>
+
+                            <button mat-icon-button matTooltip="{{'TokenServingModule.tokensurve.recycle' | translate }}"
+                                class="recycling" (click)="recycling(servingToken?.ticketId)"><img src="assets/images/recycling.svg"></button>
+
+                            <button mat-icon-button matTooltip="{{'TokenServingModule.tokensurve.noshow' | translate }}"
+                                class="noshow" (click)="noshow(servingToken?.ticketId)"><img src="assets/images/noshow.svg"></button>
+
+                            <button mat-icon-button matTooltip="{{'TokenServingModule.tokensurve.tokenEnd' | translate }}"
+                                class="end" (click)="end(servingToken?.ticketId,servingToken?.tokeNo)"><img src="assets/images/end.svg"></button>
+
+                            <button mat-icon-button matTooltip="Transfer" *ngIf="false" class="transfer" [disabled]="servingToken?.masterServiceId == 0"
+                                (click)="transferedToken(servingToken?.ticketId,servingToken?.masterServiceId)"><img
+                                    src="assets/images/transfer.svg"></button>
+                            <!-- <mat-menu #trans="matMenu">
+                                <button mat-menu-item>Pharmacy</button>
+                                <button mat-menu-item>Laboratory</button>
+                            </mat-menu> -->
+                            <button mat-icon-button matTooltip="Next" class="next" *ngIf="false" (click)="callNextServingTOken(servingToken)"><img
+                                    src="assets/images/next.svg"></button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+
+            <div class="fullloader2" *ngIf="loading">
+                <div class="fullloaderInner">
+                    <img src="assets/images/loading.gif">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div fxFlex.gt-md="35" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" style="position: relative;">
+
+        <mat-card class="clearfix">
+            <mat-card-content class="pad-no wrap-word">
+                <div class="ntbl">
+                    <div fxLayout="row wrap" class="ntblhead">
+                        <div fxFlex="40" class="pad-rgt" >{{'TokenServingModule.tokensurve.name' | translate }} </div>
+                        <div fxFlex="30" class="text-center pad-rgt">{{'TokenServingModule.tokensurve.tokenWait' | translate }}
+                        </div>
+                        <div fxFlex="30">{{'TokenServingModule.tokensurve.avgwaitTime' | translate }}</div>
+                    </div>
+                    <div *ngFor="let service of cServices">
+                        <div fxLayout="row wrap" class="ntblrow" *ngIf="service?.waitingTokens != 0 ">
+                            <div fxFlex="40" class="pad-rgt" *ngIf="service?.waitingTokens == 0 "><strong>{{service?.serviceEngName}}</strong></div>
+                            <div fxFlex="40" class="pad-rgt" *ngIf="service?.waitingTokens != 0 "><strong><a (click)="tokenView(service)">{{service?.serviceEngName}}</a></strong></div>
+                            <div fxFlex="30" class="text-center">{{service?.waitingTokens}}</div>
+                            <div fxFlex="30">{{service?.watingTime | tformatTime}} <small>(hh:mm)</small></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div class="fullloader2" *ngIf="tokenLoading">
+            <div class="fullloaderInner">
+                <img src="assets/images/loading.gif">
+            </div>
+        </div>
+
+    </div>
+</div>

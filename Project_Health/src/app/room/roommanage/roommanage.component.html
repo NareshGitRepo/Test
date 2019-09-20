@@ -1,0 +1,137 @@
+<div fxLayout="row wrap" style="clear:both">
+  <div fxFlex="10">
+    <button mat-raised-button color="primary" (click)="createRoom()" class="create-button">
+      <i class="ti-plus"></i> &nbsp;{{'roomModule.roommanage.title'| translate}}</button>
+  </div>
+</div>
+
+
+<div fxLayout="row wrap">
+  <div id="sndrActv" class="clearfix left-sec left-col" fxFlex.gt-sm="30" fxFlex.gt-xs="30">
+    <div class="search">
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="searchdata" placeholder="{{'roomModule.roommanage.search'| translate}}">
+      </mat-form-field>
+    </div>
+
+    <perfect-scrollbar style="height:48vh;">
+      <div style="padding-right: 8px;">
+        <mat-card style="cursor: pointer;" class=" no-shadow bord-all" *ngFor="let levelDetails of pagedlevelsData | roomfilter
+    : levelsData : searchdata : 'floorName' ;first as isFirst"
+          [class.pbActive]="floorId == 0 ? isFirst : (levelDetails?.floorId ==  floorId ? true :false)"
+          (click)="activeClass($event)" style="padding:0">
+          <mat-card-content (click)="floorId == levelDetails?.floorId ? false : assignRooms(levelDetails)">
+            <div fxFlex="80">
+              <ngx-avatar class="card-avatar pull-left" size="25" name="{{levelDetails.floorName}}"></ngx-avatar>
+              <div class="itemtext pre-content">{{levelDetails?.floorName}}</div>
+
+            </div>
+
+            <!-- <div class="Umore-btn">
+              <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+              <mat-menu #UcardEdit="matMenu">
+                  <button mat-menu-item (click)="addDepartement()">Add Departement</button>
+              </mat-menu>
+            </div> -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </perfect-scrollbar>
+    <div *ngIf="levelsData.length >pageSize" class="paging">
+      <mat-paginator [length]="levelsData.length" [pageSize]="pageSize" [pageIndex]="initPage" (page)="getData($event)">
+      </mat-paginator>
+    </div>
+  </div>
+
+  <div fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100" class="cmpn-right">
+    <perfect-scrollbar style="height:68vh;">
+
+      <div  *ngFor="let room of roomInfo">
+         <div  class="col-sm-6 col-xs-12 pad-no" *ngFor="let roomType of room.roomGroups" >
+
+          <mat-card class="usercard" >
+
+            <mat-card-content >
+
+              <div class="pad-all clearfix">
+                  <perfect-scrollbar style="height: 120px; ">
+                <div class="clearfix card-top">
+                  <div class="card-avatar">
+                    <div class="avatar-inner">
+                      <div class="inn text-center">
+                        <img src="assets/images/door.svg" width="30px;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div fxFlex="75" class="pad-lft wrap-word pre-content">
+                    <div class="card-details">
+                      {{room.roomTypeDsc}}&nbsp;
+                    </div>
+                    <div class="clearfix ">
+                      {{'roomModule.roommanage.englishRoomName' | translate}} : {{roomType.roomNameEn}}
+                    </div>
+                    <div class="clearfix ">
+                      {{'roomModule.roommanage.arabicRoomName' | translate}} : {{roomType.roomNameAb}}
+                    </div>
+                    <div class="clearfix ">
+                      {{'roomModule.roommanage.count' | translate}} : {{roomType.rooms.length}}
+                    </div>
+
+                  </div>
+
+                  <div class="Umore-btn">
+                    <button mat-icon-button [matMenuTriggerFor]="UcardEdit"><i class="ti-more-alt"></i></button>
+                    <mat-menu #UcardEdit="matMenu">
+                      <button mat-menu-item
+                        (click)="roomDetails(room,roomType)"><i class="ti-info-alt"></i> {{'roomModule.roommanage.details'| translate}}</button>
+                        <button mat-menu-item
+                        (click)="roomremoves(room,roomType)"><i class="ti-trash"></i> {{'roomModule.roommanage.remove'| translate}}</button>
+                    </mat-menu>
+
+                  </div>
+                </div>
+              </perfect-scrollbar>
+              </div>
+
+              <div class="clearfix devicecard-footer">
+                <div class="col-sm-6 pad-no">
+                  <button mat-menu-item class="pull-right"
+                    (click)="addRooms(room,roomType)"><i class="ti-plus"></i>{{'roomModule.roommanage.addRooms'| translate}}</button>
+                </div>
+
+                <div class="col-sm-6 pad-no">
+                  <button mat-menu-item class="pull-right"
+                    (click)="editRooms(room,roomType)"><i class="ti-pencil-alt"></i>{{'roomModule.roommanage.editRooms'| translate}}</button>
+                </div>
+                <!-- <div class="col-sm-6 pad-no">
+                    <div>
+                      <button mat-menu-item  class="pull-left">
+                        Delete Rooms</button>
+                    </div>
+
+
+                  </div> -->
+              </div>
+
+            </mat-card-content>
+
+          </mat-card>
+
+
+        </div>
+      </div>
+
+
+    </perfect-scrollbar>
+  </div>
+</div>
+
+
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

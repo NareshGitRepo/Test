@@ -1,0 +1,80 @@
+<mat-card style="box-shadow: none;" class="detailscnt">
+        <mat-card-header class="pad-all wrap-word">
+            <div mat-card-avatar><img src="assets/images/icons/user-light.svg" /></div>
+            <div class="w80 pre-content">
+                <!-- <h4 class="details-heading">{{ 'usersModule.userDetails' | translate }}</h4> -->
+                <div class="details-heading clearfix">{{editData?.firstname + ' '+ editData?.lastname}}</div>
+                <div class="details-sub-heading ">{{editData?.contactNo}}</div>
+
+            </div>
+            <button mat-icon-button [mat-dialog-close]><i class="ti-close"></i></button>
+        </mat-card-header>
+        <mat-card-content class="wrap-word pre-content">
+
+            <div fxLayout="row wrap" class="clearfix pad-top">
+                <div fxFlex class="dsecb">
+                    <div cdkFocusInitial> <strong>{{ 'usersModule.createuser.login' | translate }}</strong> </div>
+                    <div> {{editData?.login}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix bglte1">
+                <div fxFlex class="dsecb">
+                    <div> <strong>{{ 'usersModule.createuser.firstName' | translate }}</strong> </div>
+                    <div> {{editData?.firstname}}</div>
+                </div>
+
+                <div fxFlex class="dsecb">
+                    <div> <strong>{{ 'usersModule.createuser.lastName' | translate }}</strong> </div>
+                    <div> {{editData?.lastname}}</div>
+                </div>
+
+                <div fxFlex class="dsecb">
+                    <div> <strong>{{ 'usersModule.createuser.mobile' | translate }}</strong> </div>
+                    <div> {{editData?.contactNo}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix ">
+                <div fxFlex class="dsecb">
+                    <div> <strong>{{ 'usersModule.createuser.emailId' | translate }}</strong> </div>
+                    <div> {{editData?.emailId}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix ">
+                <div fxFlex class="dsecb">
+                    <div> <strong>{{ 'usersModule.role' | translate }}</strong> </div>
+                    <div> {{editData?.roles[0].roleName}}</div>
+                </div>
+                <div fxFlex class="dsecb"  *ngIf="editData?.roles[0].roleName=='Doctor' || editData?.roles[0].roleName=='Resource'">
+                  <div> <strong>{{ 'usersModule.segmentId' | translate }}</strong> </div>
+                  <div> {{editData?.drSegmentId}}</div>
+              </div>
+                <div fxFlex class="dsecb" *ngIf="editData?.orgName">
+                    <div> <strong>{{ 'usersModule.organization' | translate }}</strong> </div>
+                    <div> {{editData?.orgName}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="clearfix">
+                <div fxFlex class="dsecb" *ngIf="editData?.levelName != null">
+                    <div> <strong>{{ 'usersModule.levelName' | translate }}</strong> </div>
+                    <div> {{editData?.levelName}}</div>
+                </div>
+
+                <div fxFlex class="dsecb" *ngIf="editData?.depts.length>0">
+                    <div> <strong>{{ 'usersModule.department' | translate }}</strong> </div>
+                    <div *ngFor="let depts of editData?.depts"> {{depts?.deptName}}</div>
+
+                </div>
+
+                <div fxFlex class="dsecb" *ngIf="editData.doctors?.length>0">
+                    <div> <strong>{{ 'usersModule.doctors' | translate }}</strong> </div>
+                    <div *ngFor="let doctor of doctorsData"> {{doctor?.firstname}}</div>
+                </div>
+            </div>
+
+
+        </mat-card-content>
+</mat-card>

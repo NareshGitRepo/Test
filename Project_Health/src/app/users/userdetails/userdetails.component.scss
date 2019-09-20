@@ -1,0 +1,43 @@
+table.userdetails {
+    width: 100%
+}
+table.userdetails td { 
+    width: 50%;
+    padding: 8px;
+}
+.user-image {
+    max-width: 100%;
+    max-height: 100%
+}
+.user-image-box {
+    width: 50%
+}
+table.userdetails td.left-column {
+    width: 30%;
+}
+table.userdetails td.right-column {
+    width: 70%;
+}
+.details-heading 
+{
+    font-size: 18px;
+    color: #ffffff;
+    margin: 3px 0 5px 3px;
+}
+.details-sub-heading {
+    font-size: 12px;
+    color: #cccccc;
+    margin: 2px 0 0 2px
+}
+.mat-card-avatar {
+    margin-top: 5px
+}
+.mat-icon-button {
+    margin-top: 5px
+}
+.vtop {
+    vertical-align: top
+}
+.mat-menu-item i { margin-right: 6px}
+
+.mat-card-header .mat-icon-button {position: absolute; right: 1%;top: 20% !important;}

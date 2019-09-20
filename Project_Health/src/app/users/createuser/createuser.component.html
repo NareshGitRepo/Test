@@ -1,0 +1,221 @@
+<mat-card>
+    <mat-card-header>
+      <div fxLayout="row wrap" *ngIf="!_editUserdata" class="w80">
+        <h4 class="wrap-word">{{'usersModule.title' | translate}}</h4>
+      </div>
+      <div fxLayout="row wrap" *ngIf="_editUserdata"  class="w80">
+        <h4 class="wrap-word">{{'usersModule.edit' | translate}}</h4>
+      </div>
+      <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i
+          class="ti-close"></i></button>
+    </mat-card-header>
+    <mat-card-content class="pad-all2">
+      <form [formGroup]="usersForm">
+      <div fxLayout="row wrap" class="mar-btm">
+        <div fxFlex.gt-sm="50" fxFlex="100" class="pad-rgt">
+
+          <mat-form-field style="width: 100%" >
+            <mat-select placeholder="{{ 'usersModule.createuser.UserType' | translate}}" formControlName="userType"
+              (selectionChange)="changeUserType()" [disabled]="_editUserdata" required>
+              <mat-option value="1">LDAP</mat-option>
+              <mat-option value="0">QSmart</mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.userType.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+                      }}</mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 70%; padding-right: 6px;">
+            <input matInput cdkFocusInitial [readonly]="_editUserdata || !verifyButton"
+              placeholder="{{ 'usersModule.createuser.login' | translate}}" formControlName="login"
+              allow-email-charecters maxlength="30" minlength="5" autocomplete="off" required>
+            <mat-error *ngIf="usersForm.controls.login.errors?.required">{{ 'ActionNames.errorMessage' | translate }}
+            </mat-error>
+            <mat-error *ngIf="usersForm.get('login').hasError('minlength')">
+              {{'ActionNames.minLengthError5' | translate}}</mat-error>
+          </mat-form-field>
+          <span *ngIf="!_editUserdata">
+            <button class="btn btn-primary"   type="button"  (click)="verifyName()"
+              [disabled]="verifyButton?!usersForm?.controls.login.valid:false"  >
+              <span *ngIf="verifyButton">
+                {{ 'usersModule.createuser.verifyButton' | translate}}</span>
+              <span *ngIf="!verifyButton">
+                {{ 'usersModule.createuser.clearButton' | translate}}</span>
+            </button>
+          </span>
+          <mat-error *ngIf="loginFlag" style="display: inline; margin-left: 8px;"><i class=" ti-check text-success"></i>
+          </mat-error>
+          <mat-error *ngIf="loginDisableFalg && usersForm.value.userType=='0'"><i class=" ti-close text-danger">
+            <small style="font-family: Arial, Helvetica, sans-serif;">
+              {{ 'usersModule.createuser.userExist' | translate}}</small>
+            </i></mat-error>
+          <mat-error *ngIf="loginDisableFalg && usersForm.value.userType=='1'"><i class=" ti-close text-danger">
+            <small style="font-family: Arial, Helvetica, sans-serif;">
+              {{ ldapError}}</small>
+            </i></mat-error>
+          <mat-form-field style="width: 100%" *ngIf=" (!_editUserdata && usersForm.value.userType =='0')">
+            <input matInput placeholder="{{ 'usersModule.createuser.password' | translate}}" formControlName="password"
+              minlength="5" maxlength="30" [type]="!hide ? 'password' : 'text'" allow-all-nospace autocomplete="off"
+              required>
+            <span matSuffix (click)="hide=!hide" [ngClass]="hide ? 'ti-close' : 'ti-eye'"></span>
+            <!-- <mat-icon matSuffix (click)=" hide=!hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+              <mat-error *ngIf="usersForm.controls.password.errors?.required">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+              <mat-error *ngIf="usersForm.get('password').hasError('minlength')">
+                {{'ActionNames.minLengthError5' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%">
+            <input matInput placeholder="{{ 'usersModule.createuser.firstName' | translate}}"
+              formControlName="firstname" allow-alpha-numeric-singlespace minlength="1" maxLength="20" autocomplete="off" required>
+            <mat-error *ngIf="usersForm.controls.firstname.errors?.required">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+              <mat-error *ngIf="usersForm.controls.firstname.errors?.minlength">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%">
+            <input matInput placeholder="{{ 'usersModule.createuser.lastName' | translate}}" formControlName="lastname"
+              allow-alpha-numeric-singlespace minlength="1" maxLength="20" autocomplete="off" required>
+            <mat-error *ngIf="usersForm.controls.lastname.errors?.required">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+              <mat-error *ngIf="usersForm.controls.lastname.errors?.minlength">{{ 'ActionNames.errorMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field style="width: 100%">
+            <input matInput placeholder="{{ 'usersModule.createuser.mobile' | translate}}" allow-mobilenumber-nospace formControlName="contactNo"
+              maxlength="15"  required="{{resoursemobileValudation}}" autocomplete="off" (keyup)="keyupmobile($event.target.value)">
+            <mat-error *ngIf="usersForm.controls.contactNo.errors?.required">{{ 'ActionNames.errorMessage' | translate
+                  }}</mat-error>
+            <mat-error *ngIf="usersForm.get('contactNo').hasError('minlength')">
+              {{'ActionNames.minLengthError8' | translate}}</mat-error>
+          </mat-form-field>
+          <!-- <label>{{ 'usersModule.createuser.mobile' | translate}}</label>
+            <int-phone-prefix formControlName="contactNo" defaultCountry="{{country}}" minlength="8" maxlength="15"
+              autocomplete="off" required>
+            </int-phone-prefix> -->
+          <mat-form-field style="width: 100%">
+            <input matInput placeholder="{{ 'usersModule.createuser.emailId' | translate}}" formControlName="emailId"
+              allow-email-charecters maxlength="30" autocomplete="off" required="{{resourseEmailValudation}}" (keyup)="keyupemail($event.target.value)">
+            <mat-error *ngIf="usersForm.controls.emailId.touched">{{ 'usersModule.emailValid' | translate }}</mat-error>
+            <mat-error *ngIf="usersForm.controls.emailId.errors?.required">{{ 'ActionNames.errorMessage' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-sm="50" fxFlex="100">
+<!-- [disabled]='_editUserdata? true : (_roledata?.length>1 ? false :true )' -->
+          <mat-form-field style="width: 100%">
+            <mat-select placeholder="{{ 'usersModule.createuser.roleSelection' | translate}}"
+              formControlName="role" (selectionChange)="roleValidation($event.value,true)" required>
+              <mat-option *ngFor="let role of _roledata" value="{{role.roleName}}">{{role.roleName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.role.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate}}</mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 100%" *ngIf="segmentCodeFlag">
+            <input matInput placeholder="{{ 'usersModule.createuser.segmentCode' | translate}}" formControlName="drSegmentId" (change)="!usersForm.controls.drSegmentId.errors?.required ? validateSegmentCode(): true"
+            allow-alpha-numeric-with-colon autocomplete="off" maxlength="10" required>
+
+            <mat-error *ngIf="usersForm.controls.drSegmentId.errors?.required">{{ 'usersModule.createuser.segmentCodeMsg' | translate}}
+            </mat-error>
+            <mat-error *ngIf="usersForm.controls.drSegmentId.errors?.minlength">{{ 'ActionNames.minLengthError5' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-error *ngIf="!usersForm.controls.drSegmentId.errors?.required && segmentCodeErrorFlag"><i class=" ti-close text-danger">
+            <small style="font-family: Arial, Helvetica, sans-serif;">
+              {{ 'usersModule.createuser.segmentCodeValidate' | translate}}</small>
+            </i></mat-error>
+
+          <mat-form-field style="width: 100%" *ngIf="clientflag">
+            <mat-select placeholder="{{ 'usersModule.createuser.clientSelection' | translate}}" formControlName="client"
+              required [disabled]="_editUserdata">
+              <mat-option *ngFor="let clients of totalClients" value="{{clients.orgId}}">{{clients.organization}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.client.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+
+
+          <mat-form-field style="width: 100%" *ngIf="groupflag">
+            <mat-select placeholder="{{ 'usersModule.createuser.groupSelection' | translate}}" formControlName="groups"
+              required [disabled]="_editUserdata">
+              <mat-option *ngFor="let group of totalGroups" value="{{group.orgId}}">{{group.organization}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.groups.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%" *ngIf="facilityFlag">
+            <mat-select placeholder="{{ 'usersModule.createuser.hospitalSelection' | translate}}"
+              formControlName="hospitals" (selectionChange)="selectHospital($event.value,true)" required
+              [disabled]="_editUserdata">
+              <mat-option *ngFor="let hospital of totalHospitals" value="{{hospital.orgId}}">{{hospital.organization}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.hospitals.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 100%" *ngIf="levelflag ">
+            <mat-select placeholder="{{ 'usersModule.createuser.levelSelection' | translate}}" formControlName="level"
+              (selectionChange)="levelSelection($event.value,true)" required>
+              <mat-option *ngFor="let level of totalLevels" value="{{level.floorId}}">
+                {{level.floorName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.level.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 100%" *ngIf="deprtmntflag">
+            <mat-select multiple placeholder="{{ 'usersModule.createuser.departmentSelection' | translate}}"
+              formControlName="department"
+              [disabled]="usersForm.value.role === 'Pharmacist' || usersForm.value.role === 'LabTechnician' || usersForm.value.role === 'Clerk'"
+              (selectionChange)="SelectDepartMent($event.value,true)" required>
+              <mat-option *ngFor="let department of totalDepartements" [value]="department.deptId">
+                {{department.deptName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.department.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%" *ngIf="serviceflag">
+            <mat-select multiple placeholder="{{ 'usersModule.createuser.serviceSelection' | translate}}"
+              formControlName="service" required>
+              <mat-optgroup *ngFor="let department of totalServicesWithDept" [label]="department?.deptName">
+                <mat-option *ngFor="let service of department?.services" [value]="service.serviceId">
+                  {{service.serviceEngName}}</mat-option>
+              </mat-optgroup>
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.service.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 100%"
+            *ngIf="_doctorAction && deprtmntflag && ((usersForm.value.role | lowercase) ==='nurse' || (usersForm.value.role | lowercase) ==='serviceresource')">
+            <mat-select multiple placeholder="{{ 'usersModule.AssignDoctors' | translate}}" formControlName="doctor"
+              required>
+              <!-- <mat-optgroup *ngFor="let department of DoctorsListWithDept" [label]="department?.deptName">  -->
+              <mat-option *ngFor="let doctor of DoctorsList" [value]="doctor?.userId">
+                {{doctor.firstname}} {{doctor.lastname}}</mat-option>
+              <!-- </mat-optgroup> -->
+            </mat-select>
+            <mat-error *ngIf="usersForm.controls.doctor.errors?.required">{{ 'ActionNames.errorSelectMessage' | translate
+              }}</mat-error>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <button mat-raised-button color="primary" (click)="createUser()" [disabled]="!usersForm.valid || segmentCodeValdnFlag">
+          {{ 'ActionNames.submit' | translate}}</button>
+      </div>
+    </form>
+    </mat-card-content>
+</mat-card>
+
+<div class="fullloader" *ngIf="loading">
+  <div class="fullloaderInner">
+    <img src="assets/images/loading.gif">
+  </div>
+</div>

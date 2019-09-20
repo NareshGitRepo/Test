@@ -1,0 +1,75 @@
+<mat-card class="popCard">
+  <mat-card-header>
+    <div class="w80">
+      <h4 class=" wrap-word">{{'GroupsModule.groupmanage.pageTitle' | translate}}</h4>
+    </div>
+    <button mat-icon-button [mat-dialog-close] style="position: absolute; right: 1%; "><i class="ti-close"></i></button>
+  </mat-card-header>
+
+  <mat-card-content class="pad-all2">
+    <div fxLayout="row wrap" class="mar-btm">
+      <form [formGroup]="groupForm" class="w100">
+
+          <input type="hidden" formControlName="orgId">
+
+          <div>
+            <mat-form-field style="width: 95%">
+              <input cdkFocusInitial  matInput allow-alpha-numeric-singlespace placeholder="{{'GroupsModule.groupmanage.name' | translate }}" formControlName="organization" name="nodalname"
+                [readonly]="groupForm.value.orgId != '' " (change)="!groupForm.controls.organization.errors?.required 
+                && groupForm.value.organization?.length >4 ?  groupForm.get('validateNodalName').setValue(groupForm.value.organization) : groupForm.get('validateNodalName').setValue(null)"
+                maxlength="20"  minlength="5" required autocomplete="off">
+              <mat-error *ngIf="groupForm.controls.organization.errors?.required">
+               {{'GroupsModule.groupmanage.nameRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="groupForm.controls.organization.errors?.minlength">
+                {{'GroupsModule.groupmanage.minlengthRequired' | translate}}
+              </mat-error>
+              
+            </mat-form-field>
+            
+            <mat-error style="display: initial; margin-left: 5px;" *ngIf="!groupForm.controls.validateNodalName.errors?.required &&
+              !groupForm.controls.organization.errors?.required && !groupForm.controls.validateNodalName.errors?.invalid">
+              <i class=" ti-check text-success"></i>
+            </mat-error>
+            <mat-error *ngIf="groupForm.controls.validateNodalName.errors?.invalid">
+              <i class="ti-close text-danger"> {{'GroupsModule.groupmanage.groupValidate' | translate}}</i>
+            </mat-error>
+          </div>
+
+          <mat-form-field class="full-width">
+            <input matInput placeholder="{{'GroupsModule.groupmanage.selectclient' | translate}}" formControlName="parentId" readonly required autocomplete="off">
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+              <dual-list [source]="source" key="orgId" display="organization" [(destination)]="confirmed"></dual-list>
+
+            <mat-select multiple placeholder="{{'GroupsModule.groupmanage.selectfacility' | translate}}" formControlName="facilities" required>
+              <mat-option *ngFor="let hc of hospitalslist" [value]="hc.orgId">{{hc.organization}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="groupForm.controls['facilities'].errors && groupForm.controls['facilities'].touched">
+              <div *ngIf="groupForm.controls['facilities'].errors.required">
+                {{'GroupsModule.groupmanage.facilityRequired' | translate}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+        <div>
+            <dual-list [source]="source" key="orgId" display="organization" [(destination)]="confirmed"></dual-list>
+        </div>
+        
+      </form>
+    </div>
+
+    <div class="clearfix">
+      <button mat-raised-button color="primary" [disabled]="groupForm.invalid" (click)="onSubmit()"> {{'ActionNames.submit' | translate}}</button>
+      <!-- <mat-icon *ngIf="groupForm.valid">done</mat-icon>
+      <mat-icon *ngIf="groupForm.invalid">highlight_off</mat-icon> -->
+    </div>
+  </mat-card-content>
+
+
+</mat-card>
+<div class="fullloader" *ngIf="loading">
+    <div class="fullloaderInner">
+      <img src="assets/images/loading.gif">
+    </div>
+  </div>
