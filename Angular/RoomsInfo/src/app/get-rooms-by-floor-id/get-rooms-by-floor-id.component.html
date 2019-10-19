@@ -1,0 +1,27 @@
+
+
+<div class="example-button-row">
+  <b>Create Room</b> &nbsp;
+  <button mat-raised-button color="primary" (click)="AddRoom()">Create</button> 
+  <b>Delete Room</b> &nbsp;
+  <mat-form-field appearance="outline">
+    <mat-label>Room Id</mat-label>
+    <mat-select  multiple (selectionChange)="SelectRNo($event.value)">
+      <mat-option *ngFor="let roomId of roomId"  [value]="roomId">{{roomId}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> <hr>
+
+<mat-card class="example-card"  *ngFor="let room of roomslist">
+    <mat-card-content><b>Floor ID:</b>{{room.floorId}} </mat-card-content>
+    <mat-card-content><b>Room ID:</b>{{room.roomId}} </mat-card-content>
+    <mat-card-content><b>AllowedToAccessID:</b>{{room.allowedToAccess}} </mat-card-content>
+    <mat-card-content><b>Org ID:</b>{{room.orgId}} </mat-card-content>
+    <mat-card-content><b>Room Name Ab:</b>{{room.roomNameAb}} </mat-card-content>
+    <mat-card-content><b>Room Name En:</b>{{room.roomNameEn}} </mat-card-content>
+    <mat-card-content><b>Room Number:</b>{{room.roomNumber}} </mat-card-content>
+    <mat-card-content><b>Room Type:</b>{{room.roomType}} </mat-card-content>
+    <mat-card-content><b>Room Type Dsc:</b>{{room.roomTypeDsc}} </mat-card-content>
+    <mat-icon  class="edit" (click)="updateRoom(room)">mode_edit</mat-icon>
+  <!--  <mat-icon class="delete" (click)="DeleteRNo(room)">delete</mat-icon> -->
+  </mat-card>

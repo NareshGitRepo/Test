@@ -1,0 +1,84 @@
+<h1 mat-dialog-title class="text-warning">Employee Record</h1>
+
+<form class="example-form" [formGroup]="room_form">
+    <div mat-dialog-content class="left" >
+    <p>Enter Allows To Access Id:</p>
+    <mat-form-field appearance="outline">
+      <input matInput   formControlName="allowedToAccess" maxlength="2" required>
+      <mat-error *ngIf="room_form.controls.allowedToAccess.hasError('required')">
+          Please enter Token Id
+      </mat-error>
+     
+      <mat-error *ngIf="room_form.controls.allowedToAccess.hasError('minlength')">
+        Please enter minimum 2 digits 
+      </mat-error>
+    </mat-form-field>
+  </div>  
+<div mat-dialog-content>
+  <p>Enter Floor Id:</p>
+  <mat-form-field appearance="outline">
+    <input matInput   formControlName="floorId" maxlength="3" required>
+    <mat-error *ngIf="room_form.controls.floorId.hasError('required')">
+        Please enter Floot Id
+    </mat-error>
+   
+    <mat-error *ngIf="room_form.controls.floorId.hasError('minlength')">
+      Please enter minimum 1 digits 
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-content class="left">
+    <mat-form-field  appearance="outline">
+        <mat-label>Room Name AB</mat-label>
+        <mat-select formControlName="roomNameAb">
+            <mat-option *ngFor="let name of roomname" [value]="name.value">
+              {{name.rname}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="room_form.controls.roomNameAb.hasError('required')">
+            Please select Room Name
+          </mat-error>
+      </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <mat-form-field  appearance="outline">
+        <mat-label>Room Name EN</mat-label>
+        <mat-select formControlName="roomNameEn">
+            <mat-option *ngFor="let name of roomnameEN" [value]="name.value">
+              {{name.rname}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="room_form.controls.roomNameEn.hasError('required')">
+            Please select Room Name
+          </mat-error>
+      </mat-form-field>
+  </div>
+  
+  <div mat-dialog-content  >
+        <mat-form-field  appearance="outline">
+            <mat-label>Room Type</mat-label>
+            <select matNativeControl required formControlName="roomType">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <mat-error *ngIf="room_form.controls.roomType.hasError('required')">
+                Please select Room Number
+              </mat-error>
+          </mat-form-field>
+        </div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="room_form.value" [disabled]="!room_form.valid" cdkFocusInitial>Update</button>
+</div>
+</form>
+
+
+
+
+
+

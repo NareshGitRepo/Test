@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "RegForm": {
+    "RoomsInfo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/RegForm",
+            "outputPath": "dist/RoomsInfo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "RegForm:build"
+            "browserTarget": "RoomsInfo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "RegForm:build:production"
+              "browserTarget": "RoomsInfo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "RegForm:build"
+            "browserTarget": "RoomsInfo:build"
           }
         },
         "test": {
@@ -110,15 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "RegForm:serve"
+            "devServerTarget": "RoomsInfo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "RegForm:serve:production"
+              "devServerTarget": "RoomsInfo:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "RegForm"
+  "defaultProject": "RoomsInfo"
 }

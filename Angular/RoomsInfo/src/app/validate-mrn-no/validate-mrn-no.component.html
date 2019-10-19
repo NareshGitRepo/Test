@@ -1,0 +1,32 @@
+<form class="example-form" [formGroup]="VMrnNo_form">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput placeholder="Enter Kiosk Id" formControlName="kid" (keyup)=Kid($event)>
+        <mat-error *ngIf="VMrnNo_form.controls.kid.hasError('required')">
+                        Please enter Your MrnNumber
+        </mat-error>
+                   
+        <mat-error *ngIf="VMrnNo_form.controls.kid.hasError('minlength')">
+                      Please enter minimum 2 digits 
+        </mat-error>
+    </mat-form-field>  
+    <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput placeholder="Enter MrnNumber" formControlName="mrn" maxlength="10" (keyup)=MrnNo($event)>
+        <mat-error *ngIf="VMrnNo_form.controls.mrn.hasError('required')">
+                Please enter Your MrnNumber
+            </mat-error>
+           
+            <mat-error *ngIf="VMrnNo_form.controls.mrn.hasError('minlength')">
+              Please enter minimum 5 digits 
+            </mat-error>
+    </mat-form-field> 
+    <button mat-stroked-button color="primary" [disabled]="!VMrnNo_form.valid" (click)="submit()" >Submit</button>
+</form>        
+
+<mat-card class="example-card" *ngIf="showData" >
+        <mat-card-content><b>Status:</b>{{RootObject.status }}</mat-card-content>
+        <mat-card-content><b>Messages:</b>{{RootObject.messages |uppercase}}</mat-card-content>
+        <mat-card-content><b>Reg.Status</b>{{RootObject.regStatus }}</mat-card-content>
+        <mat-card-content><b>Appointments</b>{{appointments.length!=0?appointments[0]?.doctor:'No Appointments' }}</mat-card-content>       
+        <mat-card-content><b>AptId</b>{{appointments?.aptId }}</mat-card-content>
+</mat-card>
+    

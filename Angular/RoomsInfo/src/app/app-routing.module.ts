@@ -1,18 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegformComponent } from './regform/regform.component';
-import { LoginComponent } from './login/login.component';
-import { ResponsemsgComponent } from './responsemsg/responsemsg.component';
-import { ValidpageComponent } from './validpage/validpage.component';
-import { InvalidpageComponent } from './invalidpage/invalidpage.component';
+import { GetRoomsByFloorIdComponent } from './get-rooms-by-floor-id/get-rooms-by-floor-id.component';
+import { ValidateMrnNoComponent } from './validate-mrn-no/validate-mrn-no.component';
 
 const routes: Routes = [
-  {path:'regform', component:RegformComponent},
-  {path:'login', component:LoginComponent},
-  {path:'resmsg', component:ResponsemsgComponent},
-  {path:'valid', component:ValidpageComponent},
-  {path:'invalid', component:InvalidpageComponent}
- 
+  {path:'rooms', component:GetRoomsByFloorIdComponent},
+  {path:'vmrn', component:ValidateMrnNoComponent}
 ];
 
 @NgModule({

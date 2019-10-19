@@ -1,15 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
-  <mat-grid-list cols="2" rowHeight="14:1" class="alert-success">
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile>
-          <div class="example-button-row">
-            <a mat-stroked-button routerLink="login" [ngStyle]="{'color':'blue'}">Login</a>  
-            <a mat-stroked-button routerLink="regform" [ngStyle]="{'color':'blue'}">Registration</a>
-          </div>  
-        </mat-grid-tile>
-   </mat-grid-list>
+<h1>Rooms Information</h1>
+<b>UserName:</b>&nbsp;
+ <mat-form-field class="example-full-width" appearance="outline">
+    <input matInput placeholder="Enter UserName" (keyup)=Uname($event)>
+</mat-form-field>  &nbsp;&nbsp;&nbsp;
 
-</div>
+<b>UserId:</b>&nbsp;
+ <mat-form-field class="example-full-width" appearance="outline">
+    <input matInput placeholder="Enter UserId" (keyup)=Uid($event)>
+</mat-form-field>  &nbsp;&nbsp;&nbsp;
 
+<a href="rooms">Rooms.</a> &nbsp;&nbsp;&nbsp;
+<a href="vmrn">Validate Mrn No.</a> <hr> 
 <router-outlet></router-outlet>
