@@ -4,7 +4,7 @@
             <table class="example-full-width" cellspacing="0"><tr>
               <td><mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>FirstName</mat-label>
-                <input matInput type="text" formControlName="fname" maxlength="15" required>
+                <input matInput type="text" formControlName="fname" maxlength="15" minlength="5"required>
                 <mat-error *ngIf="example_form.controls.fname.hasError('required')">
                   Please enter FirstName
                 </mat-error>
@@ -15,7 +15,7 @@
 
               <td><mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>LastName</mat-label>
-                <input matInput type="text" formControlName="lname" maxlength="15" required>
+                <input matInput type="text" formControlName="lname" maxlength="15" minlength="5"required>
                 <mat-error *ngIf="example_form.controls.lname.hasError('required')">
                   Please enter LastName
                 </mat-error>
@@ -47,7 +47,7 @@
             <div class="example-container">
                 <mat-form-field appearance="outline">
                     <mat-label>Create password</mat-label>
-                  <input matInput formControlName="pswrd"  placeholder="Enter your password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15">
+                  <input matInput formControlName="pswrd"  placeholder="Enter your password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15" required>
                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   <mat-error *ngIf="example_form.controls.pswrd.hasError('minlength')">
                     Please enter minimum 6 characters
@@ -60,7 +60,7 @@
               <div class="example-container">
                   <mat-form-field appearance="outline">
                       <mat-label>confirm password</mat-label>
-                    <input matInput formControlName="rpwd"  (keyup)="checkPasswords()" placeholder="Enter your password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15">
+                    <input matInput formControlName="rpwd"  (keyup)="checkPasswords()" placeholder="Enter your password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15" required>
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     <mat-error *ngIf="example_form.controls.rpwd.errors?.required">
                       Please enter Confirm Password

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   login_form:FormGroup;
   res=[];
   edetails:emaildetails[]=[
-    { emailid:'naresh@vectramind.com', pswd:'N@aresh1189'},{ emailid:'naresh123@vectramind.com', pswd:'N@aresh1189'},
+    { emailid:'naresh@vectramind.com', pswd:'n@resh1189'},{ emailid:'naresh123@vectramind.com', pswd:'n@aresh1189'},
   ];
   validUser:boolean=false;
 

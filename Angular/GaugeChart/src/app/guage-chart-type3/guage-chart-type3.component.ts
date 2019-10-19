@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class GuageChartType3Component implements OnInit {
 
   canvasWidth = 400
-  needleValue = 50
+  needleValue = 10
   centralLabel = '99'
   options = {
     hasNeedle: true,
@@ -23,9 +23,13 @@ export class GuageChartType3Component implements OnInit {
     arcPaddingColor: 'white',
     arcLabels: ['20', '65', '90'],
   }
+
   constructor() { } 
 
   ngOnInit() {
   }
 
+  ChangeRange(){
+    this.needleValue=50;
+  }
 }

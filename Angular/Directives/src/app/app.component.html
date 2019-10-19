@@ -1,0 +1,12 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h1>Component directive – a directive with templates.</h1>
+<h2>Attribute directive –  a directive which manipulate DOM by changing behaviour and appearance</h2>
+<i>Structural directive – a directive which create and destroy DOM element</i><br>
+
+<p  [style.color]="'red'">Attribute directive</p>
+<p CustomColor>Custom Directive</p>
+<h3 [appColor]="'blue'">Passing value to Custom Directive - dynamically</h3>
+
+<h2 [appColor]="skyblueColor">Passing value to Custom Directive by Component Class</h2>
+
+<input type="radio" name="colors" (click)="color='cyan'">Cyan

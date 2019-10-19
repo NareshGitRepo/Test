@@ -1,0 +1,135 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <mat-card style="width:350px;float: left;margin-left:100px">
+    <div>
+        <div *ngFor="let item of fieldModels">
+            <div class=" pointer shadow-bg" [dndDraggable]="item" [dndEffectAllowed]="'copy'" 
+               (dndEnd)="onDragEnd($event)">
+               <h4 style="color: coral">{{item.label}}</h4>
+            </div>
+        </div>
+    </div>
+  </mat-card>
+
+  <mat-card style="width:450px;float:left;margin-left:50px">
+    <div> <h4 style="font-style: italic;text-align: center;color:darkblue">Information</h4>
+       <!--a dropzone-->
+      <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+      <section dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event,model.attributes)" class="dndDropArea"
+      [ngClass]="{'empty':model.attributes.length == 0}" [style.backgroundColor]="model.theme.bgColor"
+      [style.color]="model.theme.textColor"> 
+
+      <div class="field" *ngFor="let item of model.attributes;let i= index;" (dndStart)="onDragStart($event)"
+        (dndCanceled)="onDragCanceled($event)" (dndMoved)="onDragged(item, model.attributes, 'move')"
+        [dndEffectAllowed]="'all'" [dndDraggable]="item">
+
+        <form class="example-form" [formGroup]="InfoForm">
+          <div style="float: left">
+            <div *ngIf="item.type=='text'">
+                  <input matInput  formControlName="name" placeholder="{{item.placeholder}}">
+            </div>      
+            <div *ngIf="item.type=='email'">
+                <input matInput formControlName="email" placeholder="{{item.placeholder}}" >
+            </div>
+            <div *ngIf="item.type=='phone'">
+                <input matInput  formControlName="phone" placeholder="{{item.placeholder}}" >
+            </div>
+            <div *ngIf="item.type=='date'">
+                <input matInput  formControlName="date" [matDatepicker]="picker" (focus)="picker.open()" parse-format="MM/dd/yyyy" readonly placeholder="{{item.placeholder}}">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>               
+            </div>
+            <div *ngIf="item.type=='textarea'">
+                <textarea matInput  formControlName="Address"  placeholder="{{item.placeholder}}"></textarea>
+            </div>
+            <div *ngIf="item.type=='file'">
+              <input matInput type="file" formControlName="uploadfile"  placeholder="{{item.placeholder}}" >
+            </div>
+            <div *ngIf="item.type=='autocomplete'">
+                <mat-select placeholder="Select Value" formControlName="Select">
+                  <mat-option *ngFor="let v of item.values" [value]="v.value">{{v.label}}</mat-option>
+                </mat-select>
+            </div>
+            <div *ngIf="item.type=='checkbox'">
+              <mat-checkbox *ngFor="let v of item.values" value={{v.value}} name="{{item.name}}" (click)="toggleValue(v)"
+                [checked]="v.checked" required >{{v.label}}</mat-checkbox>
+            </div>
+            <div *ngIf="item.type=='radio'">
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="Radio">
+                <mat-radio-button class="example-radio-button" *ngFor="let v of item.values" [value]="v.value">{{v.label}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div *ngIf="item.type=='button'">
+              <button mat-raised-button color="primary" type="{{item.subtype}}" (click)="submit()" >{{item.label}}</button>
+            </div>
+          </div>
+            <div style="float: right;margin-left: 10px"> 
+              <i *ngIf="item.toggle" (click)="item.toggle=false" class="material-icons">code</i>
+              <i *ngIf="!item.toggle" (click)="item.toggle=true" class="material-icons">code</i>
+            </div>
+        </form>
+        <div *ngIf="item.toggle" class="toggle-Wrapper">
+          <div >
+              <label>Required</label>
+              <!-- <i *ngIf="item.required" (click)="item.required=false" class="fa fa-toggle-on red"></i>
+              <i *ngIf="!item.required" (click)="item.required=true" class="fa fa-toggle-off"></i> -->
+              <span class="pull-right ucfirst">{{item.type}}</span>
+          </div>
+          <div>
+              <label>Label</label>
+              <input class="form-control" type="text" [(ngModel)]="item.label" />
+          </div>
+          <div >
+              <label>Name</label>
+              <input class="form-control" type="text" [(ngModel)]="item.name" />
+          </div>
+          <div >
+              <label>Placeholder</label>
+              <input class="form-control" type="text" [(ngModel)]="item.placeholder" />
+          </div>
+          <div >
+            <label>Regex</label>
+            <input class="form-control" type="text" [(ngModel)]="item.regex" />
+          </div>
+          <div *ngIf="item.regex" >
+            <label>Error text</label>
+            <input class="form-control" type="text" [(ngModel)]="item.errorText" />
+          </div>
+
+          <!-- radio || checkbox || autocomplete -->
+          <div *ngIf="item.type=='radio'|| item.type=='checkbox' || item.type=='autocomplete'" >
+              <div >
+                  <div >
+                      <div >
+                          <label>Label</label>
+                      </div>
+                  </div>
+                  <div >
+                      <div >
+                          <label>Value</label>
+                      </div>
+                  </div>
+                  <div >
+                      <div >
+                          <label>Action</label>
+                      </div>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+      <!--optional placeholder element for dropzone-->
+      <!--will be removed from DOM on init-->
+      <div class="dndPlaceholder" dndPlaceholderRef>
+      </div>
+      </section>
+    </div>
+  </mat-card>
+  <div class=" pointer shadow-bg" [dndDraggable]="Values.name" [dndEffectAllowed]="'copy'" 
+  (dndEnd)="onDragEnd($event)">
+  <h4 style="color: coral">{{Values.name}}</h4>
+  </div>
+</div>
+
+

@@ -46,13 +46,13 @@ export class FirstpageComponent implements OnInit {
   constructor(private router:Router,private fb:FormBuilder){
 
 this.example_form = this.fb.group({
-fname:['', [ Validators.required,Validators.pattern('[a-zA-Z]+$'),Validators.minLength(5)]],
-lname:['', [ Validators.required,Validators.pattern('[a-zA-Z]+$'),Validators.minLength(5)]],
-gender:['',[Validators.required]],
-email:['', [ Validators.required, Validators.email]],
-pswrd:['', [ Validators.required, Validators.minLength(6),Validators.pattern('[a-zA-Z0-9]+$')]],
-rpwd:['', [ Validators.required, Validators.minLength(6),Validators.pattern('[a-zA-Z0-9]+$')]],
-Agree:['',[Validators.required]]
+fname:['', [Validators.pattern('[a-zA-Z]+$')]],
+lname:['', [Validators.pattern('[a-zA-Z]+$')]],
+gender:[''],
+email:['', [Validators.email]],
+pswrd:['', [Validators.pattern('[a-zA-Z0-9]+$')]],
+rpwd:['', [Validators.pattern('[a-zA-Z0-9]+$')]],
+Agree:['']
 });
 }
 

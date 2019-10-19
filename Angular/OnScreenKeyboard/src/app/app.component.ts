@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
   @ViewChild('attachTo', { read: ElementRef,static:false })
   private _attachToElement: ElementRef;
 
-  @ViewChild('attachTo', { read: NgModel,static:false })
+  @ViewChild('attachTo', { read: NgModel,static:true })
   private _attachToControl: NgControl;
 
   constructor(public translate:TranslateService,private _keyboardService: MatKeyboardService, @Inject(LOCALE_ID) public locale,
