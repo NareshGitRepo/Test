@@ -17,7 +17,8 @@ export class AppComponent {
 
   constructor(private fb:FormBuilder ){
     this.Card_Form= this.fb.group({
-      CardName:['',[Validators.required]], detailsArray:this.fb.array([])
+      CardName:['',[Validators.required]], 
+      detailsArray:this.fb.array([])
     })
   }
    get checkedData() {
