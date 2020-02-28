@@ -11,7 +11,7 @@ import { CrudComponent } from './crud/crud.component';
 import { FormComponent } from './form/form.component';
 import { EditdataComponent } from './editdata/editdata.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    DragDropModule,
     HttpClientModule
   ],
   providers: [],

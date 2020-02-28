@@ -38,10 +38,56 @@ const customLyouts: IKeyboardLayouts = {
       [
         [KeyboardClassKey.Bksp, KeyboardClassKey.Bksp, KeyboardClassKey.Bksp, KeyboardClassKey.Bksp] , 
         ['0', ')'],
-        [KeyboardClassKey.Enter, KeyboardClassKey.Enter, KeyboardClassKey.Enter, KeyboardClassKey.Enter],
+        [KeyboardClassKey.Shift, KeyboardClassKey.Shift, KeyboardClassKey.Shift, KeyboardClassKey.Shift],
       ]
     ],
     'lang': ['en-num']
+  },
+  'TollesAN Layout': {
+    'name': 'Awesome layout',
+    'keys': [
+      [
+        ['1', '1'],
+        ['2', '2'],
+        ['3', '3'],
+        ['','4'],
+        ['','6'],
+        ['','7'],
+        ['','8'],
+        ['','9'],
+        ['','10'],
+      ],
+      [
+        ['','Q'],
+        ['','W'],
+        ['','E'],
+        ['','R'],
+        ['','T'],
+        ['','Y'],
+        ['','U'],
+        ['4', 'I'],
+        ['5', 'O'],
+        ['6', 'P']
+      ],
+      [
+        ['','A'],
+        ['','S'],
+        ['','D'],
+        ['','F'],
+        ['','G'],
+        ['','H'],
+        ['7','J'],
+        ['8', 'K'],
+        ['9', 'L'],
+      ],
+      [
+        [KeyboardClassKey.Bksp, KeyboardClassKey.Bksp, KeyboardClassKey.Bksp, KeyboardClassKey.Bksp] , 
+        ['0', ')'],
+        [KeyboardClassKey.Shift, KeyboardClassKey.Shift, KeyboardClassKey.Shift, KeyboardClassKey.Shift],
+        [KeyboardClassKey.AltGr, KeyboardClassKey.AltGr, KeyboardClassKey.AltGr, KeyboardClassKey.AltGr]
+      ]
+    ],
+    'lang': ['e-num']
   },
   'TollesAlpha Layout':{
     'name': 'Awesome layout',

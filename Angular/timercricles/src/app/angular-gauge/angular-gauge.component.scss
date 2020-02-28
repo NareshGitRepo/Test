@@ -1,0 +1,44 @@
+mwl-gauge {
+         width: 150px;
+         height: 150px;
+         display: block;
+         padding: 10px;
+       }
+      
+      ::ng-deep mwl-gauge > .gauge > .dial {
+        stroke:grey;
+        stroke-width: 15 !important;
+        fill:whitesmoke;
+      }
+      ::ng-deep mwl-gauge > .gauge > .value {
+        stroke:goldenrod;
+        stroke-width: 15;
+        fill: rgba(0,0,0,0);
+      }
+      ::ng-deep mwl-gauge > .gauge > .value-text {
+        fill: rgb(47, 227, 255);
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 0.8em;
+      }
+    
+      mwl-gauge {
+        flex: 1;
+        display: block;
+        padding: 10px;
+        margin: 7px;
+        border-radius: 3px;
+      }
+    
+      ::ng-deep mwl-gauge.styles > .gauge > .dial {
+        stroke: gray;
+        fill: gray;
+        stroke-width: 20;
+      }
+      ::ng-deep mwl-gauge.styles > .gauge > .value {
+        stroke-width: 20;
+      }
+      ::ng-deep mwl-gauge.styles > .gauge > .value-text {
+        fill:black;
+        font-size: 0.7em;
+      }

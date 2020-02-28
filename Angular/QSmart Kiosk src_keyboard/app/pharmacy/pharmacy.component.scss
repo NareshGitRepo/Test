@@ -1,0 +1,88 @@
+   .example-container .mat-form-field {
+    width: 100%;
+    }
+
+    // ::ng-deep mat-keyboard-container {
+    //     position: absolute;
+    //     bottom: 0 !important;
+    //     right: 0;
+    // }
+    ::ng-deep mat-dialog-container{
+        width:auto !important;
+    }
+    
+    ::ng-deep mat-dialog-container virtual-keyboard{
+        width:auto !important;
+    }
+    
+    ::ng-deep mat-dialog-container virtual-keyboard .container{
+    width:50% !important;
+    }
+    
+    ::ng-deep mat-dialog-container virtual-keyboard .container .close{
+    top: -28px;
+    opacity:1 !important;
+    }
+    
+    ::ng-deep mat-dialog-container virtual-keyboard-key .mat-raised-button{
+    min-height: 5px !important;
+    min-width: 40px !important;
+    font-size: 20px !important;
+    }
+    
+    ::ng-deep mat-dialog-container virtual-keyboard-key[ng-reflect-key="SpaceBar:7"]{
+    min-width:264px !important;
+    }
+    
+    ::ng-deep mat-dialog-container virtual-keyboard-key[ng-reflect-key="Shift:2"]{
+    min-width:88px !important;
+    }
+    ::ng-deep mat-dialog-container virtual-keyboard-key[ng-reflect-key="CapsLock:2"]{
+    min-width:88px !important;
+    }
+    ::ng-deep mat-dialog-container virtual-keyboard-key[ng-reflect-key="Backspace:2"]{
+    min-width:88px !important;
+    }
+
+
+    .progress {
+        // position: relative;
+        height:70px !important;
+        // background-color: #d9ebf0;
+        background: transparent;
+        border-radius: 100%; 
+         border-collapse: collapse;
+         width: 65px;
+        position:absolute;
+         left: 45%;  
+        justify-content: center;
+        padding-block:-1px;
+        margin-top: 25px;
+      }
+      
+      .progress__value-text {
+        position: absolute;
+        top: 23px;
+        left: 8px;
+        font-size: 20px;
+         color:black;
+      }
+      
+      .progress__svg {
+        padding:0px !important;
+        transform: rotate(-90deg); 
+      }
+      
+      .progress__meter,
+      .progress__value {
+        fill: none;
+      }
+      
+      .progress__meter {
+        stroke: #ccc;
+      }
+      
+      .progress__value {
+        // stroke: #4CAF50;
+        transition: all 100ms;
+      }

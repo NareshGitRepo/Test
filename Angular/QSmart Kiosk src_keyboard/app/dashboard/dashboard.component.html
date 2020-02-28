@@ -1,0 +1,67 @@
+<!-- <p class="timer">{{(timeoutconfig - timeoutValue) | TimeWithSec}}</p> -->
+<!-- <app-svgcircle [value]="(timeoutconfig - timeoutValue)" [timeoutVal]="timeoutconfig" ></app-svgcircle> -->
+
+<div class="progress">
+  <svg class="progress__svg" width="130" height="130" viewBox="0 0 120 120">
+    <circle class="progress__meter" cx="89" cy="30" [attr.r]="radius" stroke-width="30" />
+    <circle class="progress__value" [style.strokeDasharray]="circumference" [style.strokeDashoffset]="dashoffset"
+      cx="89" cy="30" [attr.r]="radius" stroke-width="30" [attr.stroke]="colorvalue" />
+  </svg>
+  <div class="progress__value-text">{{(timeoutconfig-timeoutValue) | TimeWithSec}}</div>
+</div>
+
+<div fxLayout="row">
+  <div fxFlex="100" class="session">
+    <div class="session-content">
+
+
+      <div *ngIf="!apiResponse?.status" class="text-center w80 text-danger wordwrap" style="margin:0 auto;">
+        <h1>{{apiResponse?.messages}}</h1>
+      </div>
+      <div *ngIf="errorMessage" class="text-center w80 text-danger wordwrap" style="margin:0 auto;">
+        <!-- <h3>{{messages}}</h3> -->
+        <h1>{{ 'HOME.ErrorMessage' | translate }}</h1>
+      </div>
+
+      <div *ngIf="!errorMessage" class="iconsec">
+        <div class="text-center w85">
+          <div fxLayout="row wrap" style="justify-content: center;">
+            <div fxFlex.gt-md="20" fxFlex.gt-sm="20" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let menu of menuInfo">
+              <div class="lgreen shadowanm" *ngIf="menu.type=='RG'" [routerLink]="['/registration']">
+                <div class="icon">
+                  <img src="assets/images/qsmart/registration-light.svg">
+                </div>{{ 'HOME.Registration' | translate }}
+              </div>
+
+              <div class="dgreen shadowanm" *ngIf="menu.type=='CK'" [routerLink]="['/checkin']">
+                <div class="icon">
+                  <img src="assets/images/qsmart/appointment-light.svg">
+                </div> {{ 'HOME.Checkin' | translate }}
+              </div>
+
+              <div class="lgreen shadowanm" *ngIf="menu.type=='PH'" [routerLink]="['/pharmacy']">
+                <div class="icon">
+                  <img src="assets/images/qsmart/pharmacy-light.svg">
+                </div> {{ 'HOME.Pharmacy' | translate }}
+              </div>
+
+              <div class="dgreen shadowanm" *ngIf="menu.type=='LB'" [routerLink]="['/laboratory']">
+                <div class="icon">
+                  <img src="assets/images/qsmart/laboratary-light.svg">
+                </div>{{ 'HOME.Laboratory' | translate }}
+              </div>
+
+
+              <div class="lgreen shadowanm" *ngIf="menu.type=='FB'" [routerLink]="['/feedback']">
+                <div class="icon">
+                  <img src="assets/images/qsmart/feedback2wbg.svg">
+                </div>{{ 'HOME.Feedback' | translate }}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

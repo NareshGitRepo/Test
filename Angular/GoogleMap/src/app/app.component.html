@@ -1,0 +1,10 @@
+<b>Map</b>
+<agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)" [zoom]="zoom" [disableDefaultUI]="false"
+  [zoomControl]="false">
+  <agm-marker [latitude]="lat" [longitude]="lng" *ngFor="let m of markers; let i = index"
+  (markerClick)="clickedMarker(m.label, i)" [label]="m.label" [markerDraggable]="m.draggable"
+  (dragEnd)="markerDragEnd(m, $event)"></agm-marker>
+  <agm-circle [latitude]="lat + 0.3" [longitude]="lng" [radius]="5000" [fillColor]="'red'" [circleDraggable]="true"
+      [editable]="true">
+  </agm-circle>
+</agm-map>

@@ -1,20 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="outline" translate>
-      <input matInput  [matKeyboard]="'en-alpha'"  placeholder="Enter Name" >
+      <input matInput  [matKeyboard]="'en-alpha'" autocomplete="off" placeholder="Enter Name" >
   </mat-form-field>
   <mat-form-field class="example-full-width" appearance="outline" translate>
-      <input matInput  [matKeyboard]="'en-num'"  placeholder="Enter Mobile No." >
+      <input matInput  [matKeyboard]="'e-num'" autocomplete="off" placeholder="Enter Mobile No." >
   </mat-form-field>
+ 
   <mat-form-field class="example-full-width" appearance="outline" translate>
-    <input matInput   [matKeyboard]="'en'"  placeholder="Enter Passport No." >
-  </mat-form-field>
+    <input matInput   [matKeyboard]="'en'" autocomplete="off" placeholder="Enter Passport No." >
+  </mat-form-field><hr>
 
-  <button mat-raised-button (click)="openAttachedKeyboard(defaultLocale)">{{'lang' |translate}}</button>
- <mat-form-field class="example-full-width" appearance="outline" translate>
-    <input matInput #attachTo [(ngModel)]="attachModelValue" name="attach" placeholder="Enter Email" >
-  </mat-form-field>
+  <!-- <button (click)="openAttachedKeyboard(defaultLocale)">{{'lang' |translate}}</button>
+  <input  #attachTo [(ngModel)]="attachModelValue"  name="attach" placeholder="Enter Email" > -->
+
+  <div (click)="openAttachedKeyboard(defaultLocale)">{{'lang' |translate}}</div>
+ <!-- <mat-form-field class="example-full-width" appearance="outline" translate> -->
+    <!-- <input  #attachTo [(ngModel)]="attachModelValue" autocomplete="off"  name="attach" placeholder="Enter Email" > -->
+  <!-- </mat-form-field> -->
 </form>
+{{attachModelValue}}
 
  
 <router-outlet></router-outlet>

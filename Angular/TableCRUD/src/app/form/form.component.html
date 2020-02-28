@@ -1,3 +1,4 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
 <h1 mat-dialog-title class="text-warning">Employee Record</h1>
 
 <form class="example-form" [formGroup]="example_form">
@@ -69,7 +70,7 @@
   <button mat-button [mat-dialog-close]="example_form.value" [disabled]="!example_form.valid" cdkFocusInitial>Submit</button>
 </div>
 </form>
-
+</div>
 
 
 

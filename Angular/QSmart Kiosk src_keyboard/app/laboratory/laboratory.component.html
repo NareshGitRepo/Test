@@ -1,0 +1,19 @@
+<p class="timer">{{(timeoutconfig - timeoutValue) | TimeWithSec}}</p>
+<div fxLayout="row wrap" >
+
+  <div fxFlex="80" style="margin:0 auto" class="session">
+    <div *ngIf="apiResponse" class="qsec-left session-content">
+        <div class="w100 text-center" style="padding-top: 10%;">
+      <!-- <h3>{{ 'HOME.YourTokenNumberIs' | translate }}</h3> -->
+      <h3> {{ 'HOME.ThankYou' | translate }}</h3>
+      <h3> {{apiResponse.status? ( 'HOME.tokenSuccessMessage' | translate)  : apiResponse.messages}}</h3>
+      <h1>{{apiResponse.tokenNo}}</h1>
+
+      <!-- <h4 style="font-weight: 500;" class="text-success">{{ 'HOME.ThankYou' | translate }} !!!</h4> -->
+    </div>
+    <div *ngIf="errorMessage" class="qsec-left  text-danger">
+      <h3>{{'HOME.ErrorMessage' | translate}}</h3>
+    </div>
+  </div>
+</div>
+</div>

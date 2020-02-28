@@ -1,0 +1,15 @@
+#wrapper{
+    width: 400px;
+    height: 400px;
+  }
+   
+  #meter{
+    width: 90%;
+    height: 90%;
+    // transform: rotateX(180deg);
+  }
+
+  .progress {
+    --percent: 50;
+    stroke-dashoffset: calc(142 - (var(--percent) * 142 / 100));
+  }

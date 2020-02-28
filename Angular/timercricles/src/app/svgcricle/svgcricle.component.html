@@ -1,0 +1,10 @@
+<p>svgcricle works!</p>
+<div class="progress">
+	<svg class="progress__svg" width="120" height="120" viewBox="0 0 120 120">
+		<circle class="progress__meter" cx="70" cy="70" [attr.r]="radius" stroke-width="30" />
+		<circle class="progress__value" [style.strokeDasharray]="circumference" [style.strokeDashoffset]="dashoffset" cx="70" cy="70"  
+		 [attr.r]="15" stroke-width="30"  />
+	</svg>
+
+  <div class="progress__value-text">{{value | TimeWithSec}}</div>
+</div>

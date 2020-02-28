@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class MainService {
+export class MainService{
   // pathparam:any;
   // url:any="http://202.65.158.172:9097/room/{loginid}/floor-rooms/all/{floorid}";
 

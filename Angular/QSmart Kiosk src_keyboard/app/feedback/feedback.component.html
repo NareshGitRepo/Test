@@ -1,0 +1,265 @@
+<p class="timer">{{(timeoutconfig - timeoutValue) | TimeWithSec}}</p>
+<div class="" fxLayout="row wrap">
+  <div fxFlex="100" class="session">
+    <div class="session-content">
+      <div fxLayout="row wrap" class="contnt">
+        <div fxFlex="100" class="qsec-left">
+          <!-- {{feedbackForm.value | json}} -->
+          <form [formGroup]="feedbackForm">
+
+            <div *ngIf="feedValue == 1" fxLayout="row wrap" class="text-center" style="margin-top: -50px">
+              <div fxFlex.gt-sm="38" fxFlex="60" style="margin: 0 auto">
+                <mat-form-field style="width: 100%; padding-left: 5px;">
+                  <input matInput #mrnNo autofocus placeholder="{{ 'HOME.MrnNumber' | translate }}"
+                    [matKeyboard]="'de-CHVN'" autocomplete="off" readonly formControlName="mrnNo" 
+                    minlength="3" maxlength="12">
+
+                  <mat-error
+                    *ngIf="feedbackForm.get('mrnNo').hasError('required') && feedbackForm.get('mrnNo').touched">
+                    {{ 'HOME.MRNIsRequired' | translate }}
+                  </mat-error>
+                  <mat-error
+                    *ngIf="feedbackForm.get('mrnNo').hasError('minlength') && feedbackForm.get('mrnNo').touched">
+                    {{ 'HOME.MRNNumberMinCharacters' | translate }}
+                  </mat-error>
+                </mat-form-field>
+                <br>
+
+
+                <mat-form-field style="width: 100%; padding-left: 5px;">
+                  <input matInput placeholder="{{ 'HOME.NationalId' | translate }}" required [matKeyboard]="'de-CHV'"
+                    formControlName="nationalId" autocomplete="off" minlength="6" maxlength="15" readonly>
+                  <mat-error
+                    *ngIf="feedbackForm.get('nationalId').hasError('required') && feedbackForm.get('nationalId').touched">
+                    {{ 'HOME.NationalIdReq' | translate }}
+                  </mat-error>
+                  <mat-error
+                    *ngIf="feedbackForm.get('nationalId').hasError('minlength') && feedbackForm.get('nationalId').touched">
+                    {{ 'HOME.NationalIdMinChar' | translate }}
+                  </mat-error>
+                </mat-form-field>
+
+                <div>
+                  <button [disabled]="!(feedbackForm.controls.mrnNo.valid && feedbackForm.controls.nationalId.valid )"
+                    mat-raised-button color="primary" (click)="mrnAndNatIdVarify()" [ngClass]="{'shakeanm' : feedbackForm.controls.mrnNo.valid && feedbackForm.controls.nationalId.valid}">
+                    {{ 'HOME.Ok' | translate }}</button>
+                </div>
+                <br>    
+
+                <mat-error>
+                  <div *ngIf="showError" class="errorlayout">
+                    {{feedbackRes.messages}}
+                  </div>
+                </mat-error>
+                <mat-error>  <!-- OOps Something Went Wrong -->
+                  <div *ngIf="errorMessage" class="errorlayout">
+                    <h3>{{'HOME.ErrorMessage' | translate}}</h3>
+                  </div>
+                </mat-error>
+              </div>
+            </div>
+
+            <div fxLayout="row wrap">
+              <div *ngIf="feedValue == 6" class="text-center" fxFlex="100" style="margin:0 auto; ">
+                <div class="feedbackqsec">
+                  <div *ngIf="appointmentList.length>0" style=" margin-bottom: 20px;">
+                    <h3 class="feedbackahead"><strong>{{ 'HOME.visitedappointments' | translate }}</strong></h3>
+                  </div>
+                  <perfect-scrollbar class="feed-scroll" style="max-height:45vh; padding:0 8px">
+                    <div fxLayout="row wrap" *ngIf="appointmentList.length>0">
+                    <div fxFlex="100" style="position: relative; font-size:18px;" class="visitap">
+                      <div *ngIf="appointmentList.length>0" style="width:90%; margin:0 auto">
+
+                        <mat-radio-group class="example-radio-group" formControlName="apptSno" style="justify-content: center; display: flex; flex-flow: row wrap; align-items: center;">
+                          <mat-radio-button class="example-radio-button feed-rdogrp" *ngFor="let appList of appointmentList"
+                            color="primary" value={{appList.sno}} style="flex: 0 1 45%;">
+                            <!-- <label>{{item.mrnNo}}</label> -->
+                        <!--    <p>{{'HOME.PatientName' | translate}} <strong>{{appList.ptFstName}}</strong></p>
+                             <p>{{'HOME.Doctor' | translate}} <strong>{{appList.drFstName}}</strong></p> -->
+                          <div>
+                            <p>{{'HOME.Department' | translate}} : <strong>{{appList.deptName}}</strong></p>
+                            <p>{{'HOME.ApptTime' | translate}} : <strong>{{appList.apptDate}}</strong></p>
+                          </div>
+                          </mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                      </div>
+                      <div fxFlex.gt-sm="30" fxFlex="60" style="margin: 0 auto">
+                      <div *ngIf="appointmentList.length==0">
+                            <h3 style="text-align:center">{{'HOME.NoAppointmentsFound' | translate}}</h3> 
+                          </div>
+                    </div>
+                  </div>
+                </perfect-scrollbar>
+                  <br />
+                  <div *ngIf="appointmentList.length>0" class="text-center">
+                  <button mat-raised-button color="primary"
+                    [disabled]="feedbackForm.controls['apptSno'].invalid" (click)="visitAppoint()" [ngClass]="{'shakeanm' : !feedbackForm.controls['apptSno'].invalid}">
+                    {{ 'HOME.next' | translate }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div fxLayout="row wrap">
+              <div *ngIf="feedValue == 7" class="text-center" style="margin:0 auto;">
+                <mat-error>
+                  <div *ngIf="errorMessage" class="errorlayout">
+                    <h3>{{'HOME.ErrorMessage' | translate}}</h3>
+                  </div>
+                </mat-error>
+              </div>
+            </div>
+            <div fxLayout="row wrap" style="justify-content: flex-end;">
+              <div *ngIf="feedValue == 2" fxFlex="80" class="emotions text-center" style="margin-bottom: 20px;">
+                <table style="margin: 0 auto; ">
+                  <tr>
+                    <td class="text-center">
+                      <div class="fbiconmain_happy " (click)="selectFeedback('Happy')"
+                        [ngClass]="{active: activeClass == 'happy'}"></div>
+                    </td>
+                    <td>
+                      <div class="fbiconmain_nutral" (click)="selectFeedback('Neutral')"
+                        [ngClass]="{active: activeClass == 'neutral'}"></div>
+                    </td>
+                    <td>
+                      <div class="fbiconmain_sad" (click)="selectFeedback('Sad')"
+                        [ngClass]="{active: activeClass == 'sad'}"></div>
+                    </td>
+                  </tr>
+                </table>
+                <h3 style="font-size: 35px; margin-top: 30px; color: #555555; padding-right:30px">
+                  {{ 'HOME.Howwasyourexperience' | translate }}</h3>
+              </div>
+
+              <div fxFlex="67" class="text-center" style="padding-right: 10%">
+                <div class="clearfix text-left" *ngIf="enableFeedback">
+                  <div *ngIf="feedValue == 3">
+                    <div style=" margin-bottom: 20px;">
+                      <h3 *ngIf="feedbackHeading1" class="feedbackhead"><img src="assets/images/smile-active.svg"
+                          width="120px"> &nbsp; {{ 'HOME.WhatMadeYouHappy' | translate }}</h3>
+                      <h3 *ngIf="feedbackHeading2" class="feedbackhead"><img src="assets/images/nutral-active.svg"
+                          width="120px"> &nbsp; {{ 'HOME.WhatCanWeImprove' | translate }}</h3>
+                      <h3 *ngIf="feedbackHeading3" class="feedbackhead"><img src="assets/images/sad-active.svg"
+                          width="120px"> &nbsp; {{ 'HOME.WhatMadeYouUnHappy' | translate }}</h3>
+                    </div>
+
+                    <div class=" example-container mar-btm">
+                    </div>
+
+                    <div class="feedbackqsec">
+                      <div fxLayout="row wrap" class="fqsec pad-top ">
+                        <div fxFlex="100" style="position: relative;">
+                          <mat-checkbox formControlName="easeUse" name="easeUse" color="primary"
+                            [labelPosition]="labelPosition"> {{ 'HOME.Easeofuse' | translate }}
+                          </mat-checkbox>
+                        </div>
+                      </div>
+
+                      <div fxLayout="row wrap" class="fqsec pad-top">
+                        <div fxFlex="100" style="position: relative;">
+                          <mat-checkbox formControlName="techPerformance" color="primary"
+                            [labelPosition]="labelPosition"> {{ 'HOME.HospitalExperience' | translate }}</mat-checkbox>
+                        </div>
+                      </div>
+
+                      <div fxLayout="row wrap" class="fqsec pad-top">
+                        <div fxFlex="100" style="position: relative;">
+                          <mat-checkbox formControlName="clarityPerformance" color="primary"
+                            [labelPosition]="labelPosition"> {{ 'HOME.ClarityofPresentation' | translate }}
+                          </mat-checkbox>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="feedValue == 4" class="feed-txt">
+                    <div style=" margin-bottom: 20px;">
+                      <h3 *ngIf="feedbackHeading1" class="feedbackhead"><img src="assets/images/smile-active.svg"
+                          width="80px"> &nbsp; {{ 'HOME.Tellusmore' | translate }}</h3>
+                      <h3 *ngIf="feedbackHeading2" class="feedbackhead"><img src="assets/images/nutral-active.svg"
+                          width="80px"> &nbsp; {{ 'HOME.Tellusmore' | translate }}</h3>
+                      <h3 *ngIf="feedbackHeading3" class="feedbackhead"><img src="assets/images/sad-active.svg"
+                          width="80px"> &nbsp; {{ 'HOME.Tellusmore' | translate }}</h3>
+                    </div>
+
+                    <!-- <div>
+                      <mat-checkbox formControlName="langChange" name="langChange" color="primary"
+                      (change)="languageCheck($event)">{{ 'HOME.FeedbackArabicLanguage' | translate }}</mat-checkbox>
+                    </div> -->
+                    <div>
+
+                      <mat-form-field style="width: 100%">
+                        <!-- <textarea matInput ng-virtual-keyboard ng-virtual-keyboard-layout="extended"
+                          placeholder="{{ 'HOME.FeedbackComments' | translate}}" rows="7" formControlName="comment"
+                          minlength="6"></textarea> -->
+                        <!--  currentLang =='ar'?'ar':  -->
+                        <textarea matInput #comment placeholder="{{ 'HOME.FeedbackComments' | translate }}"
+                          [ngClass]="{arabic: currentLang =='ar'?  true : false}" readonly [matKeyboard]="'de-CHVCAPS'"
+                          autocomplete="off" minlength="6" formControlName="comment" rows="3"
+                          maxlength="150"></textarea>
+
+                        <mat-error *ngIf="feedbackForm.controls.comment.errors?.minlength">
+                          {{ 'HOME.FeedbackCommentsMinCharacters' | translate }}
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+
+                  <div *ngIf="feedValue == 5" class="text-center">
+                    <!-- <h3 class="text-success">Thank you for your feedback</h3> -->
+                    <!-- <h3 *ngIf="showError" class="text-success">
+                      {{apiCheckinResponse.messages}}
+                    </h3> -->
+                    <h3 *ngIf="apiCheckinResponse" class="text-success">
+                      {{apiCheckinResponse.status ? ('HOME.feedbackSuccessMessage' | translate) : apiCheckinResponse.messages}}
+                    </h3>
+                  </div>
+
+                  <div>
+                    <mat-card-actions>
+                      <div fxLayout="row wrap" class="text-left">
+                        <div fxFlex="20">
+                          <button *ngIf="feedValue == 3" mat-raised-button class="btn-dark" (click)="backem()"><i
+                              class="ti-angle-left"></i> {{ 'HOME.Back' | translate}}</button>
+                          <button *ngIf="feedValue == 4" mat-raised-button class="btn-dark" (click)="backem2()"><i
+                              class="ti-angle-left"></i> {{ 'HOME.Back' | translate}}</button>
+                        </div>
+
+                        <div fxFlex="80" class="text-right">
+                          <button *ngIf="feedValue == 3" mat-raised-button class="btnlgt" [ngClass]="{'shakeanm' : feedbackForm.value.clarityPerformance
+                          || feedbackForm.value.easeUse || feedbackForm.value.techPerformance}" (click)="shrcomnt()"
+                            [disabled]="!feedbackForm.value.clarityPerformance
+                        && !feedbackForm.value.easeUse && !feedbackForm.value.techPerformance"><i
+                              class="ti-comment-alt"></i> &nbsp; {{ 'HOME.Comment' | translate}}</button> &nbsp;
+                          <button *ngIf="feedValue == 3 || feedValue == 4" mat-raised-button class="delay1" [ngClass]="{'shakeanm' : (feedbackForm.value.clarityPerformance
+                          || feedbackForm.value.easeUse || feedbackForm.value.techPerformance  || questionsFlag) && (!questionsFlag || !commentFlag)}" (click)="submitFeedback()"
+                            color="primary"
+                            [disabled]="(!feedbackForm.value.clarityPerformance
+                          && !feedbackForm.value.easeUse && !feedbackForm.value.techPerformance && !questionsFlag) || (questionsFlag && commentFlag)">
+                            {{ 'HOME.Finish' | translate}} <i class="ti-check"></i></button>
+
+
+                        </div>
+                      
+
+                      </div>
+                     
+                    </mat-card-actions>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <h4 *ngIf="showSuccessMessages" class="feedbackhead">{{showSuccessMessages}}</h4>
+              <h4 *ngIf="showErrorMessages" class="feedbackhead">{{ 'HOME.showErrorMessages' | translate}}</h4>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

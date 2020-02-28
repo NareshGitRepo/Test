@@ -1,0 +1,209 @@
+{
+    "baseUrl": "http://202.65.159.118:8090",
+    "printerUrl": "http://192.168.7.156:2323",
+    "components": [
+        {
+            "apiUrl": "",
+            "component": "Auth",
+            "methods": [
+           
+              {
+                "name": "getCurrentDate",
+                "type": "GET",
+                "url": "/kiosk-pharmacy/current-date-time"
+              }
+            ]
+          },
+        {
+            "apiUrl": "",
+            "component": "Dashboard",
+            "methods": [
+                {
+                    "name": "getMenusByKioskId",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/menu/all"
+                },
+                {
+                    "name": "generateTokenPrinter",
+                    "type": "POST",
+                    "url": "/printer"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Register",
+            "methods": [
+                {
+                    "name": "getCommonToken",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/token/{menuid}"
+                }
+            ]
+        },
+      
+        {
+            "apiUrl": "",
+            "component": "Laboratory",
+            "methods": [
+                {
+                    "name": "getCommonToken",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/token/{menuid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Pharmacy",
+            "methods": [
+                
+                {
+                    "name": "validateMnrAndEmiratesId",
+                    "type": "GET",
+                    "url": "/kiosk-pharmacy/{kioskid}/authenticate/{mrno}/{ssn}"
+                },
+                {
+                    "name": "generateNextDayCheckin",
+                    "type": "POST",
+                    "url": "/kiosk-pharmacy/{kioskid}/next-day-checkin/{mrno}"
+                },
+                {
+                    "name": "generateSameDayCheckin",
+                    "type": "POST",
+                    "url": "/kiosk-pharmacy/{kioskid}/same-day-checkin/{mrno}"
+                },
+                {
+                    "name": "generateEmergencyCheckin",
+                    "type": "POST",
+                    "url": "/kiosk-pharmacy/{kioskid}/emergency-checkin/{mrno}"
+                },
+                  {
+                    "name": "getDhlCities",
+                    "type": "GET",
+                    "url": "/kiosk-pharmacy/{kioskid}/dhl-cities"
+                },
+                {
+                    "name": "getDHLMedicines",
+                    "type": "POST",
+                    "url": "/kiosk-pharmacy/{kioskid}/dhl-medicines/{mrno}/{ssn}"
+                },
+                {
+                    "name": "transferToDhlService",
+                    "type": "POST",
+                    "url": "/kiosk-pharmacy/{kioskid}/dhl-service/{mrno}/{ssn}"
+                },
+                {
+                    "name": "updatePharmaMasterStatusAndReason",
+                    "type": "PUT",
+                    "url": "/kiosk-pharmacy/{kioskid}/status-reason/{masterSno}/update?status={status}&reason={reason}"
+                }
+                
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Checkin",
+            "methods": [
+                {
+                    "name": "validateMrnNumber",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/mrn/validate?mrnno={mrnnumber}"
+                },
+                {
+                    "name": "validateMrnNatId",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/mrn-natid/validate?mrnno={mrnnumber}&natId={natId}"
+                },
+                {
+                    "name": "generateCheckinToken",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/checkin/{id}"
+                },
+                {
+                    "name": "generateTokenFromList",
+                    "type": "GET",
+                    "url": "/kiosk/tokenlist/{kioskid}/department/{department}"
+                },
+                {
+                    "name": "validateOtpNew",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/otp/validatenew?mrnno={mrnnumber}&natid={natId}&otpId={otpId}&otp={otp}&count={count}"
+                },
+                {
+                    "name": "validateOtp",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/otp/validate?mrnno={mrnnumber}&natid={natId}&otpId={otpId}&otp={otp}"
+                },
+                {
+                    "name": "generateRegisterToken",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/register-token"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "CheckinNew",
+            "methods": [
+                {
+                    "name": "getMenusByGeneratedId",
+                    "type": "GET",
+                    "url": "/kiosknew/{generatedid}/menu/all"
+                },
+                {
+                    "name": "getAppoinmentDetails",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/appoinmentDetails?mrnno={mrnnumber}&natid={natid}"
+                },
+                {
+                    "name": "getAppointments",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/appointments/all?mrnno={mrnnumber}&natid={natid}"
+                },
+                {
+                    "name": "generateCheckinToken",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/checkin/{id}"
+                },
+                {
+                    "name": "getCommonToken",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/token/{menuid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Feedback",
+            "methods": [
+                {
+                    "name": "addFeedback",
+                    "type": "POST",
+                    "url": "/kiosknew/{kioskid}/feedback"
+                },
+                {
+                    "name": "validateMrnNumber",
+                    "type": "GET",
+                    "url": "/kiosk/{kioskid}/mrn/validate?mrnno={mrnnumber}"
+                },
+                {
+                    "name": "getAppoinmentDetails",
+                    "type": "GET",
+                    "url": "/kiosknew/{kioskid}/appoinmentDetails?mrnno={mrnnumber}&natid={natid}"
+                }
+            ]
+        },
+        {
+            "apiUrl": "",
+            "component": "Menu",
+            "methods": [
+                {
+                    "name": "getMenusByKioskId",
+                    "type": "GET",
+                    "url": "/kiosk/menu/{kioskid}/all"
+                }
+            ]
+        }
+    ]
+}

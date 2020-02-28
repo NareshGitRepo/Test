@@ -1,0 +1,22 @@
+
+.mn-icon{ float: left;}
+
+.mat-toolbar.main-header .logo{ margin-left: 0; margin-bottom: 45px}
+
+.mat-toolbar.main-header .branding{ margin: 0;}
+
+.mn-icon{ display: none;}
+
+@media(max-width:1023px){
+.mn-icon{ display: block;}
+}
+
+.tpmenu-btn{display: none;}
+
+@media (max-width:768px){
+  .tpmenu-btn{display: inherit; float: left;}
+}
+
+.languagebutton { float:right; margin-top: 15px; margin-right: 30px;}
+
+

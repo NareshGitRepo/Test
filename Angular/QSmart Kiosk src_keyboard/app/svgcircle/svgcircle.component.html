@@ -1,0 +1,11 @@
+
+<div class="progress">
+	<svg class="progress__svg" width="130" height="130" viewBox="0 0 120 120">
+		<circle class="progress__meter" cx="89" cy="30" [attr.r]="radius" stroke-width="30" />
+		<circle class="progress__value" [style.strokeDasharray]="circumference" [style.strokeDashoffset]="dashoffset" cx="89" cy="30"  
+		 [attr.r]="radius" stroke-width="30" [attr.stroke]="colorvalue" />
+	</svg>
+
+  <div class="progress__value-text">{{value | TimeWithSec}}</div>
+
+</div>

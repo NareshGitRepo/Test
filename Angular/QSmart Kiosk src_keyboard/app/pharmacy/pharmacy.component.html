@@ -1,0 +1,287 @@
+<!-- <p class="timer">{{(timeoutconfig - timeoutValue) | TimeWithSec}}</p> -->
+<!-- <app-svgcircle [value]="(timeoutconfig - timeoutValue)" [timeoutVal]="timeoutconfig" ></app-svgcircle> -->
+<div class="progress">
+  <svg class="progress__svg" width="130" height="130" viewBox="0 0 120 120">
+    <circle class="progress__meter" cx="89" cy="30" [attr.r]="radius" stroke-width="30" />
+    <circle class="progress__value" [style.strokeDasharray]="circumference" [style.strokeDashoffset]="dashoffset"
+      cx="89" cy="30" [attr.r]="radius" stroke-width="30" [attr.stroke]="colorvalue" />
+  </svg>
+  <div class="progress__value-text">{{(timeoutconfig-timeoutValue) | TimeWithSec}}</div>
+</div>
+
+<div *ngIf="pharmacyChk == 1">
+  <form [formGroup]="pharmacyForm" style="font-size: 18px;">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="70" fxFlex="100" style="margin: 0 auto" class="session text-center">
+        <div class="session-content wrapword">
+          <div class="w55" style="margin-top: -45px; padding-left:5%">
+            <mat-form-field style="width: 100%;">
+              <input matInput #mrnNo placeholder="{{ 'Pharmacy.MrnNumber' | translate }}" [matKeyboard]="'de-CHVN'" pattern="[a-zA-Z0-9]*"
+              allow-characters-numbers-nospace readonly autofocus required autocomplete="off" formControlName="mrnNumber" minlength="3" maxlength="12">
+              <mat-error
+                *ngIf="pharmacyForm.get('mrnNumber').hasError('required') && pharmacyForm.get('mrnNumber').touched">
+                {{ 'Pharmacy.MRNIsRequired' | translate }}
+              </mat-error>
+              <mat-error
+                *ngIf="pharmacyForm.get('mrnNumber').hasError('minlength') && pharmacyForm.get('mrnNumber').touched">
+                {{ 'Pharmacy.MRNNumberMinCharacters' | translate }}
+              </mat-error>
+              <mat-error
+                *ngIf="pharmacyForm.get('mrnNumber').hasError('pattern')">
+                Enter Valid MRN
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%;">
+              <input matInput autofocus placeholder="{{'Pharmacy.NationalId' | translate}}" readonly required
+                [matKeyboard]="'de-CHV'" autocomplete="off" formControlName="nationalId" minlength="6" maxlength="15">
+
+              <mat-error
+                *ngIf="pharmacyForm.get('nationalId').hasError('required') && pharmacyForm.get('nationalId').touched">
+                {{ 'Pharmacy.NationalIdReq' | translate }}
+              </mat-error>
+              <mat-error
+                *ngIf="pharmacyForm.get('nationalId').hasError('minlength') && pharmacyForm.get('nationalId').touched">
+                {{ 'Pharmacy.NationalIdMinChar' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <div class="text-center mar-top">
+              <button [disabled]="!(pharmacyForm.controls.nationalId.valid && pharmacyForm.controls.mrnNumber.valid)"
+                mat-raised-button color="primary" (click)="validateMnrAndEmiratesId()"
+                [ngClass]="{'shakeanm' : pharmacyForm.controls.nationalId.valid && pharmacyForm.controls.mrnNumber.valid}">
+                {{ 'Pharmacy.Verify' | translate }}</button>
+            </div>
+            <br>
+
+            <div style="width:100%;margin:0 auto;" class="wordwrap">
+              <mat-error>
+                <div *ngIf="ErrorMessageText" class="w100">
+                  <h3>
+                    {{(('Pharmacy.error.'+ErrorMessageText | translate) ==('Pharmacy.error.'+ErrorMessageText) ? ErrorMessageText : ('Pharmacy.error.'+ErrorMessageText | translate)) }}
+                  </h3>
+                </div>
+              </mat-error>
+              <mat-error>
+                <!-- OOps Something Went Wrong -->
+                <div *ngIf="errorMessage" class="errorlayout ">
+                  <h3>{{'Pharmacy.ErrorMessage' | translate}}</h3>
+                </div>
+              </mat-error>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- Invalid MRN and nationalID error message -->
+<!-- <div *ngIf="validationError">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="qsec-left session-content wrapword ">
+        <div class="w100 text-danger">
+          <h3>We are sorry.</h3>
+          <h3> We did not find any new orders with given information.</h3>
+          <h3>Please visit one of our pharmacy staff for further assistance. </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div *ngIf="pharmacyChk == 2">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="session-content wrapword ">
+        <div class="w80">
+          <div fxLayout="row wrap" style="justify-content: center;">
+            <div fxFlex="30" (click)="sameDaypick()">
+              <div class="lgreen shadowanm">
+                <div class="icon">
+                  <img src="assets/images/clock.svg">
+                </div><strong style="font-size: 18px;">{{'Pharmacy.sameDayPickup' | translate}}
+
+                </strong>
+              </div>
+            </div>
+
+            <div fxFlex="30" (click)="nextDaypick()">
+              <div class="dgreen shadowanm">
+                <div class="icon">
+                  <img src="assets/images/calendar.svg">
+                </div><strong style="font-size: 18px;">{{'Pharmacy.nextDayPickup' | translate}}</strong>
+              </div>
+            </div>
+
+            <div fxFlex="30" (click)="dhlservice()">
+              <div class="lgreen shadowanm">
+                <div class="icon">
+                  <img src="assets/images/dhl.svg" style="width: 98px;">
+                </div><strong style="font-size: 18px;">{{'Pharmacy.dhlservice' | translate}}</strong>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="pharmacyChk == 3">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="qsec-left session-content wrapword ">
+        <div *ngIf="checkinResponse" class="w100">
+          <h3> {{ 'Pharmacy.ThankYou' | translate }}</h3>
+          <h3>
+            {{(('Pharmacy.error.'+checkinResponse?.messages | translate) ==('Pharmacy.error.'+checkinResponse?.messages) ? checkinResponse?.messages : ('Pharmacy.error.'+checkinResponse?.messages | translate)) }}
+          </h3>
+          <div *ngIf="checkinResponse?.tokenNo !='0'">
+            <h1>{{checkinResponse?.tokenNo}}</h1>
+          </div>
+        </div>
+        <div *ngIf="dhlCheckinResponse" class="w100">
+          <h3> {{ 'Pharmacy.ThankYou' | translate }}</h3>
+          <h3>{{ 'Pharmacy.dhlresponseMsg' | translate }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="pharmacyChk == 4">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="qsec-left session-content wrapword ">
+        <div class="w100">
+          <h3> {{ 'Pharmacy.ThankYou' | translate }}</h3>
+          <h3>You have chosen a next day pick-up. Please return tomorrow to collect you medicine with same token.</h3>
+          <h1>ND101</h1>
+        </div>
+        <div *ngIf="errorMessage" class="text-danger w100">
+          <h3>{{'Pharmacy.ErrorMessage' | translate}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="pharmacyChk == 4">
+  <form [formGroup]="dhlForm" style="font-size: 18px;">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="70" fxFlex="100" style="margin: 0 auto" class="session text-center">
+        <div class="session-content wrapword">
+          <div class="w80" style="padding-left:5%">
+            <mat-form-field style="width: 40%; padding-right:15px">
+              <input matInput placeholder="{{'Pharmacy.mobileNumber' | translate}}" [matKeyboard]="'de-CHVN'" readonly
+                autofocus required autocomplete="off" formControlName="mobileNumber" minlength="10" maxlength="13">
+              <mat-error
+                *ngIf="dhlForm.get('mobileNumber').hasError('required') && dhlForm.get('mobileNumber').touched">
+                {{'Pharmacy.mobnoreq' | translate}}
+              </mat-error>
+              <mat-error
+                *ngIf="dhlForm.get('mobileNumber').hasError('minlength') && dhlForm.get('mobileNumber').touched">
+                {{'Pharmacy.moberrmsg' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="width: 40%; padding-left:15px">
+              <mat-select placeholder="{{'Pharmacy.selectCity' | translate}}" formControlName="city" required>
+                <mat-option *ngFor="let city of dhlcities" [value]="city.id">
+                  {{city.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="dhlForm.get('city').hasError('required') && dhlForm.get('city').touched">
+                {{'Pharmacy.cityReq' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+
+            <div class="w80 bord-all pad-all text-left phrmcy-scroll" style="margin: 0 auto; margin-top: 15px;">
+              <perfect-scrollbar style="height:25vh;">
+                <div fxLayout="row wrap">
+                  <mat-checkbox *ngFor="let medicine of dhlmedicines" class="pad-rgt" style="margin-bottom: 10px;"
+                    fxFlex="50" color="primary" value={{medicine.name}}  (change)="addMedicines(medicine,$event)"
+                    required>{{medicine.name}}</mat-checkbox>
+                </div>
+              </perfect-scrollbar>
+            </div>
+
+            <br>
+            <div class="text-center">
+              <!-- <button
+                [disabled]="!(dhlForm.controls.mobileNumber.valid && dhlForm.controls.city.valid && dhlForm.controls.medications.valid)"
+                mat-raised-button color="primary"
+                [ngClass]="{'shakeanm' : dhlForm.controls.mobileNumber.valid && dhlForm.controls.city.valid && dhlForm.controls.medications.valid}"
+                (click)="submit()"> {{ 'Pharmacy.Finish' | translate }}</button> -->
+              <button [disabled]="!dhlForm.valid" mat-raised-button color="primary"
+                [ngClass]="{'shakeanm' : dhlForm.controls.mobileNumber.valid && dhlForm.controls.city.valid}"
+                (click)="submit()"> {{ 'Pharmacy.Finish' | translate }}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- <div *ngIf="pharmacyChk == 6">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="qsec-left session-content wrapword ">
+        <div class="w100">
+          <h3> {{ 'Pharmacy.ThankYou' | translate }}</h3>
+        </div>
+        <div *ngIf="errorMessage" class="w100 text-danger">
+          <h3>{{'Pharmacy.ErrorMessage' | translate}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="pharmacyChk == 5">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="qsec-left session-content wrapword ">
+        <mat-error class="w100">
+          <!-- class="errorlayout wordwrap" -->
+          <div *ngIf="ErrorMessageText" class="w100">
+            <h3>
+              {{(('Pharmacy.error.'+ErrorMessageText | translate) ==('Pharmacy.error.'+ErrorMessageText) ? ErrorMessageText : ('Pharmacy.error.'+ErrorMessageText | translate)) }}
+            </h3>
+            <!-- <h3>{{'Pharmacy.error.'+ErrorMessageText | translate }}</h3> -->
+          </div>
+        </mat-error>
+        <mat-error>
+          <div *ngIf="noAvailableServices" class="w100">
+            <h3>{{'Pharmacy.noAvailableServices' | translate}}</h3>
+          </div>
+        </mat-error>
+        <mat-error class="w100">
+          <div *ngIf="errorMessage" class="w100">
+            <h3>{{'Pharmacy.ErrorMessage' | translate}}</h3>
+          </div>
+        </mat-error>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div *ngIf="pharmacyChk == 6">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="80" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="qsec-left session-content wrapword ">
+        <br />
+        <h3>{{'Pharmacy.processing' | translate}}
+          <br /><img src="assets/images/processing_GIF.gif" /></h3>
+      </div>
+    </div>
+  </div>
+</div>

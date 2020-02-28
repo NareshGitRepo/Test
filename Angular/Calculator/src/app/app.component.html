@@ -1,0 +1,44 @@
+
+    <div id="test" #container class="container">
+        <div class="top-container">
+            <span class="calc-display">{{ getDisplayValue() }}</span>
+        </div>
+        <div class="bottom-container">
+            <div class="left-container">
+                <div class="symbol-container">
+                    <button mat-raised-button (click)="clickOperator('allClear')" class="symbol"><b>AC</b></button>
+                    <!-- <button mat-raised-button (click)="clickOperator('clear')" class="symbol">C</button> -->
+                    <button mat-raised-button (click)="clickOperator('plusMinus')"
+                        class="symbol plus-minus"><b>+/−</b></button>
+                    <button mat-raised-button (click)="clickOperator('percent')" class="symbol test"><b>%</b></button>
+                </div>
+                <div class="number-container">
+                    <button mat-raised-button (click)="clickNumber(7)" class="number">7</button>
+                    <button mat-raised-button (click)="clickNumber(8)" class="number">8</button>
+                    <button mat-raised-button (click)="clickNumber(9)" class="number">9</button>
+                    <button mat-raised-button (click)="clickNumber(4)" class="number">4</button>
+                    <button mat-raised-button (click)="clickNumber(5)" class="number">5</button>
+                    <button mat-raised-button (click)="clickNumber(6)" class="number">6</button>
+                    <button mat-raised-button (click)="clickNumber(1)" class="number">1</button>
+                    <button mat-raised-button (click)="clickNumber(2)" class="number">2</button>
+                    <button mat-raised-button (click)="clickNumber(3)" class="number">3</button>
+                    <button mat-raised-button (click)="clickNumber(0)" class="number zero">0</button>
+                    <button mat-raised-button (click)="clickOperator('dot')" class="number">.</button>
+                </div>
+            </div>
+            <div class="right-operator-container">
+                <button mat-raised-button [class.active]="isActiveOperator('divide')" (click)="clickOperator('divide')"
+                    class="right-operator">÷</button>
+                <button mat-raised-button [class.active]="isActiveOperator('multiply')"
+                    (click)="clickOperator('multiply')" class="right-operator">
+                    <i class="material-icons">clear</i></button>
+                <button mat-raised-button [class.active]="isActiveOperator('minus')" (click)="clickOperator('minus')"
+                    class="right-operator"><i class="material-icons">remove</i></button>
+                <button mat-raised-button [class.active]="isActiveOperator('add')" (click)="clickOperator('add')"
+                    class="right-operator"><i class="material-icons">add</i></button>
+                <button mat-raised-button (click)="clickOperator('equal')" class="right-operator">=</button>
+            </div>
+        </div>
+    </div>
+
+<router-outlet></router-outlet>

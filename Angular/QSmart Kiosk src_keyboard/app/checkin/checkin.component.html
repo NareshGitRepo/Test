@@ -1,0 +1,167 @@
+<p class="timer">{{(timeoutconfig - timeoutValue) | TimeWithSec}}</p>
+<form [formGroup]="checkinForm" style="font-size: 18px;">
+  <div *ngIf="check == 1">
+    <div fxLayout="row wrap" class="">
+      <div fxFlex.gt-sm="70" fxFlex="100" style="margin: 0 auto" class="session text-center">
+      <div class="session-content wrapword">
+        <div class="w55" style="margin-top: -45px">
+        <mat-form-field style="width: 100%;">
+          <input matInput #mrnNo placeholder="{{ 'HOME.MrnNumber' | translate }}" [matKeyboard]="'de-CHVN'" readonly
+            autofocus required autocomplete="off"   formControlName="mrnNumber" minlength="3"
+            maxlength="12">
+          <mat-error *ngIf="checkinForm.get('mrnNumber').hasError('required') && checkinForm.get('mrnNumber').touched">
+            {{ 'HOME.MRNIsRequired' | translate }}
+          </mat-error>
+          <mat-error *ngIf="checkinForm.get('mrnNumber').hasError('minlength') && checkinForm.get('mrnNumber').touched">
+            {{ 'HOME.MRNNumberMinCharacters' | translate }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+          <input matInput autofocus placeholder="{{ 'HOME.NationalId' | translate }}" readonly required
+            [matKeyboard]="'de-CHV'" autocomplete="off"  formControlName="nationalId" minlength="6"
+            maxlength="15">
+
+          <mat-error
+            *ngIf="checkinForm.get('nationalId').hasError('required') && checkinForm.get('nationalId').touched">
+            {{ 'HOME.NationalIdReq' | translate }}
+          </mat-error>
+          <mat-error
+            *ngIf="checkinForm.get('nationalId').hasError('minlength') && checkinForm.get('nationalId').touched">
+            {{ 'HOME.NationalIdMinChar' | translate }}
+          </mat-error>
+        </mat-form-field>
+        <div class="text-center">
+          <button [disabled]="!(checkinForm.controls.nationalId.valid && checkinForm.controls.mrnNumber.valid)"
+            mat-raised-button color="primary"  [ngClass]="{'shakeanm' : checkinForm.controls.nationalId.valid && checkinForm.controls.mrnNumber.valid}" (click)="getAppointments()"> {{ 'HOME.Finish' | translate }}</button>
+        </div><br>
+
+      <div style="width:100%;margin:0 auto;" class="wordwrap">
+        <mat-error>
+            <div *ngIf="showError && apiCheckinResponse" class="errorlayout">
+              {{apiCheckinResponse.status ? ( 'HOME.tokenSuccessMessage' | translate)  : apiCheckinResponse.messages}}
+            </div>
+          </mat-error>
+         
+          <mat-error>  <!-- OOps Something Went Wrong -->
+            <div *ngIf="errorMessage" class="errorlayout ">
+              <h3>{{'HOME.ErrorMessage' | translate}}</h3>
+            </div>
+          </mat-error>
+        </div>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div *ngIf="check == 3">
+    <div fxLayout="row wrap">
+      <div fxFlex="80" style="margin:0 auto" class="session">
+        <div class="qsec-left session-content">
+          <div *ngIf="apiCheckinToken" class="w100 text-center"  style="padding-top: 10%;">
+            <h3>{{ 'HOME.ThankYou' | translate }}</h3>
+            <h3>{{apiCheckinToken?.messages}}</h3>
+            <div *ngIf="apiCheckinToken?.token !='0'">
+              <h1>{{apiCheckinToken?.token}}</h1>
+            </div>
+          </div>
+        </div>
+        <mat-error>
+          <div *ngIf="errorMessage" class="errorlayout wordwrap">
+            <h3>{{'HOME.ErrorMessage' | translate}}</h3>
+          </div>
+        </mat-error>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="check == 4">
+    <div fxFlex.gt-sm="75" style="margin: 0 auto;">
+      <div fxLayout="row wrap">
+
+        <div fxFlex="100" class="session">
+          <div class="session-content">
+          <mat-error>
+            <div *ngIf="ErrorMessageText" class="errorlayout wordwrap">
+              <h3>{{ErrorMessageText}}</h3>
+            </div>
+          </mat-error>
+
+          <mat-error>
+            <div *ngIf="errorMessage" class="errorlayout wordwrap">
+              <h3>{{'HOME.ErrorMessage' | translate}}</h3>
+            </div>
+          </mat-error>
+        </div>
+        </div>
+
+        <!-- <div fxFlex.gt-md="50" fxFlex.gt-sm="40" fxFlex.gt-xs="50" fxFlex="100" class="session-content qsec-right">
+          <img src="assets/images/qsmart/appointment.svg">
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="check == 2 && apiCheckinResponse?.appointments.length > 0" id="tabledata" class="text-left">
+             
+    <div class="session cnt-pad">
+      <div class="session-content">
+          <perfect-scrollbar class="checkin-appsec text-right feed-scroll" style="height:58vh; width:100%; padding:0 8px">
+          <div style="justify-content: center; display: flex; flex-flow: row wrap; align-items: center;">
+          <div style="flex: 0 1 29%;" *ngFor="let appList of appointmentList" class="multiapnt">
+            <div class="wordwrap">
+              <div>
+                <div class="card-avatar">
+                  <div class="avatar-inner">
+                    <img src="assets/images/qsmart/appointment.svg" width="28px">
+                  </div>
+                </div>
+
+                <p>{{'HOME.PatientName' | translate}} : <strong>{{appList.ptFstName}}</strong></p>
+                <p>{{'HOME.Doctor' | translate}} : <strong>{{appList.drFstName}}</strong></p>
+                <p>{{'HOME.Department' | translate}} : <strong>{{appList.deptName}}</strong></p>
+                <p>{{'HOME.ApptTime' | translate}} : <strong>{{appList.apptDate}}</strong></p>
+                <!-- <p  *ngIf="appList.checkInStatus==1"><strong> {{'HOME.CheckInStatus1' | translate}}</strong></p>
+                <p  *ngIf="appList.checkInStatus==2"><strong>{{'HOME.CheckInStatus2' | translate}}</strong></p> -->
+
+                <div>
+                  <button mat-raised-button color="primary" (click)="tokenValid(appList.sno,appList.firstName,appList.deptName,appList.checkInStatus)"
+                    class="dep-button">{{'HOME.CheckIn' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</perfect-scrollbar>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <mat-error>
+    <div *ngIf="showError" class="errorlayout">
+      {{apiCheckinResponse.messages}}
+    </div>
+  </mat-error>
+ -->
+
+
+  <div *ngIf="check == 2 && apiCheckinResponse?.appointments.length==0" class="text-center">
+    <div class="session cnt-pad">
+      <div class="session-content">
+        <div class="w100">
+          <div *ngIf="apiCheckinResponse">
+            <div class="text-center w100 text-danger">
+              <h1>{{'HOME.NoAppointmentsFound' | translate}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+<mat-toolbar class="main-header Uheader" color="light">
+  <button (click)="toggleSidenav.emit()" mat-icon-button class=" pull-left" class="tpmenu-btn">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <!-- <div class="branding">
+    <div class="logo"></div>
+  </div> -->
+
+  <div style="flex: 1 1 0%;box-sizing: border-box; max-width: 100%;">
+  </div>
+
+  <div class="text-right">
+
+    <div class="clientlogo"></div>
+    <!-- <div *ngIf="(router.url !=='/' ) ? '' :'mainContent' " class=" text-right languagebutton"> -->
+    <div *ngIf="router.url.startsWith('/?kioskid')" class=" text-right languagebutton">
+      <!-- {{translate.currentLang}} -->
+      <!-- <div *ngIf="translate.currentLang!='en'">
+        <span style=" font-size: 20px; cursor: pointer; padding: 10px 15px;" #langSelect (click)="selectLanguage('english')">English</span>
+      </div>
+      <div *ngIf="translate.currentLang=='en'">
+        <span style="font-size: 30px; cursor: pointer; padding: 10px; 15px;" #langSelect (click)="selectLanguage('arabic')">عربى</span>
+      </div> -->
+    </div>
+
+  </div>
+
+</mat-toolbar>

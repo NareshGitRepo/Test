@@ -1,0 +1,37 @@
+<div class="app mat-typography" [dir]="options.dir"
+  [ngClass]="{'app-dark': options.dark, 'boxed': options.boxed, 'collapsed-sidebar': options.collapsed, 'compact-sidebar': options.compact, 'side-panel-opened': sidePanelOpened, 'side-panel-closed': !sidePanelOpened }">
+  <ngx-loading-bar color="#009688"></ngx-loading-bar>
+  <mat-sidenav-container class="app-inner"
+    [ngClass]="(router.url !== '/dashboard' && router.url !== '/') ? '':'mainContent'">
+    <div [perfectScrollbar]="config" [disabled]="mediaMatcher.matches">
+      <!-- <app-header (toggleSidenav)="sidemenu.toggle()" (toggleNotificationSidenav)="notifications.toggle()"></app-header> -->
+      <app-header (toggleSidenav)="sidemenu.toggle()"></app-header>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-container>
+  <div class=" footer">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="50" fxFlex="50" class="text-left wordwrap">
+        <div class="pad-lft copyright">&copy; 2019  All rights reserved.</div>
+      </div>
+      <div fxFlex.gt-sm="50" fxFlex="50">
+        <div class="pull-right text-center mar-lft">
+          <div *ngIf="router.url.startsWith('/?kioskid') || router.url == '/' ; else elseBlock">
+            <div class="fTime">
+              <h3>{{currentDateTime | date:'h:mm a'}}</h3>
+              <span class="datecontrol"><small LOCALE_ID="ar-SA"> {{currentDateTime | date:'fullDate' :null:
+                    translate.instant('HOME.DateTimeFormat')}}</small></span>
+            </div>
+          </div>
+          <ng-template #elseBlock>
+            <div (click)="onExitClick()" style="cursor: pointer;" class="exitbutton">
+              <button mat-fab color="primary"><img src="assets/images/logout.svg" width="20px;"/> <small class="text-sm"
+                   style="display: block">{{ 'HOME.Exit' | translate }}</small></button>
+              <!-- <div class="text-danger" style="font-size: 12px;">{{ 'HOME.Exit' | translate }}</div> -->
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,7 @@ export class GaugeChartType5Component implements OnInit {
 
     chartWidth = 400
     needleValue = 20
-    centralLabel = '85%'
+    // centralLabel = '85%'
     options = {
   	arcColors: ["rgb(44,151,222)","lightgray"],
   	arcDelimiters: [80],

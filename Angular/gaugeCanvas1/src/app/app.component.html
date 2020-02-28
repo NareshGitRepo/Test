@@ -1,0 +1,11 @@
+<h1>Gauge chart demo</h1> 
+<b>canvas Gauge</b>
+<canvas #gauge1></canvas>
+<hr>
+<b>ng-canvas-gauges</b>
+<radial-gauge 
+width="300" height="200"  value="{{rdata}}" units="km/h"  min-value="0" max-value=220 start-angle="90" ticks-angle="180" value-box="false"
+major-ticks="0,20,40,60,80,100,120,140,160,180,200,220" minor-ticks="2" stroke-ticks="true"  
+highlights='[{"from": 160, "to": 220, "color": "rgba(200, 50, 50, .75)"} ]' color-plate="#fff"  border-shadow-width="0" borders="false"
+needle-type="arrow" needle-width="2" needle-circle-size="7" needle-circle-outer="true" needle-circle-inner="false"  animation-duration="1500"     
+animation-rule="radial" ></radial-gauge>
