@@ -1,0 +1,80 @@
+                                              Version Update
+                                              _______________
+
+
+1.ng update
+
+  Name                               Version                  Command to update
+     --------------------------------------------------------------------------------
+      @angular/cdk                       6.4.7 -> 8.2.3           ng update @angular/cdk
+      @angular/cli                       6.2.5 -> 8.3.23          ng update @angular/cli
+      @angular/core                      6.1.10 -> 7.2.16         ng update @angular/core
+      @angular/material                  6.4.7 -> 8.2.3           ng update @angular/material
+      rxjs                               6.3.3 -> 6.5.4           ng update rxjs
+
+2.ng update @angular/cli
+    ** Executing migrations for package '@angular/cli' **
+CREATE browserslist (429 bytes)
+UPDATE package.json (3269 bytes)
+UPDATE src/polyfills.ts (2357 bytes)
+UPDATE tsconfig.json (639 bytes)
+UPDATE tslint.json (3164 bytes)
+UPDATE src/tsconfig.app.json (234 bytes)
+UPDATE src/tsconfig.spec.json (296 bytes)
+UPDATE src/app/app.routing.ts (6739 bytes)
+
+3.remove the ngx-quill,quill(package.json & angular.json-styles)
+
+4.ng update @angular/core --force
+ ->automatically installed @angular/cdk,ng update rxjs
+
+5.ng update @angular/material --force
+
+6.ng update @angular/flex-layout
+
+7.ng update @types/jasmine
+
+8.ng update @types/jasminewd2
+
+9.ng update @types/node
+
+10.ng update jasmine-core
+
+11.ng udate karma
+
+12.ng update karma-chrome-launcher
+
+13.ng update karma-cli
+
+14.ng update karma-jasmine
+
+15.ng update karma-jasmine-html-reporter
+
+16.ng update node-sass
+
+17.ng update protractor
+
+18.ng update ts-node
+
+19.ng update tslint --force
+
+20.ng update ngx-clipboard
+
+21.{static:false} add to the @viewChild
+
+22.app/_helpers/app.config.ts:10:22 ->remove(import { _localeFactory } from "@angular/core/src/application_module";)
+
+23.app/alertmanager/create/createalert.component.ts:2:44 -> once again  import  FormGroup, AbstractControl 
+
+24.app/_helpers/ConsumerService.ts:9:32 -> comment - import { _localeFactory } from "@angular/core/src/application_module";
+
+25.app/printtoken/printtokenmanage/printtoken.component.ts ->   [x: string]: any; replace dataSource:any;
+
+26.app/reports ->  [x: string]: any; replace subscription:any;
+
+
+
+
+
+
+

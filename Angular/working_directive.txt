@@ -1,0 +1,28 @@
+@Directive({
+    selector: '[block-junk-chars]'
+})
+export class BlockJunkCharsDirective {
+    regexP = new RegExp(/^[0-9,]/g);
+
+    constructor(private el: ElementRef) { }
+
+    @HostListener('input', ['$event']) onlyNumeric(event) {
+        let inputvalue = (this.el.nativeElement as HTMLInputElement).value;
+        let inputvalue1 = inputvalue.replace(/[^0-9$]/g, '');
+        console.log("inputvalue1=>", inputvalue1);
+
+        if (inputvalue1 != inputvalue) {
+            (this.el.nativeElement as HTMLInputElement).value = inputvalue1;
+            this.el.nativeElement.dispatchEvent(new Event("input"));
+        }
+    }
+
+    @HostListener('paste', ['$event']) blockPaste(event: any) {
+        const pastedInput: string = event.clipboardData ? event.clipboardData.getData('text/plain') : window['clipboardData'].getData('Text');
+        const pastedInputw: string = (event.clipboardData ? this.el.nativeElement.value : event.target.value) + pastedInput;
+        if (!this.regexP.test(pastedInput) || pastedInputw.includes(' ')) {
+            event.preventDefault();
+            return false;
+        }
+    }
+}

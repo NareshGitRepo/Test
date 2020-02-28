@@ -1,0 +1,22 @@
+ng update
+                Using package manager: 'npm'
+                Collecting installed dependencies...
+                Found 58 dependencies.
+                    We analyzed your package.json, there are some packages to update:
+
+                      Name                               Version                  Command to update
+                     --------------------------------------------------------------------------------
+                      @angular/cdk                       7.2.2 -> 8.0.1           ng update @angular/cdk
+                      @angular/core                      7.2.15 -> 8.0.1          ng update @angular/core
+                      @angular/core                      7.2.2 -> 7.2.15          ng update @angular/core
+                      @angular/material                  7.3.7 -> 8.0.1           ng update @angular/material
+                      rxjs                               6.3.3 -> 6.5.2           ng update rxjs
+
+
+                    There might be additional packages that are outdated.
+                    Run "ng update --all" to try to update all at the same time.
+
+                PS D:\app-test> ng update @angular/cdk
+                Repository is not clean.  Please commit or stash any changes before updating.
+
+solution: ng update @angular/cli @angular/core --allow-dirty

@@ -1,0 +1,34 @@
+npm install --save-dev --unsafe-perm node-sass
+
+http://192.168.7.85:4201/#/  ->V
+http://192.168.7.80:4201/#/   ->B
+http://117.206.82.69/qsmartadmin/#/ -->MU
+
+^ : start of string
+[ : beginning of character group
+a-z : any lowercase letter
+A-Z : any uppercase letter
+0-9 : any digit
+_ : underscore
+] : end of character group
+* : zero or more of the given characters
+$ : end of string
+
+https://www.vertex42.com/ExcelTips/unicode-symbols.html
+
+SBIN0021229.R00257715
+------------------------------------------------------
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'Root@123';
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> alter user 'root'@'%'identified with mysql_native_password by 'pass123';
+Query OK, 0 rows affected (0.26 sec)
